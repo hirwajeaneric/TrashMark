@@ -11,23 +11,28 @@ const Cart = () => {
             <ul className="space-y-4">
               <li className="flex items-center gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+                  src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
                   alt=""
                   className="size-16 rounded object-cover"
                 />
 
                 <div>
-                  <h3 className=" text-gray-900">Basic Tee 6-Pack</h3>
+                  <h3 className=" text-gray-900">Used bicycle for sale</h3>
 
                   <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
                     <div>
                       <dt className="inline">Size:</dt>
-                      <dd className="inline">XXS</dd>
+                      <dd className="inline">Adults</dd>
                     </div>
 
                     <div>
                       <dt className="inline">Color:</dt>
                       <dd className="inline">White</dd>
+                    </div>
+
+                    <div>
+                      <dt className="inline">Price:</dt>
+                      <dd className="inline">90,000.00 Rwf</dd>
                     </div>
                   </dl>
                 </div>
@@ -68,23 +73,28 @@ const Cart = () => {
 
               <li className="flex items-center gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+                  src="/public/old-and-obsolete-computer-set-on-the-floor-with-grunge-concrete-wall-background-vintage-color-tone.png"
                   alt=""
                   className="size-16 rounded object-cover"
                 />
 
                 <div>
-                  <h3 className=" text-gray-900">Basic Tee 6-Pack</h3>
+                  <h3 className=" text-gray-900">Old school Full PC</h3>
 
                   <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
                     <div>
                       <dt className="inline">Size:</dt>
-                      <dd className="inline">XXS</dd>
+                      <dd className="inline">MD</dd>
                     </div>
 
                     <div>
                       <dt className="inline">Color:</dt>
-                      <dd className="inline">White</dd>
+                      <dd className="inline">BROWN</dd>
+                    </div>
+
+                    <div>
+                      <dt className="inline">Price:</dt>
+                      <dd className="inline">40,000.00 Rwf</dd>
                     </div>
                   </dl>
                 </div>
@@ -125,23 +135,28 @@ const Cart = () => {
 
               <li className="flex items-center gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=830&q=80"
+                  src="dye-buckets.jpeg"
                   alt=""
                   className="size-16 rounded object-cover"
                 />
 
                 <div>
-                  <h3 className=" text-gray-900">Basic Tee 6-Pack</h3>
+                  <h3 className=" text-gray-900">Dye buckets</h3>
 
                   <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
                     <div>
                       <dt className="inline">Size:</dt>
-                      <dd className="inline">XXS</dd>
+                      <dd className="inline">SM</dd>
                     </div>
 
                     <div>
                       <dt className="inline">Color:</dt>
                       <dd className="inline">White</dd>
+                    </div>
+
+                    <div>
+                      <dt className="inline">Price:</dt>
+                      <dd className="inline">10,000.00 Rwf</dd>
                     </div>
                   </dl>
                 </div>
@@ -153,7 +168,7 @@ const Cart = () => {
                     <input
                       type="number"
                       min="1"
-                      value="1"
+                      value="3"
                       id="Line3Qty"
                       className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                     />
@@ -186,26 +201,26 @@ const Cart = () => {
                 <dl className="space-y-0.5  text-gray-700">
                   <div className="flex justify-between">
                     <dt>Subtotal</dt>
-                    <dd>£250</dd>
+                    <dd>140 Rwf</dd>
                   </div>
 
                   <div className="flex justify-between">
                     <dt>VAT</dt>
-                    <dd>£25</dd>
+                    <dd>0 Rwf</dd>
                   </div>
 
                   <div className="flex justify-between">
                     <dt>Discount</dt>
-                    <dd>-£20</dd>
+                    <dd>0 Rwf</dd>
                   </div>
 
                   <div className="flex justify-between !text-base font-medium">
                     <dt>Total</dt>
-                    <dd>£200</dd>
+                    <dd>140 Rwf</dd>
                   </div>
                 </dl>
 
-                <div className="flex justify-end">
+                {/* <div className="flex justify-end">
                   <span
                     className="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700"
                   >
@@ -226,7 +241,7 @@ const Cart = () => {
 
                     <p className="whitespace-nowrap text-xs">2 Discounts Applied</p>
                   </span>
-                </div>
+                </div> */}
 
                 <div className="flex justify-end">
                   <a

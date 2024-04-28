@@ -305,7 +305,7 @@ const Search = () => {
               <li>
                 <a href="/product/23434qew3q4sfsdf34f434" className="group block overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                    src="/public/old-and-obsolete-computer-set-on-the-floor-with-grunge-concrete-wall-background-vintage-color-tone.png"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
@@ -314,13 +314,13 @@ const Search = () => {
                     <h3
                       className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                     >
-                      Basic Tee
+                      Old school PC Monitor & Accessories
                     </h3>
 
                     <p className="mt-2">
                       <span className="sr-only"> Regular Price </span>
 
-                      <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
+                      <span className="tracking-wider text-gray-900"> 40,000.00 Rwf </span>
                     </p>
                   </div>
                 </a>
@@ -329,7 +329,7 @@ const Search = () => {
               <li>
                 <a href="#" className="group block overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                    src="/public/dye-buckets.jpeg"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
@@ -338,13 +338,13 @@ const Search = () => {
                     <h3
                       className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                     >
-                      Basic Tee
+                      3 Dye Buckets for sale
                     </h3>
 
                     <p className="mt-2">
                       <span className="sr-only"> Regular Price </span>
 
-                      <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
+                      <span className="tracking-wider text-gray-900"> 10,000.00 Rwf </span>
                     </p>
                   </div>
                 </a>
@@ -353,7 +353,7 @@ const Search = () => {
               <li>
                 <a href="#" className="group block overflow-hidden">
                   <img
-                    src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                    src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
@@ -362,13 +362,13 @@ const Search = () => {
                     <h3
                       className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
                     >
-                      Basic Tee
+                      Used bike for adults
                     </h3>
 
                     <p className="mt-2">
                       <span className="sr-only"> Regular Price </span>
 
-                      <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
+                      <span className="tracking-wider text-gray-900"> 90,000.00 Rwf </span>
                     </p>
                   </div>
                 </a>
