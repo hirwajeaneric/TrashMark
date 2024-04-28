@@ -13,6 +13,7 @@ import Success from './pages/user/Success';
 import Signin from './pages/user/Signin';
 import Signup from './pages/user/Signup';
 import Cart from './pages/Cart';
+import AccountHome from './pages/user/AccountHome';
 
 const App = () => {
   return (
@@ -23,16 +24,19 @@ const App = () => {
 
         <Route path='/' element={<UserLayout />}>
           <Route path='' element={<Home />} />
-          <Route path='/product/:productId' element={<ProductDetails />} />
-          <Route path='/search' element={<Search />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/not-found' element={<NotFound />} />
-          <Route path='/account' element={<Account />} />
-          <Route path='/manage-product' element={<AddProduct />} />
-          <Route path='/my-products' element={<Products />} />
-          <Route path='/purchases' element={<Purchaces />} />
-          <Route path='/orders' element={<Orders />} />
-          <Route path='/success' element={<Success />} />
+          <Route path='product/:productId' element={<ProductDetails />} />
+          <Route path='search' element={<Search />} />
+          <Route path='cart' element={<Cart />} />
+          <Route path='not-found' element={<NotFound />} />
+          <Route path='account' element={<Account />}>
+            <Route path='' element={<AccountHome />} />
+            <Route path='profile' element={<AccountHome />} />
+            <Route path='manage-products' element={<AddProduct />} />
+            <Route path='my-products' element={<Products />} />
+            <Route path='purchases' element={<Purchaces />} />
+            <Route path='orders' element={<Orders />} />
+            <Route path='success' element={<Success />} />
+          </Route>
         </Route>
 
       </Routes>

@@ -23,7 +23,7 @@ const Home = () => {
 
               <a
                 href="#"
-                className="mt-8 inline-block rounded bg-green-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-600 focus:outline-none focus:ring"
+                className="mt-8 inline-block rounded bg-green-800 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-600 focus:outline-none focus:ring"
               >
                 Setup your market place
               </a>
