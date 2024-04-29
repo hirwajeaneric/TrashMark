@@ -1,77 +1,38 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable react/prop-types */
+import DeliveryStatus from '../DeliveryStatus';
 
-const UserProductsTable = () => {
+const UserPurchasesTable = ({purchases}) => {
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
                 <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                     <thead className="ltr:text-left rtl:text-right">
                         <tr>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Client</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Location</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Product</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Name</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Descriptions</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Amount</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Price</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900"></th>
                         </tr>
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
-                        <tr>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">John Doe</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Kibagabaga</td>
+                        {purchases.map((product, index) => (<tr key={index}>
+                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                                <img src='/3211-2_TOP-3_stitched-trial_P04_front-wheel.jpg' alt='' className='w-[100px] h-auto bg-black'/>
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Wheel</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">Old school pc & accessories</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">1</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">40,000.00</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <span
-                                    class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="-ms-1 me-1.5 h-4 w-4"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-
-                                    <p class="whitespace-nowrap text-sm">Delivered</p>
-                                </span>
+                                <DeliveryStatus 
+                                    color={product.deliveryStatus.client==="Recieved" ? "errand" : "orange"} 
+                                    text={product.deliveryStatus.client} 
+                                />
                             </td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <Link
-                                    href="#"
-                                    class="inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-                                >
-                                    View more
-                                </Link>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                        </tr>
-
-                        <tr>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700"></td>
-                        </tr>
+                        </tr>))}
                     </tbody>
                 </table>
             </div>
@@ -156,4 +117,4 @@ const UserProductsTable = () => {
     )
 }
 
-export default UserProductsTable
+export default UserPurchasesTable

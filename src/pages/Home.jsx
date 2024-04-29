@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 const Home = () => {
   return (
     <div>
@@ -14,19 +16,17 @@ const Home = () => {
 
             <div className="lg:py-24">
               <h2 className="text-3xl font-bold sm:text-4xl">Sell and buy used materials and scraps online.</h2>
-
               <p className="mt-4 text-gray-600">
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut qui hic atque tenetur quis
                 eius quos ea neque sunt, accusantium soluta minus veniam tempora deserunt? Molestiae eius
                 quidem quam repellat.
               </p>
-
-              <a
-                href="#"
+              <Link
+                to="/search"
                 className="mt-8 inline-block rounded bg-green-800 px-12 py-3 text-sm font-medium text-white transition hover:bg-green-600 focus:outline-none focus:ring"
               >
                 Setup your market place
-              </a>
+              </Link>
             </div>
           </div>
         </div>

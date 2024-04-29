@@ -1,7 +1,27 @@
+import { useEffect, useState } from "react";
 import AddProductForm from "../../components/form/user-forms/AddProductForm"
-import UserProductsTable from "../../components/tables/UserProductsTable"
+import UserProductsTable from "../../components/tables/UserProductTable"
 
 const AddProduct = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    setProducts([
+      {
+        id: "23023z0ksdf08aj40sadfn0834034",
+        name: "Bike",
+        imageFile: "http://localhost:5173/3211-2_TOP-3_stitched-trial_P04_front-wheel.jpg",
+        description: "Lorem ispum dolor sit amet, consectetur adipiscing el",
+        quantity: 2,
+        amount: 50000,
+        deliveryStatus: {
+          client: "Recieved",
+          seller: "Delivered"
+        }
+      }
+    ]);
+  }, []);
+
   const handleProduct = (e) => {
     e.preventDefault();
 
@@ -18,7 +38,7 @@ const AddProduct = () => {
         {/* <h2 className="text-xl text-gray-600 font-bold">Add/Update product</h2> */}
         <AddProductForm handleProduct={handleProduct}/>
         <h2 className="text-xl text-gray-600 font-bold">My product</h2>
-        <UserProductsTable />
+        <UserProductsTable products={products}/>
       </div>
     </div>
   )

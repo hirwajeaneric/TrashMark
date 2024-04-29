@@ -12,11 +12,8 @@ const Search = () => {
         </header>
 
         <div className="mt-8 block lg:hidden">
-          <button
-            className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600"
-          >
+          <button className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
             <span className="text-sm font-medium"> Filters & Sorting </span>
-
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -46,16 +43,10 @@ const Search = () => {
 
             <div>
               <p className="block text-xs font-medium text-gray-700">Filters</p>
-
               <div className="mt-1 space-y-2">
-                <details
-                  className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary
-                    className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition"
-                  >
+                <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
                     <span className="text-sm font-medium"> Availability </span>
-
                     <span className="transition group-open:-rotate-180">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +68,6 @@ const Search = () => {
                   <div className="border-t border-gray-200 bg-white">
                     <header className="flex items-center justify-between p-4">
                       <span className="text-sm text-gray-700"> 0 Selected </span>
-
                       <button type="button" className="text-sm text-gray-900 underline underline-offset-4">
                         Reset
                       </button>
@@ -91,11 +81,9 @@ const Search = () => {
                             id="FilterInStock"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> In Stock (5+) </span>
                         </label>
                       </li>
-
                       <li>
                         <label htmlFor="FilterPreOrder" className="inline-flex items-center gap-2">
                           <input
@@ -103,11 +91,9 @@ const Search = () => {
                             id="FilterPreOrder"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Pre Order (3+) </span>
                         </label>
                       </li>
-
                       <li>
                         <label htmlFor="FilterOutOfStock" className="inline-flex items-center gap-2">
                           <input
@@ -115,7 +101,6 @@ const Search = () => {
                             id="FilterOutOfStock"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Out of Stock (10+) </span>
                         </label>
                       </li>
@@ -123,14 +108,9 @@ const Search = () => {
                   </div>
                 </details>
 
-                <details
-                  className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
-                >
-                  <summary
-                    className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition"
-                  >
+                <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
+                  <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
                     <span className="text-sm font-medium"> Price </span>
-
                     <span className="transition group-open:-rotate-180">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -152,7 +132,6 @@ const Search = () => {
                   <div className="border-t border-gray-200 bg-white">
                     <header className="flex items-center justify-between p-4">
                       <span className="text-sm text-gray-700"> The highest price is $600 </span>
-
                       <button type="button" className="text-sm text-gray-900 underline underline-offset-4">
                         Reset
                       </button>
@@ -162,7 +141,6 @@ const Search = () => {
                       <div className="flex justify-between gap-4">
                         <label htmlFor="FilterPriceFrom" className="flex items-center gap-2">
                           <span className="text-sm text-gray-600">$</span>
-
                           <input
                             type="number"
                             id="FilterPriceFrom"
@@ -170,10 +148,8 @@ const Search = () => {
                             className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                           />
                         </label>
-
                         <label htmlFor="FilterPriceTo" className="flex items-center gap-2">
                           <span className="text-sm text-gray-600">$</span>
-
                           <input
                             type="number"
                             id="FilterPriceTo"
@@ -189,11 +165,8 @@ const Search = () => {
                 <details
                   className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden"
                 >
-                  <summary
-                    className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition"
-                  >
+                  <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
                     <span className="text-sm font-medium"> Colors </span>
-
                     <span className="transition group-open:-rotate-180">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -215,7 +188,6 @@ const Search = () => {
                   <div className="border-t border-gray-200 bg-white">
                     <header className="flex items-center justify-between p-4">
                       <span className="text-sm text-gray-700"> 0 Selected </span>
-
                       <button type="button" className="text-sm text-gray-900 underline underline-offset-4">
                         Reset
                       </button>
@@ -229,7 +201,6 @@ const Search = () => {
                             id="FilterRed"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Red </span>
                         </label>
                       </li>
@@ -241,7 +212,6 @@ const Search = () => {
                             id="FilterBlue"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Blue </span>
                         </label>
                       </li>
@@ -253,7 +223,6 @@ const Search = () => {
                             id="FilterGreen"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Green </span>
                         </label>
                       </li>
@@ -265,7 +234,6 @@ const Search = () => {
                             id="FilterOrange"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Orange </span>
                         </label>
                       </li>
@@ -277,7 +245,6 @@ const Search = () => {
                             id="FilterPurple"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Purple </span>
                         </label>
                       </li>
@@ -289,7 +256,6 @@ const Search = () => {
                             id="FilterTeal"
                             className="size-5 rounded border-gray-300"
                           />
-
                           <span className="text-sm font-medium text-gray-700"> Teal </span>
                         </label>
                       </li>
@@ -359,12 +325,9 @@ const Search = () => {
                   />
 
                   <div className="relative bg-white pt-3">
-                    <h3
-                      className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
+                    <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
                       Used bike for adults
                     </h3>
-
                     <p className="mt-2">
                       <span className="sr-only"> Regular Price </span>
 
