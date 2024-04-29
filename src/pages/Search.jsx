@@ -305,7 +305,7 @@ const Search = () => {
               <li>
                 <a href="/product/23434qew3q4sfsdf34f434" className="group block overflow-hidden">
                   <img
-                    src="/public/old-and-obsolete-computer-set-on-the-floor-with-grunge-concrete-wall-background-vintage-color-tone.png"
+                    src="old-and-obsolete-computer-set-on-the-floor-with-grunge-concrete-wall-background-vintage-color-tone.png"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
@@ -329,7 +329,7 @@ const Search = () => {
               <li>
                 <a href="#" className="group block overflow-hidden">
                   <img
-                    src="/public/dye-buckets.jpeg"
+                    src="dye-buckets.jpeg"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
@@ -353,7 +353,7 @@ const Search = () => {
               <li>
                 <a href="#" className="group block overflow-hidden">
                   <img
-                    src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
+                    src="full_2024_3211-2_stitched-trial_P04_P5.jpg"
                     alt=""
                     className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
                   />
