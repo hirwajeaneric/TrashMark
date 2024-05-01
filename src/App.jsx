@@ -17,6 +17,7 @@ import AccountHome from './pages/user/AccountHome';
 import ForgotPassword from './pages/user/ForgotPassword';
 import ResetPassword from './pages/user/ResetPassword';
 import StoreContext from './context/StoreContext';
+import ValidateOTP from './pages/user/ValidateOTP';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Routes>
           <Route path='/sign-in' element={<Signin />} />
           <Route path='/sign-up' element={<Signup />} />
+          <Route path='/verify-account' element={<ValidateOTP />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
 

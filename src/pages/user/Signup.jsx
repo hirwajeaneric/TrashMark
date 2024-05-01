@@ -37,13 +37,9 @@ const Signup = () => {
     SignUpRequest(userInput)
       .then((response) => {
         if (response) {
-          if (response.errors) {
-            return handleResponseMessage('error', response.errors);
-          }
-
           handleResponseMessage('success', 'Sign up successful. Please sign in.');
           resetFields();
-          navigate("/sign-in");
+          navigate(`/verify-account?id=${response.user}`);
         }
       })
       .catch(error => {

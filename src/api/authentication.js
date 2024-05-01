@@ -13,6 +13,16 @@ export const SignUpRequest = async (data) => {
     });
 
     const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
     return responseData;
 };
 
@@ -25,11 +35,18 @@ export const SignInRequest = async (data) => {
         body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-        throw new Error("Failed to sign in");
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
     }
 
-    return response.json();
+    return responseData;
 };
 
 export const ValidateOTPRequest = async (data) => {
@@ -41,11 +58,18 @@ export const ValidateOTPRequest = async (data) => {
         body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-        throw new Error("Failed to validate OTP");
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
     }
 
-    return response.json();
+    return responseData;
 };
 
 export const ForgotPasswordRequest = async (data) => {
@@ -57,11 +81,18 @@ export const ForgotPasswordRequest = async (data) => {
         body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-        throw new Error("Forgot password request failed");
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
     }
 
-    return response.json();
+    return responseData;
 };
 
 export const ResetPasswordRequest = async (data, token) => {
@@ -74,9 +105,16 @@ export const ResetPasswordRequest = async (data, token) => {
         body: JSON.stringify(data),
     });
 
+    const responseData = await response.json();
+
     if (!response.ok) {
-        throw new Error("Failed to reset your password");
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
     }
 
-    return response.json();
+    return responseData;
 };

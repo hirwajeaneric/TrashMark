@@ -21,7 +21,7 @@ const StoreContext = ({ children }) => {
                 type: '',
                 content: ''
             })
-        }, 3000)
+        }, 3000);
     }
 
     let contextData = {
