@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Store } from "../../context/StoreContext";
 import LoadingButton from "../../components/LoadingButton";
-import { ValidateOTPRequest } from "../../api/authentication";
+import { ResendTokenRequest, ValidateOTPRequest } from "../../api/authentication";
 import OtpInput from "../../components/OtpInput";
 
 const ValidateOTP = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const [otpValue, setOtpValue] = useState("");
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
@@ -14,7 +15,19 @@ const ValidateOTP = () => {
   const handleRegenerateOtp = (e) => {
     e.preventDefault();
 
-    
+    ResendTokenRequest({ id: searchParams.get("id") })
+      .then((response) => {
+        if (response) {
+          handleResponseMessage('success', response.message);
+        }
+      })
+      .catch(error => {
+        handleResponseMessage('error', error.message); // Use 'error' type for error messages
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
   };
 
   const handleOTP = (e) => {
@@ -59,7 +72,7 @@ const ValidateOTP = () => {
 
             <p className="text-center text-sm text-gray-500">
               Get new OTP &nbsp;
-              <button type="button" onClick={handleRegenerateOtp}  className="underline">Regenerate</button>
+              <button type="button" onClick={handleRegenerateOtp} className="underline">Regenerate</button>
             </p>
           </div>
         </form>

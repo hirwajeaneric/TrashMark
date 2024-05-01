@@ -95,6 +95,29 @@ export const ForgotPasswordRequest = async (data) => {
     return responseData;
 };
 
+export const ResendTokenRequest = async (data) => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/regenerateOtp`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
 export const ResetPasswordRequest = async (data, token) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/resetPassword`, {
         method: 'POST',
