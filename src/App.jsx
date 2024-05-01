@@ -16,35 +16,38 @@ import Cart from './pages/Cart';
 import AccountHome from './pages/user/AccountHome';
 import ForgotPassword from './pages/user/ForgotPassword';
 import ResetPassword from './pages/user/ResetPassword';
+import StoreContext from './context/StoreContext';
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path='/sign-in' element={<Signin />} />
-        <Route path='/sign-up' element={<Signup />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
+    <StoreContext>
+      <Router>
+        <Routes>
+          <Route path='/sign-in' element={<Signin />} />
+          <Route path='/sign-up' element={<Signup />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
 
-        <Route path='/' element={<UserLayout />}>
-          <Route path='' element={<Home />} />
-          <Route path='product/:productId' element={<ProductDetails />} />
-          <Route path='search' element={<Search />} />
-          <Route path='cart' element={<Cart />} />
-          <Route path='not-found' element={<NotFound />} />
-          <Route path='account' element={<Account />}>
-            <Route path='' element={<AccountHome />} />
-            <Route path='profile' element={<AccountHome />} />
-            <Route path='manage-products' element={<AddProduct />} />
-            <Route path='my-products' element={<Products />} />
-            <Route path='purchases' element={<Purchaces />} />
-            <Route path='orders' element={<Orders />} />
-            <Route path='success' element={<Success />} />
+          <Route path='/' element={<UserLayout />}>
+            <Route path='' element={<Home />} />
+            <Route path='product/:productId' element={<ProductDetails />} />
+            <Route path='search' element={<Search />} />
+            <Route path='cart' element={<Cart />} />
+            <Route path='not-found' element={<NotFound />} />
+            <Route path='account' element={<Account />}>
+              <Route path='' element={<AccountHome />} />
+              <Route path='profile' element={<AccountHome />} />
+              <Route path='manage-products' element={<AddProduct />} />
+              <Route path='my-products' element={<Products />} />
+              <Route path='purchases' element={<Purchaces />} />
+              <Route path='orders' element={<Orders />} />
+              <Route path='success' element={<Success />} />
+            </Route>
           </Route>
-        </Route>
 
-      </Routes>
-    </Router>
+        </Routes>
+      </Router>
+    </StoreContext>
   )
 }
 

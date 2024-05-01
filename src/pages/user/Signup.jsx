@@ -1,6 +1,59 @@
-import { Link } from "react-router-dom"
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LoadingButton from "../../components/LoadingButton";
+import { SignUpRequest } from "../../api/authentication";
+import { Store } from "../../context/StoreContext";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [userInput, setUserInput] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    password: ""
+  });
+  const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
+  const [loading, setLoading] = useState(false);
+
+  const resetFields = () => {
+    setUserInput({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      password: ""
+    });
+  };
+
+  const handleFormInput = (e) => {
+    setUserInput({ ...userInput, [e.target.id]: e.target.value });
+  };
+
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    SignUpRequest(userInput)
+      .then((response) => {
+        if (response) {
+          if (response.errors) {
+            return handleResponseMessage('error', response.errors);
+          }
+
+          handleResponseMessage('success', 'Sign up successful. Please sign in.');
+          resetFields();
+          navigate("/sign-in");
+        }
+      })
+      .catch(error => {
+        handleResponseMessage('error', error.message); // Use 'error' type for error messages
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
   return (
     <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
@@ -11,26 +64,45 @@ const Signup = () => {
           Do you need used materials to renovate? Do you want to sell tools you no longer use or need? You are in the right place.
         </p>
 
-        <form action="#" className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">
+        <form onSubmit={handleSignUp} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">
           <p className="text-center text-lg font-medium">Create an account</p>
 
-          <div>
-            <label htmlFor="fullName" className="sr-only">Full Name</label>
-
-            <div className="relative">
-              <input
-                type="text"
-                className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                placeholder="Enter full name"
-              />
+          <div className="flex justify-between items-center gap-3">
+            <div>
+              <label htmlFor="firstName" className="sr-only">First name</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="firstName"
+                  value={userInput.firstName || ''}
+                  onChange={handleFormInput}
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter first name"
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="lastName" className="sr-only">Last name</label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="lastName"
+                  value={userInput.lastName || ''}
+                  onChange={handleFormInput}
+                  className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
+                  placeholder="Enter full name"
+                />
+              </div>
             </div>
           </div>
           <div>
             <label htmlFor="email" className="sr-only">Email</label>
-
             <div className="relative">
               <input
                 type="email"
+                id="email"
+                value={userInput.email || ''}
+                onChange={handleFormInput}
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter email"
               />
@@ -38,10 +110,12 @@ const Signup = () => {
           </div>
           <div>
             <label htmlFor="phone" className="sr-only">Phone</label>
-
             <div className="relative">
               <input
                 type="tel"
+                id="phone"
+                value={userInput.phone || ''}
+                onChange={handleFormInput}
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter phone number"
               />
@@ -50,10 +124,12 @@ const Signup = () => {
 
           <div>
             <label htmlFor="password" className="sr-only">Password</label>
-
             <div className="relative">
               <input
                 type="password"
+                id="password"
+                value={userInput.password || ''}
+                onChange={handleFormInput}
                 className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                 placeholder="Enter password"
               />
@@ -83,12 +159,11 @@ const Signup = () => {
             </div>
           </div>
 
-          <button
-            type="submit"
-            className="block w-full rounded-lg bg-green-800 px-5 py-3 text-sm font-medium text-white"
-          >
-            Sign in
-          </button>
+          {!loading ?
+            <button type="submit" className="block w-full rounded-lg bg-green-800 px-5 py-3 text-sm font-medium text-white">Create Account</button>
+            :
+            <LoadingButton />
+          }
 
           <p className="text-center text-sm text-gray-500">
             Already have an account? &nbsp;
