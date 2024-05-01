@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 /**
  * The base URL for the API.
  */
@@ -124,30 +123,6 @@ export const ResetPasswordRequest = async (data, token) => {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    });
-
-    const responseData = await response.json();
-
-    if (!response.ok) {
-        if (responseData.errors) {
-            throw new Error(responseData.errors);
-        }
-        if (responseData.message) {
-            throw new Error(responseData.message);
-        }
-    }
-
-    return responseData;
-};
-
-export const UpdateUserInfoRequest = async (data) => {
-    const response = await fetch(`${API_BASE_URL}/api/v1/user/update`, {
-        method: 'PUT',
-        headers: {
-            'Authorization': `Bearer ${Cookies.get('access-token')}`,
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),

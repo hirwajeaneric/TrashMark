@@ -36,12 +36,13 @@ const Signin = () => {
           handleResponseMessage('success', response.message);
           resetFields();
           Cookies.set(
-            'access-token', 
-            response.token, 
-            { 
-              secure: environment==="production" ? true :false ,
+            'access-token',
+            response.token,
+            {
+              secure: environment === "production" ? true : false,
               expires: 1
             });
+          localStorage.setItem("client", JSON.stringify(response.user));
           navigate("/");
         }
       })
@@ -78,7 +79,7 @@ const Signin = () => {
             <label htmlFor="password" className="sr-only">Password</label>
 
             <div className="relative">
-            <input
+              <input
                 type="password"
                 id="password"
                 value={userInput.password || ''}
