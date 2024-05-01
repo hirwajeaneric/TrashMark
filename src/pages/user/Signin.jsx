@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom"
 import { Store } from "../../context/StoreContext";
 import LoadingButton from "../../components/LoadingButton";
 import { SignInRequest } from "../../api/authentication";
+import Cookies from 'js-cookie';
+const environment = import.meta.env.VITE_ENVIRONMENT;
 
 const Signin = () => {
   const navigate = useNavigate();
@@ -33,7 +35,14 @@ const Signin = () => {
         if (response) {
           handleResponseMessage('success', response.message);
           resetFields();
-          navigate("/sign-in");
+          Cookies.set(
+            'access-token', 
+            response.token, 
+            { 
+              secure: environment==="production" ? true :false ,
+              expires: 1
+            });
+          navigate("/");
         }
       })
       .catch(error => {
