@@ -11,7 +11,8 @@ const Purchaces = () => {
         imageFile: "http://localhost:5173/3211-2_TOP-3_stitched-trial_P04_front-wheel.jpg",
         description: "Lorem ispum dolor sit amet, consectetur adipiscing el",
         quantity: 2,
-        amount: 50000,
+        unitPrice: 50000,
+        totalPrice: 50000,
         deliveryStatus: {
           client: "Recieved",
           seller: "Delivered"

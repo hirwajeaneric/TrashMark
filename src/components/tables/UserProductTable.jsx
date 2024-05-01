@@ -13,7 +13,8 @@ const UserPurchasesTable = ({products}) => {
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Name</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Descriptions</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Price</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Unit Price</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Total Price</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th>
                         </tr>
                     </thead>
@@ -21,12 +22,13 @@ const UserPurchasesTable = ({products}) => {
                     <tbody className="divide-y divide-gray-200">
                         {products.map((product, index) => (<tr key={index}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                <img src='/3211-2_TOP-3_stitched-trial_P04_front-wheel.jpg' alt='' className='w-[100px] h-auto bg-black'/>
+                                <img src={product.imageFile} alt='' className='w-[100px] h-auto bg-black'/>
                             </td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Wheel</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Old school pc & accessories</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">1</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">40,000.00</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.totalPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <DeliveryStatus color={product.deliveryStatus.seller === "Delivered" ? "errand" : "orange"} text={product.deliveryStatus.client} />
                             </td>

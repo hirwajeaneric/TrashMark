@@ -14,6 +14,8 @@ import Signin from './pages/user/Signin';
 import Signup from './pages/user/Signup';
 import Cart from './pages/Cart';
 import AccountHome from './pages/user/AccountHome';
+import ForgotPassword from './pages/user/ForgotPassword';
+import ResetPassword from './pages/user/ResetPassword';
 
 const App = () => {
   return (
@@ -21,6 +23,8 @@ const App = () => {
       <Routes>
         <Route path='/sign-in' element={<Signin />} />
         <Route path='/sign-up' element={<Signup />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
 
         <Route path='/' element={<UserLayout />}>
           <Route path='' element={<Home />} />
