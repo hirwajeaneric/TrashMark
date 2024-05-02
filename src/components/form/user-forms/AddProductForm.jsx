@@ -52,9 +52,10 @@ const AddProductForm = ({ handleProduct }) => {
           />
         </div>
         <div className="w-full md:w-1/3">
-          <label htmlFor="imageFile" className="block font-medium text-gray-700"> Image file </label>
+          <label htmlFor="imageFile" className="block font-medium text-gray-700"> Image file(s) </label>
           <input
             type="file"
+            multiple
             accept="png, gif, jpg, jpeg"
             id="imageFile"
             className="mt-1 w-full py-2 px-3 rounded-md border-slate-600 shadow-sm sm:text-sm"

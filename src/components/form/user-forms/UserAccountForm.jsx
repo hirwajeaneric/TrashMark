@@ -86,6 +86,8 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="phone"
+                        max={10}
+                        min={10}
                         value={userInfo.phone}
                         onChange={handleFormInput}
                         placeholder="07xxxxxxxx"
@@ -97,6 +99,8 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="code"
+                        min={6}
+                        max={6}
                         value={userInfo.code}
                         onChange={handleFormInput}
                         placeholder="XXXXXX"
@@ -146,7 +150,7 @@ const UserAccountForm = () => {
                     className="inline-block w-min rounded border border-green-600 bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
                 >Update</button>
                 :
-                <LoadingButton />
+                <LoadingButton size='min' />
             }
         </form>
     )
