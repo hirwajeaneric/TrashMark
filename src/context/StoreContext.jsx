@@ -20,7 +20,7 @@ const StoreContext = ({ children }) => {
             setResponse({
                 type: '',
                 content: ''
-            })
+            });
         }, 3000);
     }
 

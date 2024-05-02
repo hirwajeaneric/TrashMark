@@ -144,7 +144,7 @@ export const ResetPasswordRequest = async (data, token) => {
 };
 
 export const UpdateUserInfoRequest = async (data) => {
-    const response = await fetch(`${API_BASE_URL}/api/v1/user/update`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/update`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
@@ -154,6 +154,8 @@ export const UpdateUserInfoRequest = async (data) => {
     });
 
     const responseData = await response.json();
+
+    console.log(responseData);
 
     if (!response.ok) {
         if (responseData.errors) {

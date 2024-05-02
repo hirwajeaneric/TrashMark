@@ -6,7 +6,7 @@ import { UpdateUserInfoRequest } from "../../../api/authentication";
 /* eslint-disable react/prop-types */
 const UserAccountForm = () => {
     const [userInfo, setUserInfo] = useState({});
-
+    
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem("client"));
         setUserInfo(user);
@@ -89,6 +89,17 @@ const UserAccountForm = () => {
                         value={userInfo.phone}
                         onChange={handleFormInput}
                         placeholder="07xxxxxxxx"
+                        className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
+                    />
+                </div>
+                <div className="w-full md:w-1/2">
+                    <label htmlFor="code" className="block font-medium text-gray-700"> Payment Code (MoMo/Airtel) </label>
+                    <input
+                        type="text"
+                        id="code"
+                        value={userInfo.code}
+                        onChange={handleFormInput}
+                        placeholder="XXXXXX"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>

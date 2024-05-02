@@ -5,7 +5,7 @@ const ResponseMessage = ({ type, content }) => {
             {type === 'success' && <p className="px-3 py-2 rounded-md text-green-700 bg-green-100 w-auto min-w-60">{content}</p>}
             {type === 'error' && <p className="px-3 py-2 rounded-md text-red-700 bg-red-100 w-auto min-w-60">{content}</p>}
         </div>
-    )
+    );
 }
 
 export default ResponseMessage
