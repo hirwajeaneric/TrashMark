@@ -33,7 +33,7 @@ const AddProduct = () => {
     <div className="flex w-full">
       <div className="mx-auto flex flex-col gap-4 max-w-screen-xl w-full px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <div className="flex flex-col">
-          <h2 className="text-3xl font-bold">Manage Products</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">Manage Products</h2>
           <p className="text-sm text-slate-700">Add and manage your products</p>
         </div>
         {/* <h2 className="text-xl text-gray-600 font-bold">Add/Update product</h2> */}
