@@ -20,7 +20,7 @@ const Header = () => {
           className="text-2xl block md:hidden" 
           onClick={handleMenu}
         />
-        {isMenuVisible && <MobileNavigationBar />}
+        {isMenuVisible && <MobileNavigationBar handleMenu={handleMenu} />}
       </div>
     </div>
   )
