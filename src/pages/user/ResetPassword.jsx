@@ -3,6 +3,7 @@ import LoadingButton from "../../components/LoadingButton"
 import { useContext, useState } from "react";
 import { ResetPasswordRequest } from "../../api/authentication";
 import { Store } from "../../context/StoreContext";
+import { Helmet } from "react-helmet-async";
 
 const ResetPassword = () => {
   const [searchParams, setSearchParams ] = useSearchParams();
@@ -46,6 +47,10 @@ const ResetPassword = () => {
   }
   return (
     <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Reset Password - Trash Mark</title>
+        <meta name='description' content='Reset your password on TrashMark.' />
+      </Helmet>
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         <form onSubmit={handleResetPassword} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">

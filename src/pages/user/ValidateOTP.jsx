@@ -4,6 +4,7 @@ import { Store } from "../../context/StoreContext";
 import LoadingButton from "../../components/LoadingButton";
 import { ResendTokenRequest, ValidateOTPRequest } from "../../api/authentication";
 import OtpInput from "../../components/OtpInput";
+import { Helmet } from "react-helmet-async";
 
 const ValidateOTP = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,6 +52,10 @@ const ValidateOTP = () => {
 
   return (
     <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Validate your account - Trash Mark</title>
+        <meta name='description' content='Validate your Account TrashMark.' />
+      </Helmet>
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         <form onSubmit={handleOTP} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">

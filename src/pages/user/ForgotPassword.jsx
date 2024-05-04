@@ -3,6 +3,7 @@ import { ForgotPasswordRequest } from "../../api/authentication";
 import { useContext, useState } from "react";
 import LoadingButton from "../../components/LoadingButton";
 import { Store } from "../../context/StoreContext";
+import { Helmet } from "react-helmet-async";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -44,6 +45,10 @@ const ForgotPassword = () => {
 
   return (
     <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Forgot password - Trash Mark</title>
+        <meta name='description' content='Request for password reset on Trash Mark.' />
+      </Helmet>
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         <form onSubmit={handleForgotPassword} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">

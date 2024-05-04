@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import LoadingButton from "../../components/LoadingButton";
 import { SignUpRequest } from "../../api/authentication";
 import { Store } from "../../context/StoreContext";
+import { Helmet } from "react-helmet-async";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ const Signup = () => {
 
   return (
     <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+      <Helmet>
+        <title>Sign Up - Trash Mark</title>
+        <meta name='description' content='Sign Up to TrashMark.' />
+      </Helmet>
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         {/* <h1 className="text-center text-xl font-bold text-slate-600 sm:text-xl">Get started today</h1> */}

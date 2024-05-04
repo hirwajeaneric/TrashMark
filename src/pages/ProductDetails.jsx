@@ -1,10 +1,20 @@
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom"
 
 const ProductDetails = () => {
   const navigate = useNavigate();
 
+  const [product, setProduct] = useState({
+    name: "Product Name",
+  });
+
   return (
     <div className="flex justify-center w-full pt-20">
+      <Helmet>
+        <title>Product Details - {product.name}</title>
+        <meta name='description' content='View product details - TrashMark.' />
+      </Helmet>
       <div className="flex mx-auto px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-center">
         <div className="w-full md:w-1/2">
           <img src="/full_2024_3211-2_stitched-trial_P04_P5.jpg" alt="" className="w-full"/>
