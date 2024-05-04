@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineSearch } from 'react-icons/ai';
 import { useEffect, useState } from "react";
 
-const NavigationBar = () => {
+const MobileNavigationBar = () => {
   const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
@@ -11,7 +11,7 @@ const NavigationBar = () => {
   }, [])
 
   return (
-    <div className="hidden md:flex justify-between items-center gap-10 font-bold">
+    <div className="flex md:hidden justify-between items-center gap-10 font-bold">
       <NavLink className={"text-slate-900"} to={'/'}>Home</NavLink>
       <NavLink className={"text-slate-900 flex items-center gap-2"} to={'/search'}>
         Search
@@ -34,4 +34,4 @@ const NavigationBar = () => {
   )
 }
 
-export default NavigationBar
+export default MobileNavigationBar
