@@ -5,7 +5,6 @@ import LoadingButton from "../../LoadingButton";
 
 const productTypes = ['Home Appliance', 'Clothing', 'Shoes', 'Furniture', 'Electronics', 'Phone', 'Computer', 'Part of house', 'Cereals', 'Other food items'];
 
-/* eslint-disable react/prop-types */
 const AddProductForm = () => {
   const [product, setProduct] = useState({
     name: "",
@@ -14,41 +13,52 @@ const AddProductForm = () => {
     unitPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
-    imageFiles: "",
+    imageFiles: null, // Initialize imageFiles as null
     type: "",
     category: ""
   });
 
-  const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
+  const { handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
 
   const handleImageFiles = (e) => {
-    setProduct({ ...product, imageFiles: e.target.files })
+    setProduct({ ...product, imageFiles: e.target.files });
   };
 
   const handleFormInput = (e) => {
-    setProduct({ ...product, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setProduct({ ...product, [name]: value });
   };
 
-  const handleAddProductInfo = (e) => {
+  const handleAddProductInfo = async (e) => {
     e.preventDefault();
 
-    console.log(product);
     setLoading(true);
 
     AddProductRequest(product)
       .then((response) => {
         if (response) {
           handleResponseMessage('success', response.message);
+          setProduct({
+            name: "",
+            description: "",
+            quantity: 0,
+            unitPrice: 0.00,
+            addressLine1: "",
+            addressLine2: "",
+            imageFiles: null,
+            type: "",
+            category: ""
+          });
         }
       })
       .catch(error => {
-        handleResponseMessage('error', error.message); // Use 'error' type for error messages
+        handleResponseMessage('error', error.message);
       })
       .finally(() => {
         setLoading(false);
       });
-  }
+  };
 
   return (
     <form onSubmit={handleAddProductInfo} className="flex flex-col gap-4 bg-slate-100 px-5 md:px-12 pt-5 md:pt-8 pb-12">
@@ -94,7 +104,7 @@ const AddProductForm = () => {
       </div>
 
       <div className="flex flex-wrap justify-between w-full items-start">
-      <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
           <input
             type="text"
@@ -133,7 +143,7 @@ const AddProductForm = () => {
       </div>
 
       <div className="flex flex-wrap justify-between w-full items-start">
-      <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="city" className="block font-medium text-gray-700"> Address Line 2 </label>
           <select
             id="type"
