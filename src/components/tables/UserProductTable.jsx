@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
 import DeliveryStatus from '../DeliveryStatus';
 
-const UserPurchasesTable = ({products}) => {
+const UserPurchasesTable = ({products, setSelectedProduct}) => {
+
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
@@ -20,6 +20,15 @@ const UserPurchasesTable = ({products}) => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
+                        {products.length === 0 && 
+                            <tr>
+                                <td 
+                                    className="whitespace-nowrap px-4 py-2 text-gray-700"
+                                    colSpan={8}
+                                >No available products</td>
+                            </tr>
+                        }
+
                         {products.map((product, index) => (<tr key={index}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 <img src={product.imageFile} alt='' className='w-[100px] h-auto bg-black'/>
@@ -33,7 +42,7 @@ const UserPurchasesTable = ({products}) => {
                                 <DeliveryStatus color={product.deliveryStatus.seller === "Delivered" ? "errand" : "orange"} text={product.deliveryStatus.client} />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <Link to={`/account/manage-products/${product.id}`} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</Link>
+                                <button onClick={() => setSelectedProduct(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
                             </td>
                         </tr>))}
                     </tbody>

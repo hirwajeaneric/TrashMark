@@ -10,6 +10,12 @@ const StoreContext = ({ children }) => {
         content: ''
     });
 
+    const [products, setProducts] = useState({
+        availableProducts: [],
+        userProducts: [],
+        baughtProducts: []
+    });
+
     const handleResponseMessage = (type, content) => {
         setResponse({
             type: type,
@@ -27,7 +33,9 @@ const StoreContext = ({ children }) => {
     let contextData = {
         response,
         setResponse,
-        handleResponseMessage
+        handleResponseMessage,
+        products,
+        setProducts
     }
 
     return (

@@ -1,11 +1,12 @@
-import { useContext, useState } from "react";
+/* eslint-disable react/prop-types */
+import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
-import { AddProductRequest } from "../../../api/product";
+import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
 import LoadingButton from "../../LoadingButton";
 
 const productTypes = ['Home Appliance', 'Clothing', 'Shoes', 'Furniture', 'Electronics', 'Phone', 'Computer', 'Part of house', 'Cereals', 'Other food items'];
 
-const AddProductForm = () => {
+const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -18,7 +19,23 @@ const AddProductForm = () => {
     category: ""
   });
 
-  const { handleResponseMessage } = useContext(Store);
+  useEffect(() => {
+    if (selectedProduct) {
+      setProduct({
+        name: selectedProduct.name,
+        description: selectedProduct.description,
+        quantity: selectedProduct.quantity,
+        unitPrice: selectedProduct.unitPrice,
+        addressLine1: selectedProduct.addressLine1,
+        addressLine2: selectedProduct.addressLine2,
+        imageFiles: selectedProduct.imageFiles,
+        type: selectedProduct.type,
+        category: selectedProduct.category
+      });
+    }
+  }, [selectedProduct])
+
+  const { products, setProducts, handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
 
   const handleImageFiles = (e) => {
@@ -42,6 +59,9 @@ const AddProductForm = () => {
       type: "",
       category: ""
     });
+    setSelectedProduct({
+
+    })
   }
 
   const handleAddProductInfo = async (e) => {
@@ -54,6 +74,69 @@ const AddProductForm = () => {
         if (response) {
           handleResponseMessage('success', response.message);
           resetFields();
+
+          let userProducts = products.userProducts;
+          userProducts.push(response.product);
+
+          setProducts({
+            userProducts: userProducts,
+            availableProducts: products.availableProducts,
+          });
+        }
+      })
+      .catch(error => {
+        handleResponseMessage('error', error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const handleUpdateProductInfo = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    updateProductRequest(product, product._id)
+      .then((response) => {
+        if (response) {
+          handleResponseMessage('success', response.message);
+          resetFields();
+
+          let userProducts = products.userProducts;
+          userProducts.push(response.product);
+
+          setProducts({
+            userProducts: userProducts,
+            availableProducts: products.availableProducts,
+          });
+        }
+      })
+      .catch(error => {
+        handleResponseMessage('error', error.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  
+  const handleDeleteProduct = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    deleteProductRequest(selectedProduct._id)
+      .then((response) => {
+        if (response) {
+          handleResponseMessage('success', response.message);
+          resetFields();
+
+          let userProducts = products.userProducts.filter(element => element._id !== product._id);
+
+          setProducts({
+            userProducts: userProducts,
+            availableProducts: products.availableProducts,
+          });
         }
       })
       .catch(error => {
@@ -65,7 +148,10 @@ const AddProductForm = () => {
   };
 
   return (
-    <form onSubmit={handleAddProductInfo} className="flex flex-col gap-4 bg-slate-100 px-5 md:px-12 pt-5 md:pt-8 pb-12">
+    <form
+      onSubmit={!selectedProduct._id ? handleAddProductInfo : handleUpdateProductInfo}
+      className="flex flex-col gap-4 bg-slate-100 px-5 md:px-12 pt-5 md:pt-8 pb-12"
+    >
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="productDetails" className="block font-medium text-gray-700"> Product name </label>
@@ -203,14 +289,33 @@ const AddProductForm = () => {
         ></textarea>
       </div>
 
-      {!loading ?
+      <div className="flex justify-between">
+        {!loading ?
+          <button
+            type="submit"
+            className="inline-block w-min rounded bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-green-400 focus:outline-none"
+          >
+            {!selectedProduct._id ? "Add" : "Update"}
+          </button>
+          :
+          <LoadingButton size='min' />
+        }
         <button
-          type="submit"
-          className="inline-block w-min rounded border border-green-600 bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-green-600 focus:outline-none focus:ring active:text-green-500"
-        >Add</button>
-        :
-        <LoadingButton size='min' />
-      }
+          type="button"
+          onClick={resetFields}
+          className="inline-block w-min rounded border bg-black px-12 py-3 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring active:text-slate-500"
+        >
+          Clear
+        </button>
+        
+        {selectedProduct._id && <button
+          type="button"
+          onClick={handleDeleteProduct}
+          className="inline-block w-min rounded border bg-red-500 px-12 py-3 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring active:text-red-500"
+        >
+          Delete
+        </button>}
+      </div>
     </form>
   )
 }

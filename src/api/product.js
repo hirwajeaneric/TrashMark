@@ -41,7 +41,7 @@ export const AddProductRequest = async (data) => {
     return responseData;
 };
 
-export const updateProductRequest = async (data) => {
+export const updateProductRequest = async (data, id) => {
 
     const formData = new FormData();
 
@@ -56,12 +56,34 @@ export const updateProductRequest = async (data) => {
         }
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/v1/product/update`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/product/update?id=${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
         },
         body: formData,
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
+export const deleteProductRequest = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/product/delete?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        }
     });
 
     const responseData = await response.json();
