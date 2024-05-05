@@ -13,7 +13,7 @@ const AddProductForm = () => {
     unitPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
-    imageFiles: null, // Initialize imageFiles as null
+    imageFiles: null,
     type: "",
     category: ""
   });
@@ -30,6 +30,20 @@ const AddProductForm = () => {
     setProduct({ ...product, [name]: value });
   };
 
+  const resetFields = () => {
+    setProduct({
+      name: "",
+      description: "",
+      quantity: 0,
+      unitPrice: 0.00,
+      addressLine1: "",
+      addressLine2: "",
+      imageFiles: null,
+      type: "",
+      category: ""
+    });
+  }
+
   const handleAddProductInfo = async (e) => {
     e.preventDefault();
 
@@ -39,17 +53,7 @@ const AddProductForm = () => {
       .then((response) => {
         if (response) {
           handleResponseMessage('success', response.message);
-          setProduct({
-            name: "",
-            description: "",
-            quantity: 0,
-            unitPrice: 0.00,
-            addressLine1: "",
-            addressLine2: "",
-            imageFiles: null,
-            type: "",
-            category: ""
-          });
+          resetFields();
         }
       })
       .catch(error => {
