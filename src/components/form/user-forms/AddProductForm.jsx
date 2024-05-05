@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
 import LoadingButton from "../../LoadingButton";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const productTypes = ['Home Appliance', 'Clothing', 'Shoes', 'Furniture', 'Electronics', 'Phone', 'Computer', 'Part of house', 'Cereals', 'Other food items'];
 
@@ -28,7 +29,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         unitPrice: selectedProduct.unitPrice,
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
-        imageFiles: selectedProduct.imageFiles,
         type: selectedProduct.type,
         category: selectedProduct.category
       });
@@ -59,9 +59,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       type: "",
       category: ""
     });
-    setSelectedProduct({
 
-    })
+    setSelectedProduct({});
   }
 
   const handleAddProductInfo = async (e) => {
@@ -97,7 +96,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
     setLoading(true);
 
-    updateProductRequest(product, product._id)
+    updateProductRequest(product, selectedProduct._id)
       .then((response) => {
         if (response) {
           handleResponseMessage('success', response.message);
@@ -119,7 +118,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         setLoading(false);
       });
   };
-  
+
   const handleDeleteProduct = async (e) => {
     e.preventDefault();
 
@@ -274,7 +273,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           </div>
         </div>
       </div>
-
       <div className="flex flex-wrap justify-between w-full items-start">
         <label htmlFor="description" className="block font-medium text-gray-700"> Description </label>
         <textarea
@@ -289,11 +287,27 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         ></textarea>
       </div>
 
-      <div className="flex justify-between">
+
+      {/* IMAGE DISPLAY  */}
+      {selectedProduct.imageFiles &&
+        <div className="w-full flex gap-2 flex-wrap p-2 bg-slate-300 rounded">
+          {selectedProduct.imageFiles.map((image, index) => (
+            <img
+              key={index}
+              src={`${API_BASE_URL}/images/${image}`}
+              alt={""}
+              className="w-48 h-auto object-cover flex-grow md:flex-grow-0 rounded-md"
+            />
+          ))}
+        </div>}
+
+
+      {/* CONTROL BUTTONS  */}
+      <div className="flex flex-wrap gap-2 justify-between">
         {!loading ?
           <button
             type="submit"
-            className="inline-block w-min rounded bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-green-400 focus:outline-none"
+            className="inline-block w-[48%] sm:w-min rounded bg-green-600 px-12 py-3 text-sm font-medium text-white hover:bg-green-400 focus:outline-none"
           >
             {!selectedProduct._id ? "Add" : "Update"}
           </button>
@@ -303,15 +317,15 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         <button
           type="button"
           onClick={resetFields}
-          className="inline-block w-min rounded border bg-black px-12 py-3 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring active:text-slate-500"
+          className="inline-block w-[48%] sm:w-min rounded border bg-black px-12 py-3 text-sm font-medium text-white hover:bg-slate-600 focus:outline-none focus:ring active:text-slate-500"
         >
           Clear
         </button>
-        
+
         {selectedProduct._id && <button
           type="button"
           onClick={handleDeleteProduct}
-          className="inline-block w-min rounded border bg-red-500 px-12 py-3 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring active:text-red-500"
+          className="inline-block w-[48%] sm:w-min rounded border bg-red-500 px-12 py-3 text-sm font-medium text-white hover:bg-red-400 focus:outline-none focus:ring active:text-red-500"
         >
           Delete
         </button>}

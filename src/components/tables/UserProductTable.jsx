@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import DeliveryStatus from '../DeliveryStatus';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const UserPurchasesTable = ({products, setSelectedProduct}) => {
-
+const UserPurchasesTable = ({ products, setSelectedProduct }) => {
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
@@ -20,9 +20,9 @@ const UserPurchasesTable = ({products, setSelectedProduct}) => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
-                        {products.length === 0 && 
+                        {products.length === 0 &&
                             <tr>
-                                <td 
+                                <td
                                     className="whitespace-nowrap px-4 py-2 text-gray-700"
                                     colSpan={8}
                                 >No available products</td>
@@ -30,8 +30,8 @@ const UserPurchasesTable = ({products, setSelectedProduct}) => {
                         }
 
                         {products.map((product, index) => (<tr key={index}>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                <img src={product.imageFile} alt='' className='w-[100px] h-auto bg-black'/>
+                            <td className="whitespace-nowrap font-medium text-gray-900">
+                                <img src={`${API_BASE_URL}/images/${product.imageFiles[0]}`} alt='' className='w-[100px] h-auto bg-black' />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
