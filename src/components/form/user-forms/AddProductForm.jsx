@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
+import { TiDelete } from "react-icons/ti";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
 import LoadingButton from "../../LoadingButton";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -30,7 +31,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
         type: selectedProduct.type,
-        category: selectedProduct.category
+        category: selectedProduct.category,
+        imageFiles: selectedProduct.imageFiles
       });
     }
   }, [selectedProduct])
@@ -91,11 +93,25 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       });
   };
 
+  const handleDeleteImage = (image) => {
+    let newImages = selectedProduct.imageFiles.filter(img => img!== image);
+    setProduct({
+      ...product, 
+      imageFiles: newImages 
+    });
+    setSelectedProduct({
+      ...selectedProduct, 
+      imageFiles: newImages 
+    });
+  };
+
   const handleUpdateProductInfo = async (e) => {
     e.preventDefault();
 
     setLoading(true);
 
+    setProduct({ ...product, imageFiles: selectedProduct.imageFiles });
+    
     updateProductRequest(product, selectedProduct._id)
       .then((response) => {
         if (response) {
@@ -292,12 +308,17 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       {selectedProduct.imageFiles &&
         <div className="w-full flex gap-2 flex-wrap p-2 bg-slate-300 rounded">
           {selectedProduct.imageFiles.map((image, index) => (
-            <img
-              key={index}
-              src={`${API_BASE_URL}/images/${image}`}
-              alt={""}
-              className="w-48 h-auto object-cover flex-grow md:flex-grow-0 rounded-md"
-            />
+            <div key={index} className="flex flex-col items-center relative">
+              <button type="button" onClick={() => handleDeleteImage(image)} className="absolute top-2 text-2xl right-2">
+                <TiDelete className="text-red-600" />
+              </button>
+              <img
+                key={index}
+                src={`${API_BASE_URL}/images/${image}`}
+                alt={""}
+                className="w-48 h-48 object-cover"
+              />
+            </div>
           ))}
         </div>}
 

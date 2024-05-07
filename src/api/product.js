@@ -43,6 +43,8 @@ export const AddProductRequest = async (data) => {
 
 export const updateProductRequest = async (data, id) => {
 
+    console.log(data.imageFiles);
+
     const formData = new FormData();
 
     for (const key in data) {
