@@ -5,7 +5,6 @@ import Cookies from "js-cookie";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const AddProductRequest = async (data) => {
-
     const formData = new FormData();
 
     for (const key in data) {
@@ -42,9 +41,7 @@ export const AddProductRequest = async (data) => {
 };
 
 export const updateProductRequest = async (data, id) => {
-
-    console.log(data.imageFiles);
-
+    console.log(data);
     const formData = new FormData();
 
     for (const key in data) {

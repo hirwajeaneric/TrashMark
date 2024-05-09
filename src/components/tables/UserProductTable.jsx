@@ -3,6 +3,10 @@ import DeliveryStatus from '../DeliveryStatus';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const UserPurchasesTable = ({ products, setSelectedProduct }) => {
+    const handleProductSelection = (selectedProduct) => {
+        setSelectedProduct(selectedProduct);
+    };
+
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
@@ -42,7 +46,7 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                                 <DeliveryStatus color={product.deliveryStatus.seller === "Delivered" ? "errand" : "orange"} text={product.deliveryStatus.client} />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <button onClick={() => setSelectedProduct(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
+                                <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
                             </td>
                         </tr>))}
                     </tbody>

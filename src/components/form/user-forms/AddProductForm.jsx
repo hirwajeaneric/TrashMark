@@ -95,6 +95,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
   const handleDeleteImage = (image) => {
     let newImages = selectedProduct.imageFiles.filter(img => img!== image);
+    console.log(newImages);
+    
     setProduct({
       ...product, 
       imageFiles: newImages 
@@ -110,8 +112,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
     setLoading(true);
 
-    setProduct({ ...product, imageFiles: selectedProduct.imageFiles });
-    
+    product.imageFiles = selectedProduct.imageFiles
+
     updateProductRequest(product, selectedProduct._id)
       .then((response) => {
         if (response) {
@@ -305,7 +307,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
 
       {/* IMAGE DISPLAY  */}
-      {selectedProduct.imageFiles &&
+      {(selectedProduct.imageFiles && selectedProduct.imageFiles.length!==0) &&
         <div className="w-full flex gap-2 flex-wrap p-2 bg-slate-300 rounded">
           {selectedProduct.imageFiles.map((image, index) => (
             <div key={index} className="flex flex-col items-center relative">
