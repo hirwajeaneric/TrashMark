@@ -1,10 +1,11 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import { Store } from "../../context/StoreContext";
 import LoadingButton from "../../components/LoadingButton";
 import { SignInRequest } from "../../api/authentication";
 import Cookies from 'js-cookie';
 import { Helmet } from "react-helmet-async";
+import { updateProductRequest } from "../../api/product";
 const environment = import.meta.env.VITE_ENVIRONMENT;
 
 const Signin = () => {
@@ -16,6 +17,7 @@ const Signin = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
+  const [searchParams, setSearchParams ] = useSearchParams();
 
   const resetFields = () => {
     setUserInput({
@@ -49,7 +51,12 @@ const Signin = () => {
               expires: 1
             });
           localStorage.setItem("client", JSON.stringify(response.user));
-          navigate("/");
+
+          if (searchParams.get("redirect")) {
+            handleAddItemToCart(searchParams.get("product"));
+          } else {
+            navigate("/");
+          }
         }
       })
       .catch(error => {
@@ -58,6 +65,14 @@ const Signin = () => {
       .finally(() => {
         setLoading(false);
       });
+  }
+
+  const handleAddItemToCart = (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    updateProductRequest({ client:  })
+
   }
 
   return (

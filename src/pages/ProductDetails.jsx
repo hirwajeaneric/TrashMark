@@ -11,8 +11,10 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [images, setImages] = useState([]);
   const [product, setProduct] = useState({});
+  const [clientId, setClientId] = useState({});
 
   useEffect(() => {
+    setClientId(JSON.parse(localStorage.getItem("client")));
     setLoading(true);
     getProductByIdRequest(params.productId)
       .then(response => {
@@ -20,7 +22,7 @@ const ProductDetails = () => {
           setProduct(response.product);
           setImages(response.product.imageFiles);
           setLoading(false);
-        }, 3000);
+        }, 1000);
       })
       .catch(error => {
         console.log(error)
@@ -78,8 +80,23 @@ const ProductDetails = () => {
                 <dt className="font-medium text-gray-900">Description</dt>
                 <dd className="text-gray-700 sm:col-span-2">{product.description}</dd>
               </div>
-
-              <button onClick={() => navigate("/cart")} className="py-3 mt-4 px-3 text-white bg-black rounded-3xl w-full">Add to cart</button>
+              {
+                clientId
+                  ?
+                  (<button
+                    type="button"
+                    onClick={() => navigate("/cart")}
+                    className="py-3 mt-4 px-3 text-white bg-black rounded-3xl w-full">Add to cart
+                  </button>
+                  )
+                  :
+                  (<button
+                    type="button"
+                    onClick={() => navigate(`/sign-in?redirect=${'/cart'}&product=${product._id}`)}
+                    className="py-3 mt-4 px-3 text-white bg-black rounded-3xl w-full">Add to cart
+                  </button>
+                  )
+              }
             </dl>
           </div>
         </div>
