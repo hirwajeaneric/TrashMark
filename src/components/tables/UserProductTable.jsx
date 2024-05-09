@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import DeliveryStatus from '../DeliveryStatus';
+// import DeliveryStatus from '../DeliveryStatus';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const UserPurchasesTable = ({ products, setSelectedProduct }) => {
@@ -19,7 +19,7 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Unit Price</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Total Price</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th>
+                            {/* <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th> */}
                         </tr>
                     </thead>
 
@@ -41,10 +41,10 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.totalPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice * product.quantity}</td>
+                            {/* <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <DeliveryStatus color={product.deliveryStatus.seller === "Delivered" ? "errand" : "orange"} text={product.deliveryStatus.client} />
-                            </td>
+                            </td> */}
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
                             </td>
