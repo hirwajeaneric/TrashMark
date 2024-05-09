@@ -13,6 +13,7 @@ const Signin = () => {
     email: "",
     password: ""
   });
+  const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
 
@@ -23,6 +24,10 @@ const Signin = () => {
     });
   };
 
+  const handleViewPassword = () => {
+    setViewPassword(!viewPassword);
+  };
+  
   const handleFormInput = (e) => {
     setUserInput({ ...userInput, [e.target.id]: e.target.value });
   };
@@ -85,7 +90,7 @@ const Signin = () => {
 
             <div className="relative">
               <input
-                type="password"
+                type={viewPassword ? "text" : "password"}
                 id="password"
                 value={userInput.password || ''}
                 onChange={handleFormInput}
@@ -100,6 +105,7 @@ const Signin = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  onClick={handleViewPassword}
                 >
                   <path
                     strokeLinecap="round"

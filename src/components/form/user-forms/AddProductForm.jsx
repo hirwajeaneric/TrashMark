@@ -274,6 +274,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
                 type="radio"
                 name="category"
                 id="renewable"
+                checked={product.category == "Renewable"}
                 value={"Renewable"}
                 onChange={handleFormInput}
               />
@@ -284,6 +285,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
                 type="radio"
                 name="category"
                 id="non-renewable"
+                checked={product.category == "Non-renewable"}
                 value={"Non-renewable"}
                 onChange={handleFormInput}
               />

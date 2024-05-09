@@ -14,8 +14,13 @@ const Signup = () => {
     phone: "",
     password: ""
   });
+  const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
+
+  const handleViewPassword = () => {
+    setViewPassword(!viewPassword);
+  };
 
   const resetFields = () => {
     setUserInput({
@@ -127,7 +132,7 @@ const Signup = () => {
             <label htmlFor="password" className="sr-only">Password</label>
             <div className="relative">
               <input
-                type="password"
+                type={viewPassword ? "text" : "password"}
                 id="password"
                 value={userInput.password || ''}
                 onChange={handleFormInput}
@@ -142,6 +147,7 @@ const Signup = () => {
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
+                  onClick={handleViewPassword}
                 >
                   <path
                     strokeLinecap="round"
