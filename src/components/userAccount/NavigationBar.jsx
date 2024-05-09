@@ -1,4 +1,3 @@
-import { NavLink } from "react-router-dom";
 import { AiOutlineUser, AiOutlineShoppingCart, AiOutlineSearch } from 'react-icons/ai';
 import { useEffect, useState } from "react";
 
@@ -12,20 +11,20 @@ const NavigationBar = () => {
 
   return (
     <div className="hidden md:flex justify-between items-center gap-10 font-bold">
-      <NavLink className={"text-slate-900"} to={'/'}>Home</NavLink>
-      <NavLink className={"text-slate-900 flex items-center gap-2"} to={'/search'}>
+      <a className={"text-slate-900"} href={'/'}>Home</a>
+      <a className={"text-slate-900 flex items-center gap-2"} href={'/search'}>
         Search
         <AiOutlineSearch className="text-lg" />
-      </NavLink>
+      </a>
       {!userInfo ?
-        <NavLink className={"text-slate-900"} to={'/sign-in'}>Login</NavLink>
+        <a className={"text-slate-900"} href={'/sign-in'}>Login</a>
         :
         <>
-          <NavLink className={"text-slate-900"} to={'/cart'}>
+          <a className={"text-slate-900"} href={'/cart'}>
             <AiOutlineShoppingCart className="text-lg" />
-          </NavLink>
+          </a>
           <span className="flex items-center gap-3">
-            <NavLink className={"text-green-600"} to={'/account'}>{userInfo.email}</NavLink>
+            <a className={"text-green-600"} href={'/account'}>{userInfo.email}</a>
             <AiOutlineUser className="text-lg text-green-600" />
           </span>
         </>

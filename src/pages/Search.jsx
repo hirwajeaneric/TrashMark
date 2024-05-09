@@ -5,6 +5,7 @@ import { Store } from "../context/StoreContext";
 import ProductFilters from "../components/ProductFilters";
 import SortComponent from "../components/SortComponent";
 import { getAllAvailableProductsRequest } from "../api/product";
+import { Link } from "react-router-dom";
 
 const Search = () => {
   const { products, setProducts } = useContext(Store);
@@ -13,7 +14,7 @@ const Search = () => {
     getAllAvailableProductsRequest()
       .then((response) => {
         if (response) {
-          setProducts({...products, availableProducts: response.products});
+          setProducts({ ...products, availableProducts: response.products });
         }
       })
       .catch((error) => {
@@ -64,13 +65,31 @@ const Search = () => {
           </div>
 
           {/* Products */}
-          <div className="lg:col-span-3">
-            <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {products.availableProducts.length !== 0 && products.availableProducts.map((product, index) => (
-                <ProductItem product={product} key={index} />
-              ))}
-            </ul>
-          </div>
+          {products.availableProducts.length !== 0 &&
+            <div className="lg:col-span-3">
+              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {products.availableProducts.map((product, index) => (
+                  <ProductItem product={product} key={index} />
+                ))}
+              </ul>
+            </div>
+          }
+
+          {products.availableProducts.length === 0 &&
+            <div className="lg:col-span-3">
+              {products.availableProducts.length === 0 &&
+                <p className="text-slate-700">
+                  No available products &nbsp;
+                  <Link 
+                    className="text-green-500 hover:text-green-600"
+                    to={'/account/manage-products'}>
+                      Add product
+                  </Link>
+                </p>
+              }
+            </div>
+          }
+
         </div>
       </div>
     </section>

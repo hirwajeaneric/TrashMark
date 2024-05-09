@@ -10,10 +10,7 @@ const environment = import.meta.env.VITE_ENVIRONMENT;
 
 const Signin = () => {
   const navigate = useNavigate();
-  const [userInput, setUserInput] = useState({
-    email: "",
-    password: ""
-  });
+  const [userInput, setUserInput] = useState({ email: "", password: "" });
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
