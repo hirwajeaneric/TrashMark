@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes, } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UserLayout from './pages/user/UserLayout';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
@@ -21,7 +21,7 @@ import ValidateOTP from './pages/user/ValidateOTP';
 import AddingItemToCart from './pages/user/AddingItemToCart';
 
 const App = () => {
-  return (
+  return ( 
     <StoreContext>
       <Router>
         <Routes>

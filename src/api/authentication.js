@@ -168,3 +168,26 @@ export const UpdateUserInfoRequest = async (data) => {
 
     return responseData;
 };
+
+export const ValidateAccessToken = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/validate`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+            'Content-Type': 'application/json',
+        }
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
