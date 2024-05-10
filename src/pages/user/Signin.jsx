@@ -5,7 +5,6 @@ import LoadingButton from "../../components/LoadingButton";
 import { SignInRequest } from "../../api/authentication";
 import Cookies from 'js-cookie';
 import { Helmet } from "react-helmet-async";
-import { addProductToCartRequest } from "../../api/product";
 const environment = import.meta.env.VITE_ENVIRONMENT;
 
 const Signin = () => {
@@ -50,7 +49,7 @@ const Signin = () => {
           localStorage.setItem("client", JSON.stringify(response.user));
 
           if (searchParams.get("redirect")) {
-            handleAddItemToCart(searchParams.get("product"));
+            navigate(`/addtocart?product=${searchParams.get("product")}`);
           } else {
             navigate("/");
           }
@@ -62,22 +61,6 @@ const Signin = () => {
       .finally(() => {
         setLoading(false);
       });
-  }
-
-  const handleAddItemToCart = (productId) => {
-    addProductToCartRequest({ id: productId })
-    .then((response) => {
-      if (response) {
-        handleResponseMessage('success', response.message);
-        navigate("/cart");
-      }
-    })
-    .catch(error => {
-      handleResponseMessage('error', error.message); // Use 'error' type for error messages
-    })
-    .finally(() => {
-      setLoading(false);
-    });
   }
 
   return (
