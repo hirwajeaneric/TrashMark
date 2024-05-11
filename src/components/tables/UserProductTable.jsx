@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-// import DeliveryStatus from '../DeliveryStatus';
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const UserPurchasesTable = ({ products, setSelectedProduct }) => {

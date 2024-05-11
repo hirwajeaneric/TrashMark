@@ -21,11 +21,11 @@ const CartItem = ({order, product, setProduct}) => {
     }
     
     return (
-        <li className="flex items-start gap-4">
+        <li className="flex flex-wrap items-start gap-4">
             <img
                 src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
-                alt=""
-                className="size-32 rounded object-cover"
+                alt={product.name}
+                className="size-fit md:size-32 rounded object-cover"
             />
 
             <div>

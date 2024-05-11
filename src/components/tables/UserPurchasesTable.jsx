@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useState } from 'react';
 import DeliveryStatus from '../DeliveryStatus';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const UserPurchasesTable = ({purchases}) => {
     return (
@@ -10,7 +12,8 @@ const UserPurchasesTable = ({purchases}) => {
                         <tr>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Product</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Name</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Descriptions</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Purchase date</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery time</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Unit Price</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Total Cost</th>
@@ -28,13 +31,14 @@ const UserPurchasesTable = ({purchases}) => {
                             </tr>
                         }
                         {purchases.map((purchase, index) => (<tr key={index}>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                <img src={purchase.imageFile} alt='' className='w-[100px] h-auto bg-black'/>
+                            <td className="whitespace-nowrap font-medium text-gray-900">
+                                {/* <img src={`${API_BASE_URL}/images/${order.image}`} alt='' className='w-[100px] h-auto bg-black' /> */}
                             </td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.name}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.description}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.quantity}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.unitPrice}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.products[0].name}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{new Date(purchase.updatedAt).toUTCString()}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.deliveryTime} min</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.products[0].quantity}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.products[0].pricePerUnit}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.totalPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <DeliveryStatus 

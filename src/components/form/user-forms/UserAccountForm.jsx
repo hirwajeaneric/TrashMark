@@ -47,7 +47,7 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="firstName"
-                        value={userInfo.firstName}
+                        value={userInfo.firstName || ""}
                         onChange={handleFormInput}
                         placeholder="John"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -58,7 +58,7 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="lastName"
-                        value={userInfo.lastName}
+                        value={userInfo.lastName || ""}
                         onChange={handleFormInput}
                         placeholder="Doe"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -72,7 +72,7 @@ const UserAccountForm = () => {
                     <input
                         type="email"
                         id="email"
-                        value={userInfo.email}
+                        value={userInfo.email || ""}
                         onChange={handleFormInput}
                         placeholder="myemail@example.com"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -85,7 +85,7 @@ const UserAccountForm = () => {
                         id="phone"
                         maxLength={10}
                         minLength={10}
-                        value={userInfo.phone}
+                        value={userInfo.phone || ""}
                         onChange={handleFormInput}
                         placeholder="07xxxxxxxx"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -98,7 +98,7 @@ const UserAccountForm = () => {
                         id="code"
                         minLength={6}
                         maxLength={6}
-                        value={userInfo.code}
+                        value={userInfo.code || ""}
                         onChange={handleFormInput}
                         placeholder="XXXXXX"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -112,7 +112,7 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="addressLine1"
-                        value={userInfo.addressLine1}
+                        value={userInfo.addressLine1 || ""}
                         onChange={handleFormInput}
                         placeholder="KG 123 St"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -123,7 +123,7 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="addressLine2"
-                        value={userInfo.addressLine2}
+                        value={userInfo.addressLine2 || ""}
                         onChange={handleFormInput}
                         placeholder="Nyarugenge"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -134,7 +134,7 @@ const UserAccountForm = () => {
                     <input
                         type="text"
                         id="city"
-                        value={userInfo.city}
+                        value={userInfo.city || ""}
                         onChange={handleFormInput}
                         placeholder="Kigali"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"

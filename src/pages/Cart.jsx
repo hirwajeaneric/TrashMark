@@ -8,17 +8,23 @@ import { useNavigate } from "react-router-dom";
 const Cart = () => {
   const [order, setOrder] = useState({});
   const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(false);
   const { handleResponseMessage } = useContext(Store);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     getClientOrderRequest()
       .then(response => {
         setOrder(response.order);
         setProduct(response.order.products[0]);
+        setLoading(false);
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       })
   }, []);
 
@@ -46,6 +52,16 @@ const Cart = () => {
       handleResponseMessage(error, error.message);
      })
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center w-full pt-20">
+        <div className="flex justify-center items-center mx-auto px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full">
+          <div className="lds-dual-ring"></div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <section>

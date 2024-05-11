@@ -45,19 +45,13 @@ export const AddOrderRequest = async (data) => {
 * @throws {Error} - If the API request fails.
 */
 export const updateOrderInfoRequest = async (data, id) => {
-    console.log(data, id);
-    const formData = new FormData();
-
-    for (const key in data) {
-        formData.append(key, data[key]);
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/v1/order/update?id=${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
+            'Content-Type' : 'application/json'
         },
-        body: formData,
+        body: JSON.stringify(data),
     });
 
     const responseData = await response.json();

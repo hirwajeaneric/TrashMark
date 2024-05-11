@@ -46,6 +46,7 @@ const ProductDetails = () => {
         products: [{
           id: product._id,
           name: product.name,
+          image: images[0],
           quantity: 1,
           maxQuantity: product.quantity,
           pricePerUnit: product.unitPrice

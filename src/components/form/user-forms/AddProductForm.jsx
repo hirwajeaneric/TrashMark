@@ -188,7 +188,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="name"
             name="name"
-            value={product.name}
+            value={product.name || ""}
             onChange={handleFormInput}
             placeholder="Computer"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -201,7 +201,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             id="quantity"
             name="quantity"
             min={1}
-            value={product.quantity}
+            value={product.quantity || ""}
             onChange={handleFormInput}
             placeholder="Quantity"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -214,7 +214,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             id="unitPrice"
             name="unitPrice"
             min={500}
-            value={product.unitPrice}
+            value={product.unitPrice || ""}
             onChange={handleFormInput}
             placeholder="Unit price"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -230,7 +230,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             id="deliveryPrice"
             name="deliveryPrice"
             min={500}
-            value={product.deliveryPrice}
+            value={product.deliveryPrice || ""}
             onChange={handleFormInput}
             placeholder="Unit price"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -242,7 +242,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="addressLine1"
             name="addressLine1"
-            value={product.addressLine1}
+            value={product.addressLine1 || ""}
             onChange={handleFormInput}
             placeholder="KG 123 St"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -254,7 +254,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="addressLine2"
             name="addressLine2"
-            value={product.addressLine2}
+            value={product.addressLine2 || ""}
             onChange={handleFormInput}
             placeholder="Kigali"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -280,7 +280,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           <select
             id="type"
             name="type"
-            value={product.type}
+            value={product.type || ""}
             onChange={handleFormInput}
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           >
@@ -326,7 +326,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             id="deliveryTime"
             min={1}
             name="deliveryTime"
-            value={product.deliveryTime}
+            value={product.deliveryTime || ""}
             onChange={handleFormInput}
             placeholder={20}
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -338,7 +338,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="sellerName"
             name="sellerName"
-            value={product.sellerName}
+            value={product.sellerName || ""}
             onChange={handleFormInput}
             placeholder="Your name"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -352,7 +352,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             minLength={10}
             maxLength={10}
             name="sellerPhone"
-            value={product.sellerPhone}
+            value={product.sellerPhone || ""}
             onChange={handleFormInput}
             placeholder="07xxxxxxxx"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -365,7 +365,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           type="text"
           id="description"
           name="description"
-          value={product.description}
+          value={product.description || ""}
           onChange={handleFormInput}
           rows={4}
           placeholder="Product description ..."
