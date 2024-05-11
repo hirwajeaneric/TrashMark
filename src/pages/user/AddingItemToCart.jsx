@@ -8,39 +8,26 @@ import { GrStatusGood } from "react-icons/gr";
 
 export default function AddingItemToCart() {
   const [searchParams, setSearchParams] = useSearchParams();
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { handleResponseMessage } = useContext(Store);
 
   useEffect(() => {
     const handleAddProductToCart = async () => {
-      var product = {};
-      var existingClientOrder = {};
-
       // Get user info
       var user = JSON.parse(localStorage.getItem("client"));
 
       // Find all product details
-      getProductByIdRequest(searchParams.get("product"))
-        .then((response) => {
-          product = response.product;
-        })
-        .catch(error => handleResponseMessage('error', error.message));
-
+      const { product } = await getProductByIdRequest(searchParams.get("product"));
       // Decide whether there is an existing order or not
-      getClientOrderRequest()
-        .then((response) => {
-          if (response.order) {
-            existingClientOrder = response.order;
-          }
-        })
-        .catch(error => handleResponseMessage('error', error.message));
-
-      if (existingClientOrder) {
+      const { order } = await getClientOrderRequest();
+      
+      if (order) {
         // Check the quantity of the existing order product
-        let existingClientOrderProducts = [];
-        existingClientOrderProducts = existingClientOrder.products;
-        let existingProductOrderQuantity = existingClientOrderProducts.find(p => p.id === product._id).quantity;
+        let existingOrderProducts = [];
+        existingOrderProducts = order.products;
+        let existingProductOrderQuantity = existingOrderProducts.find(p => p.id === product._id).quantity;
         if (existingProductOrderQuantity === product.quantity) {
           handleResponseMessage('error', 'You have already added the maximum quantity of this product to your cart');
           setTimeout(() => {
@@ -49,19 +36,17 @@ export default function AddingItemToCart() {
         }
 
         // Add product to existing order
-        updateCartRequest({ id: product._id, quantity: product.quantity, pricePerUnit: product.price })
-          .then((response) => {
-            if (response.messsage) {
-              handleResponseMessage('error', 'Item added to cart successfully');
-              setTimeout(() => {
-                navigate('/cart');
-              }, 2000);
-            }
-          })
-          .catch(error => handleResponseMessage('error', error.message));
+        const response = await updateCartRequest({ id: product._id, quantity: product.quantity, pricePerUnit: product.price })
+        console.log(response.message);
+        if (response.messsage) {
+          handleResponseMessage('error', 'Item added to cart successfully');
+          setTimeout(() => {
+            navigate('/cart');
+          }, 2000);
+        }  
       } else {
         // Add new order if there is no existing order
-        AddOrderRequest({
+        const addOrderResponse = await AddOrderRequest({
           client: user._id,
           seller: product.seller,
           products: [{
@@ -69,18 +54,12 @@ export default function AddingItemToCart() {
             quantity: product.quantity,
             pricePerUnit: product.price
           }]
-        })
-          .then((response) => {
-            if (response) {
-              navigate("/cart");
-            }
-          })
-          .catch(error => {
-            handleResponseMessage('error', error.message);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
+        });
+
+        if (addOrderResponse.message) {
+          setLoading(false);
+          navigate("/cart");
+        }
       }
     };
 
@@ -93,7 +72,7 @@ export default function AddingItemToCart() {
     const updateSearchParams = () => {
       setSearchParams({ product: searchParams.get("product") });
     };
-    
+
     updateSearchParams();
   }, [searchParams, setSearchParams]);
 

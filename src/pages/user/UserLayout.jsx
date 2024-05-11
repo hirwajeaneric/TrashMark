@@ -12,6 +12,7 @@ const UserLayout = () => {
     ValidateAccessToken()
       .then((response) => {
         if (response.message === "jwt expired") {
+          console.log(response.message);
           navigate('/sign-in');
           localStorage.removeItem("client");
           Cookies.remove('access-token');
