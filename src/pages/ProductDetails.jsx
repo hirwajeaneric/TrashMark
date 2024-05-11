@@ -41,10 +41,12 @@ const ProductDetails = () => {
       const addOrderResponse = await AddOrderRequest({
         client: user._id,
         seller: product.seller,
+        deliveryPrice: product.deliveryPrice,
         products: [{
           id: product._id,
           name: product.name,
           quantity: 1,
+          maxQuantity: product.quantity,
           pricePerUnit: product.unitPrice
         }]
       });

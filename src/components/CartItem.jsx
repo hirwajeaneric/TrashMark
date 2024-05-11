@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { deleteOrderRequest } from "../api/order";
 import { Store } from "../context/StoreContext";
 
-const CartItem = ({order, product}) => {
+const CartItem = ({order, product, setProduct}) => {
     const { handleResponseMessage } = useContext(Store);
     
     const deleteOrder = (orderId) => {
@@ -13,6 +13,11 @@ const CartItem = ({order, product}) => {
             window.location.reload();
         })
         .catch(error => handleResponseMessage("error", error.message))
+    }
+
+    const handleItemQuantity = (e) => {
+        setProduct({ ...product, quantity: e.target.value });
+        
     }
     
     return (
@@ -31,6 +36,10 @@ const CartItem = ({order, product}) => {
                         <dt className="inline">Quantity:</dt>
                         <dd className="inline">{product.quantity}</dd>
                     </div>
+                    <div>
+                        <dt className="inline">Available:</dt>
+                        <dd className="inline">{product.maxQuantity}</dd>
+                    </div>
 
                     <div>
                         <dt className="inline">Price per unit:</dt>
@@ -45,7 +54,9 @@ const CartItem = ({order, product}) => {
                     <input
                         type="number"
                         min="1"
+                        max={`${product.maxQuantity}`}
                         value={product.quantity}
+                        onChange={handleItemQuantity}
                         id="quantity"
                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
                     />

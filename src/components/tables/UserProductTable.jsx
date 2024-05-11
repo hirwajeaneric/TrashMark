@@ -15,11 +15,10 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                         <tr>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Product</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Name</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Descriptions</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Unit Price</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery Price</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Total Price</th>
-                            {/* <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th> */}
                         </tr>
                     </thead>
 
@@ -38,13 +37,10 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                                 <img src={`${API_BASE_URL}/images/${product.imageFiles[0]}`} alt='' className='w-[100px] h-auto bg-black' />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.description}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice * product.quantity}</td>
-                            {/* <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <DeliveryStatus color={product.deliveryStatus.seller === "Delivered" ? "errand" : "orange"} text={product.deliveryStatus.client} />
-                            </td> */}
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.deliveryPrice}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{(product.unitPrice * product.quantity) + product.deliveryPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
                             </td>

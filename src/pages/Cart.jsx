@@ -18,6 +18,10 @@ const Cart = () => {
     })
   }, []);
 
+  const handleCheckout = () => {
+
+  };
+
   return (
     <section>
       <Helmet>
@@ -34,7 +38,13 @@ const Cart = () => {
 
           {order && <div className="mt-8">
             <ul className="space-y-4">
-              {order && <CartItem order={order} product={product} />}
+              {order && 
+                <CartItem 
+                  order={order} 
+                  product={product} 
+                  setProduct={setProduct}
+                />
+              }
             </ul>
 
             <div className="mt-8 flex justify-end border-t border-gray-100 pt-8">
@@ -42,7 +52,7 @@ const Cart = () => {
                 <dl className="space-y-0.5  text-gray-700">
                   <div className="flex justify-between">
                     <dt>Delivery fee</dt>
-                    <dd>{order.totalPrice} Rwf</dd>
+                    <dd>{order.deliveryPrice} Rwf</dd>
                   </div>
 
                   <div className="flex justify-between !text-base font-medium">
@@ -52,12 +62,13 @@ const Cart = () => {
                 </dl>
 
                 <div className="flex justify-end">
-                  <a
-                    href="#"
+                  <button
+                    type="button"
+                    onClick={handleCheckout}
                     className="block rounded bg-gray-700 px-5 py-3  text-gray-100 transition hover:bg-gray-600"
                   >
                     Checkout
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

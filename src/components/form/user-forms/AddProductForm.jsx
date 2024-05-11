@@ -14,6 +14,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     description: "",
     quantity: 0,
     unitPrice: 0.00,
+    deliveryPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
     imageFiles: null,
@@ -28,6 +29,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         description: selectedProduct.description,
         quantity: selectedProduct.quantity,
         unitPrice: selectedProduct.unitPrice,
+        deliveryPrice: selectedProduct.unitPrice,
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
         type: selectedProduct.type,
@@ -55,6 +57,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       description: "",
       quantity: 0,
       unitPrice: 0.00,
+      deliveryPrice: 0.00,
       addressLine1: "",
       addressLine2: "",
       imageFiles: null,
@@ -171,7 +174,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     >
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="productDetails" className="block font-medium text-gray-700"> Product name </label>
+          <label htmlFor="name" className="block font-medium text-gray-700"> Product name </label>
           <input
             type="text"
             id="name"
@@ -196,12 +199,12 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="" className="block font-medium text-gray-700"> Unit price (Rwf)</label>
+          <label htmlFor="unitPrice" className="block font-medium text-gray-700"> Unit price (Rwf)</label>
           <input
             type="number"
             id="unitPrice"
             name="unitPrice"
-            min={1}
+            min={500}
             value={product.unitPrice}
             onChange={handleFormInput}
             placeholder="Unit price"
@@ -211,6 +214,19 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       </div>
 
       <div className="flex flex-wrap justify-between w-full items-start">
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <label htmlFor="deliveryPrice" className="block font-medium text-gray-700"> Delivery price (Rwf)</label>
+          <input
+            type="number"
+            id="deliveryPrice"
+            name="deliveryPrice"
+            min={500}
+            value={product.deliveryPrice}
+            onChange={handleFormInput}
+            placeholder="Unit price"
+            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
+          />
+        </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
           <input
@@ -224,7 +240,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="city" className="block font-medium text-gray-700"> Address Line 2 </label>
+          <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 </label>
           <input
             type="text"
             id="addressLine2"
@@ -235,6 +251,9 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           />
         </div>
+      </div>
+
+      <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="imageFile" className="block font-medium text-gray-700"> Image file(s) </label>
           <input
@@ -247,11 +266,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             className="mt-1 w-full py-2 px-3 rounded-md border-slate-600 shadow-sm sm:text-sm"
           />
         </div>
-      </div>
-
-      <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="city" className="block font-medium text-gray-700"> Address Line 2 </label>
+          <label htmlFor="type" className="block font-medium text-gray-700"> Product type </label>
           <select
             id="type"
             name="type"
