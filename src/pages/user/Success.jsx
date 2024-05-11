@@ -1,7 +1,23 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { TiTick } from "react-icons/ti";
+import { useSearchParams } from "react-router-dom";
+import { updateOrderInfoRequest } from "../../api/order";
 
 const Success = () => {
+  const [searchParams, setSearchParams ] = useSearchParams();
+
+  useEffect(() => {
+    updateOrderInfoRequest({ paid: true}, searchParams.get("order"))
+    .then((response) => {
+      console.log(response.message);
+      
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+  },[searchParams]);
+
   return (
     <div>
       <Helmet>

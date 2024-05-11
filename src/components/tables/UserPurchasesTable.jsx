@@ -19,6 +19,14 @@ const UserPurchasesTable = ({purchases}) => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
+                        {purchases.length === 0 &&
+                            <tr>
+                                <td
+                                    className="whitespace-nowrap px-4 py-2 text-gray-700"
+                                    colSpan={8}
+                                >You do not have purchases yet</td>
+                            </tr>
+                        }
                         {purchases.map((purchase, index) => (<tr key={index}>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                                 <img src={purchase.imageFile} alt='' className='w-[100px] h-auto bg-black'/>

@@ -45,13 +45,14 @@ export const AddOrderRequest = async (data) => {
 * @throws {Error} - If the API request fails.
 */
 export const updateOrderInfoRequest = async (data, id) => {
+    console.log(data, id);
     const formData = new FormData();
 
     for (const key in data) {
         formData.append(key, data[key]);
     }
 
-    const response = await fetch(`${API_BASE_URL}/api/v1/order/updateCart?id=${id}`, {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/update?id=${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
@@ -162,6 +163,28 @@ export const deleteOrderRequest = async (id) => {
 */
 export const getClientOrderRequest = async () => {
     const response = await fetch(`${API_BASE_URL}/api/v1/order/client`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
+export const getAllClientOrdersRequest = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/purchases`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,

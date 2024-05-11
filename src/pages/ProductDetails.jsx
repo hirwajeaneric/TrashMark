@@ -42,6 +42,7 @@ const ProductDetails = () => {
         client: user._id,
         seller: product.seller,
         deliveryPrice: product.deliveryPrice,
+        deliveryTime: product.deliveryTime,
         products: [{
           id: product._id,
           name: product.name,
@@ -91,9 +92,10 @@ const ProductDetails = () => {
                 <dd className="text-gray-700 sm:col-span-2">{product.name}</dd>
               </div>
 
+
               <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                <dt className="font-medium text-gray-900">Seller</dt>
-                <dd className="text-gray-700 sm:col-span-2">{product.seller}</dd>
+                <dt className="font-medium text-gray-900">Delivery time</dt>
+                <dd className="text-gray-700 sm:col-span-2">{product.deliveryTime}</dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
@@ -102,13 +104,27 @@ const ProductDetails = () => {
               </div>
 
               <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
-                <dt className="font-medium text-gray-900">Price</dt>
+                <dt className="font-medium text-gray-900">Price per unit</dt>
                 <dd className="text-gray-700 sm:col-span-2">{product.unitPrice} Rwf</dd>
               </div>
 
               <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
                 <dt className="font-medium text-gray-900">Description</dt>
                 <dd className="text-gray-700 sm:col-span-2">{product.description}</dd>
+              </div>
+              <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <dt className="font-medium text-gray-900">Seller</dt>
+                <dd className="text-gray-700 sm:col-span-2">{product.sellerName}</dd>
+              </div>
+
+              <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <dt className="font-medium text-gray-900">Contact seller</dt>
+                <dd className="text-gray-700 sm:col-span-2">{product.sellerPhone}</dd>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">
+                <dt className="font-medium text-gray-900">Delivery fee</dt>
+                <dd className="text-gray-700 sm:col-span-2">{product.deliveryPrice} Rwf</dd>
               </div>
               {
                 clientId

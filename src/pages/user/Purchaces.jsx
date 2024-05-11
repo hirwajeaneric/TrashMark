@@ -1,25 +1,21 @@
 import { useEffect, useState } from "react";
 import UserPurchasesTable from "../../components/tables/UserPurchasesTable"
 import { Helmet } from "react-helmet-async";
+import { getAllClientOrdersRequest } from "../../api/order";
 
 const Purchaces = () => {
   const [purchases, setPurchases] = useState([]);
 
   useEffect(() => {
-    setPurchases([
-      {
-        name: "Bike",
-        imageFile: "http://localhost:5173/3211-2_TOP-3_stitched-trial_P04_front-wheel.jpg",
-        description: "Lorem ispum dolor sit amet, consectetur adipiscing el",
-        quantity: 2,
-        unitPrice: 50000,
-        totalPrice: 50000,
-        deliveryStatus: {
-          client: "Recieved",
-          seller: "Delivered"
-        }
+    getAllClientOrdersRequest()
+    .then(response =>  {
+      if (response.orders) {
+        setPurchases(response.orders);
       }
-    ]);
+    })
+    .catch(error => {
+      console.log(error);
+    });
   },[]);
 
   return (

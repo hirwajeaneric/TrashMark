@@ -21,17 +21,16 @@ const CartItem = ({order, product, setProduct}) => {
     }
     
     return (
-        <li className="flex items-center gap-4">
+        <li className="flex items-start gap-4">
             <img
                 src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
                 alt=""
-                className="size-16 rounded object-cover"
+                className="size-32 rounded object-cover"
             />
 
             <div>
-                <h3 className=" text-gray-900">{product.name}</h3>
-
-                <dl className="mt-0.5 space-y-px text-[10px] text-gray-600">
+                <h3 className=" text-gray-900 text-xl   ">{product.name}</h3>
+                <dl className="mt-0.5 space-y-px text-sm text-gray-600">
                     <div>
                         <dt className="inline">Quantity:</dt>
                         <dd className="inline">{product.quantity}</dd>
@@ -55,7 +54,7 @@ const CartItem = ({order, product, setProduct}) => {
                         type="number"
                         min="1"
                         max={`${product.maxQuantity}`}
-                        value={product.quantity}
+                        value={product.quantity || ""}
                         onChange={handleItemQuantity}
                         id="quantity"
                         className="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"

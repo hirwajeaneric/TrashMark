@@ -14,9 +14,12 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     description: "",
     quantity: 0,
     unitPrice: 0.00,
+    deliveryTime: 0,
     deliveryPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
+    sellerPhone: "",
+    sellerName: "",
     imageFiles: null,
     type: "",
     category: ""
@@ -29,7 +32,10 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         description: selectedProduct.description,
         quantity: selectedProduct.quantity,
         unitPrice: selectedProduct.unitPrice,
-        deliveryPrice: selectedProduct.unitPrice,
+        deliveryPrice: selectedProduct.deliveryPrice,
+        deliveryTime: selectedProduct.deliveryTime,
+        sellerPhone: selectedProduct.sellerPhone,
+        sellerName: selectedProduct.sellerName,
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
         type: selectedProduct.type,
@@ -57,7 +63,10 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       description: "",
       quantity: 0,
       unitPrice: 0.00,
+      deliveryTime: 0,
       deliveryPrice: 0.00,
+      sellerPhone: "",
+      sellerName: "",
       addressLine1: "",
       addressLine2: "",
       imageFiles: null,
@@ -97,16 +106,16 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   };
 
   const handleDeleteImage = (image) => {
-    let newImages = selectedProduct.imageFiles.filter(img => img!== image);
+    let newImages = selectedProduct.imageFiles.filter(img => img !== image);
     console.log(newImages);
-    
+
     setProduct({
-      ...product, 
-      imageFiles: newImages 
+      ...product,
+      imageFiles: newImages
     });
     setSelectedProduct({
-      ...selectedProduct, 
-      imageFiles: newImages 
+      ...selectedProduct,
+      imageFiles: newImages
     });
   };
 
@@ -310,6 +319,47 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         </div>
       </div>
       <div className="flex flex-wrap justify-between w-full items-start">
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <label htmlFor="deliveryTime" className="block font-medium text-gray-700"> Delivery time (minutes)</label>
+          <input
+            type="number"
+            id="deliveryTime"
+            min={1}
+            name="deliveryTime"
+            value={product.deliveryTime}
+            onChange={handleFormInput}
+            placeholder={20}
+            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
+          />
+        </div>
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <label htmlFor="sellerName" className="block font-medium text-gray-700"> Your name </label>
+          <input
+            type="text"
+            id="sellerName"
+            name="sellerName"
+            value={product.sellerName}
+            onChange={handleFormInput}
+            placeholder="Your name"
+            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
+          />
+        </div>
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <label htmlFor="sellerPhone" className="block font-medium text-gray-700"> Your phone number </label>
+          <input
+            type="text"
+            id="sellerPhone"
+            minLength={10}
+            maxLength={10}
+            name="sellerPhone"
+            value={product.sellerPhone}
+            onChange={handleFormInput}
+            placeholder="07xxxxxxxx"
+            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
+          />
+        </div>
+      </div>
+      <div className="flex flex-wrap justify-between w-full items-start">
         <label htmlFor="description" className="block font-medium text-gray-700"> Description </label>
         <textarea
           type="text"
@@ -325,7 +375,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
 
       {/* IMAGE DISPLAY  */}
-      {(selectedProduct.imageFiles && selectedProduct.imageFiles.length!==0) &&
+      {(selectedProduct.imageFiles && selectedProduct.imageFiles.length !== 0) &&
         <div className="w-full flex gap-2 flex-wrap p-2 bg-slate-300 rounded">
           {selectedProduct.imageFiles.map((image, index) => (
             <div key={index} className="flex flex-col items-center relative">
