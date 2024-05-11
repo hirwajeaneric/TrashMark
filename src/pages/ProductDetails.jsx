@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom"
 import { getProductByIdRequest } from "../api/product";
-import { AddOrderRequest, getClientOrderRequest, updateCartRequest } from "../api/order";
+import { AddOrderRequest } from "../api/order";
 import { Store } from "../context/StoreContext";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -32,84 +32,31 @@ const ProductDetails = () => {
       })
   }, [params.productId]);
 
-
-  const verifyProductLimit = (order, product) => {
-    let existingOrderProducts = [];
-    existingOrderProducts = order.products;
-    console.log(order.products);
-    let existingProductOrderQuantity = existingOrderProducts.find(p => p.id === product._id).quantity;
-    if (existingProductOrderQuantity !== undefined) {
-      if (existingProductOrderQuantity == product.quantity) {
-        handleResponseMessage('error', 'You have already added the maximum quantity of this product to your cart');
-        setTimeout(() => {
-          navigate('/search');
-        }, 2000);
-        return;
-      } else {
-        return Number(existingProductOrderQuantity);
-      }
-    } else {
-     return 0;
-    }
-  }
-
   const handleAddProductToCart = async (productId) => {
-    // Get user info
     var user = JSON.parse(localStorage.getItem("client"));
 
-    // Find all product details
-    const { product } = await getProductByIdRequest(productId);
-    // Find if there are any existing orders
-    const { order } = await getClientOrderRequest();
-
-    if (order) {
-      var currentProductQuantity = verifyProductLimit(order, product);
-      var response = {};
-      if (currentProductQuantity !== 0) {
-        response = await updateCartRequest(
-          {
-            id: product._id,
-            quantity: currentProductQuantity+1,
-            pricePerUnit: Number(product.unitPrice)
-          },
-          order._id
-        );
-      } else {
-        response = await updateCartRequest(
-          {
-            id: product._id,
-            quantity: currentProductQuantity+1,
-            pricePerUnit: Number(product.unitPrice)
-          },
-          order._id
-        );
-      }
-
-      if (response.messsage) {
-        handleResponseMessage('error', 'Item added to cart successfully');
-        setTimeout(() => {
-          navigate('/cart');
-        }, 2000);
-      }
-    } else {
-      // Add new order if there is no existing order
+    try {
+      const { product } = await getProductByIdRequest(productId);
+  
       const addOrderResponse = await AddOrderRequest({
         client: user._id,
         seller: product.seller,
         products: [{
           id: product._id,
-          quantity: Number(product.quantity),
-          pricePerUnit: Number(product.unitPrice)
+          name: product.name,
+          quantity: 1,
+          pricePerUnit: product.unitPrice
         }]
       });
-      console.log(addOrderResponse.message);
 
       if (addOrderResponse.message) {
         setLoading(false);
         navigate("/cart");
       }
+    } catch (error) {
+      handleResponseMessage('error', error.message);
     }
-  }
+  };
 
   if (loading) {
     return (
@@ -126,15 +73,15 @@ const ProductDetails = () => {
         <meta name='description' content='View product details - TrashMark.' />
       </Helmet>
 
-      <div className="flex mx-auto px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-center">
-        <div className="w-full md:w-1/2">
+      <div className="flex mx-auto flex-wrap px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-start">
+        <div className="w-full md:w-[49%]">
           <img
             src={`${API_BASE_URL}/images/${images[0]}`}
             alt={product.name}
             className="w-full"
           />
         </div>
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-[49%]">
           <div className="flow-root w-full">
             <dl className="-my-3 divide-y divide-gray-100 text-sm">
               <div className="grid grid-cols-1 gap-1 py-3 even:bg-gray-50 sm:grid-cols-3 sm:gap-4">

@@ -132,6 +132,28 @@ export const getOrderByIdRequest = async (id) => {
     return responseData;
 }
 
+export const deleteOrderRequest = async (id) => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/delete?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+}
+
 /**
 * Retrieves all orders for the current client.
 *
