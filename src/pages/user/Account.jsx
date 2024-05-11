@@ -7,13 +7,13 @@ import { GoContainer } from "react-icons/go";
 import { IoLogOutOutline } from "react-icons/io5";
 
 const Account = () => {
-  const logout = (e) => {
+  function logout(e){
     e.preventDefault();
 
     localStorage.removeItem("client");
     Cookies.remove('access-token');
     window.location.replace("/");
-  };
+  }
 
   return (
     <div className="w-full">
