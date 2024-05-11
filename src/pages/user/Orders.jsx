@@ -1,7 +1,21 @@
 import { Helmet } from "react-helmet-async"
 import UserOrdersTable from "../../components/tables/UserOrdersTable"
+import { useState } from "react"
+import { getAllClientOrdersRequest } from "../../api/order";
 
 const Orders = () => {
+  const [orders, setOrders] = useState([]);
+  
+  getAllClientOrdersRequest()
+  .then(response =>  {
+      if (response.orders) {
+        setOrders(response.orders);
+      }
+    })
+   .catch(error => {
+      console.log(error);
+    });
+
   return (
     <div className="flex w-full">
       <Helmet>
@@ -10,7 +24,7 @@ const Orders = () => {
       </Helmet>
       <div className="mx-auto flex flex-col gap-4 max-w-screen-xl w-full px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-bold">Orders</h2>
-        <UserOrdersTable />
+        <UserOrdersTable orders={orders}/>
       </div>
     </div>
   )

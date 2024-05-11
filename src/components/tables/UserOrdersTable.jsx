@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+/* eslint-disable react/prop-types */
+import DeliveryStatus from '../DeliveryStatus';
 
-const UserOrdersTable = () => {
+const UserOrdersTable = ({ orders }) => {
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
@@ -18,43 +19,28 @@ const UserOrdersTable = () => {
                     </thead>
 
                     <tbody className="divide-y divide-gray-200">
-                        <tr>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">John Doe</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Kibagabaga</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">Old school pc & accessories</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">1</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">40,000.00</td>
+                        {orders.length === 0 &&
+                            <tr>
+                                <td
+                                    className="whitespace-nowrap px-4 py-2 text-gray-700"
+                                    colSpan={8}
+                                >You do not have orders yet</td>
+                            </tr>
+                        }
+                        {orders.map((order, index) => (<tr key={index}>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].name}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.addressLine1 +", "+order.addressLine2}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].name}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].quantity}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].pricePerUnit}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.totalPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <span
-                                    class="inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-emerald-700"
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="-ms-1 me-1.5 h-4 w-4"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                    </svg>
-
-                                    <p class="whitespace-nowrap text-sm">Delivered</p>
-                                </span>
+                                <DeliveryStatus
+                                    color={order.deliveryStatus.client === "Recieved" ? "errand" : "orange"}
+                                    text={order.deliveryStatus.client}
+                                />
                             </td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <Link
-                                    href="#"
-                                    class="inline-block rounded bg-green-600 px-4 py-2 text-xs font-medium text-white hover:bg-green-700"
-                                >
-                                    View more
-                                </Link>
-                            </td>
-                        </tr>
+                        </tr>))}
 
                         <tr>
                             <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900"></td>
