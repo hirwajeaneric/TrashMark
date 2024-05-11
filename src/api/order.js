@@ -13,18 +13,13 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 * @throws {Error} - If the API request fails.
 */
 export const AddOrderRequest = async (data) => {
-    const formData = new FormData();
-
-    for (const key in data) {
-        formData.append(key, data[key]);
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/v1/order/add`, {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
+            'Content-Type': 'application/json'
         },
-        body: formData,
+        body: JSON.stringify(data),
     });
 
     const responseData = await response.json();
@@ -87,18 +82,14 @@ export const updateOrderInfoRequest = async (data, id) => {
 * @throws {Error} - If the API request fails.
 */
 export const updateCartRequest = async (data, id) => {
-    const formData = new FormData();
-
-    for (const key in data) {
-        formData.append(key, data[key]);
-    }
-
+    console.log(data);
     const response = await fetch(`${API_BASE_URL}/api/v1/order/updateCart?id=${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
+            'Content-Type': 'application/json'
         },
-        body: formData,
+        body: JSON.stringify(data),
     });
 
     const responseData = await response.json();

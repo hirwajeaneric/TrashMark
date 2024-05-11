@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom"
 import { getProductByIdRequest } from "../api/product";
+import { AddOrderRequest, getClientOrderRequest, updateCartRequest } from "../api/order";
+import { Store } from "../context/StoreContext";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -12,6 +14,7 @@ const ProductDetails = () => {
   const [images, setImages] = useState([]);
   const [product, setProduct] = useState({});
   const [clientId, setClientId] = useState({});
+  const { handleResponseMessage } = useContext(Store);
 
   useEffect(() => {
     setClientId(JSON.parse(localStorage.getItem("client")));
@@ -29,6 +32,84 @@ const ProductDetails = () => {
       })
   }, [params.productId]);
 
+
+  const verifyProductLimit = (order, product) => {
+    let existingOrderProducts = [];
+    existingOrderProducts = order.products;
+    console.log(order.products);
+    let existingProductOrderQuantity = existingOrderProducts.find(p => p.id === product._id).quantity;
+    if (existingProductOrderQuantity !== undefined) {
+      if (existingProductOrderQuantity == product.quantity) {
+        handleResponseMessage('error', 'You have already added the maximum quantity of this product to your cart');
+        setTimeout(() => {
+          navigate('/search');
+        }, 2000);
+        return;
+      } else {
+        return Number(existingProductOrderQuantity);
+      }
+    } else {
+     return 0;
+    }
+  }
+
+  const handleAddProductToCart = async (productId) => {
+    // Get user info
+    var user = JSON.parse(localStorage.getItem("client"));
+
+    // Find all product details
+    const { product } = await getProductByIdRequest(productId);
+    // Find if there are any existing orders
+    const { order } = await getClientOrderRequest();
+
+    if (order) {
+      var currentProductQuantity = verifyProductLimit(order, product);
+      var response = {};
+      if (currentProductQuantity !== 0) {
+        response = await updateCartRequest(
+          {
+            id: product._id,
+            quantity: currentProductQuantity+1,
+            pricePerUnit: Number(product.unitPrice)
+          },
+          order._id
+        );
+      } else {
+        response = await updateCartRequest(
+          {
+            id: product._id,
+            quantity: currentProductQuantity+1,
+            pricePerUnit: Number(product.unitPrice)
+          },
+          order._id
+        );
+      }
+
+      if (response.messsage) {
+        handleResponseMessage('error', 'Item added to cart successfully');
+        setTimeout(() => {
+          navigate('/cart');
+        }, 2000);
+      }
+    } else {
+      // Add new order if there is no existing order
+      const addOrderResponse = await AddOrderRequest({
+        client: user._id,
+        seller: product.seller,
+        products: [{
+          id: product._id,
+          quantity: Number(product.quantity),
+          pricePerUnit: Number(product.unitPrice)
+        }]
+      });
+      console.log(addOrderResponse.message);
+
+      if (addOrderResponse.message) {
+        setLoading(false);
+        navigate("/cart");
+      }
+    }
+  }
 
   if (loading) {
     return (
@@ -85,7 +166,7 @@ const ProductDetails = () => {
                   ?
                   (<button
                     type="button"
-                    onClick={() => navigate("/cart")}
+                    onClick={() => { handleAddProductToCart(product._id) }}
                     className="py-3 mt-4 px-3 text-white bg-black rounded-3xl w-full">Add to cart
                   </button>
                   )

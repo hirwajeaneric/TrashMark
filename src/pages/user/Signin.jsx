@@ -13,7 +13,7 @@ const Signin = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams ] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const resetFields = () => {
     setUserInput({
@@ -25,7 +25,7 @@ const Signin = () => {
   const handleViewPassword = () => {
     setViewPassword(!viewPassword);
   };
-  
+
   const handleFormInput = (e) => {
     setUserInput({ ...userInput, [e.target.id]: e.target.value });
   };
@@ -49,7 +49,7 @@ const Signin = () => {
           localStorage.setItem("client", JSON.stringify(response.user));
 
           if (searchParams.get("redirect")) {
-            navigate(`/addtocart?product=${searchParams.get("product")}`);
+            navigate(`/product/${searchParams.get("product")}`);
           } else {
             navigate("/");
           }
@@ -135,7 +135,20 @@ const Signin = () => {
           <div className="flex items-center w-full justify-between">
             <p className="text-center text-sm text-gray-500">
               No account? &nbsp;
-              <Link className="underline" to="/sign-up">Sign up</Link>
+              {searchParams.get("redirect")
+                ?
+                <Link 
+                  className="underline" 
+                  to={`/sign-up?redirect=/cart&product=${searchParams.get("product")}`}>
+                    Sign up
+                </Link>
+                :
+                <Link 
+                  className="underline" 
+                  to="/sign-up">
+                    Sign up
+                </Link>
+              }
             </p>
 
             <p className="text-center text-sm text-gray-500">
