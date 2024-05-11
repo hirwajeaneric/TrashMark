@@ -20,7 +20,7 @@ import StoreContext from './context/StoreContext';
 import ValidateOTP from './pages/user/ValidateOTP';
 
 const App = () => {
-  return ( 
+  return (
     <StoreContext>
       <Router>
         <Routes>
@@ -43,8 +43,8 @@ const App = () => {
               <Route path='my-products' element={<Products />} />
               <Route path='purchases' element={<Purchaces />} />
               <Route path='orders' element={<Orders />} />
-              <Route path='success' element={<Success />} />
             </Route>
+            <Route path='success' element={<Success />} />
           </Route>
 
         </Routes>

@@ -11,7 +11,7 @@ const Footer = () => {
           </p>
 
           <a
-            href="#"
+            href="/account/manage-products"
             className="mt-8 inline-block rounded-full border border-green-600 px-12 py-3 text-sm font-medium text-green-600 hover:bg-green-600 hover:text-white focus:outline-none focus:ring active:bg-indigo-500"
           >
             Get Started
