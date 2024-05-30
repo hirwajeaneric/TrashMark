@@ -4,7 +4,8 @@ import { Store } from "../../../context/StoreContext";
 import { TiDelete } from "react-icons/ti";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
 import LoadingButton from "../../LoadingButton";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { storage } from "../../../configs/firebase/firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const productTypes = ['Home Appliance', 'Clothing', 'Shoes', 'Furniture', 'Electronics', 'Phone', 'Computer', 'Part of house', 'Cereals', 'Other food items'];
 
@@ -43,13 +44,39 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         imageFiles: selectedProduct.imageFiles
       });
     }
-  }, [selectedProduct])
+  }, [selectedProduct]);
 
   const { products, setProducts, handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
+  const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
   const handleImageFiles = (e) => {
-    setProduct({ ...product, imageFiles: e.target.files });
+    e.preventDefault();
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const storageRef = ref(storage, `images/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    uploadTask.on("state_changed", (snapshot) => {
+      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+      setImageUploadProgress(progress);
+    },
+      (error) => {
+        alert(error);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref)
+        .then((downloadURL) => {
+          console.log(downloadURL);
+          setProduct({
+            ...product,
+            imageFiles: [downloadURL]
+          });
+        });
+      }
+    );
   };
 
   const handleFormInput = (e) => {
@@ -188,6 +215,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="name"
             name="name"
+            required
             value={product.name || ""}
             onChange={handleFormInput}
             placeholder="Computer"
@@ -200,6 +228,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="number"
             id="quantity"
             name="quantity"
+            required
             min={1}
             value={product.quantity || ""}
             onChange={handleFormInput}
@@ -213,6 +242,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="number"
             id="unitPrice"
             name="unitPrice"
+            required
             min={500}
             value={product.unitPrice || ""}
             onChange={handleFormInput}
@@ -229,6 +259,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="number"
             id="deliveryPrice"
             name="deliveryPrice"
+            required
             min={500}
             value={product.deliveryPrice || ""}
             onChange={handleFormInput}
@@ -241,6 +272,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           <input
             type="text"
             id="addressLine1"
+            required
             name="addressLine1"
             value={product.addressLine1 || ""}
             onChange={handleFormInput}
@@ -264,10 +296,17 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="imageFile" className="block font-medium text-gray-700"> Image file(s) </label>
+          <label htmlFor="imageFile" className="block font-medium text-gray-700">
+            Image file(s)&nbsp;
+            {imageUploadProgress !== 0 && 
+              <span className="text-sm text-green-600">
+                Uploading {imageUploadProgress} %
+              </span>}
+          </label>
           <input
             type="file"
-            multiple
+            // multiple
+            required
             accept="png, gif, jpg, jpeg"
             id="imageFiles"
             name="imageFiles"
@@ -280,6 +319,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           <select
             id="type"
             name="type"
+            required
             value={product.type || ""}
             onChange={handleFormInput}
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -298,6 +338,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
               <input
                 type="radio"
                 name="category"
+                required
                 id="renewable"
                 checked={product.category == "Renewable"}
                 value={"Renewable"}
@@ -309,6 +350,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
               <input
                 type="radio"
                 name="category"
+                required
                 id="non-renewable"
                 checked={product.category == "Non-renewable"}
                 value={"Non-renewable"}
@@ -324,6 +366,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           <input
             type="number"
             id="deliveryTime"
+            required
             min={1}
             name="deliveryTime"
             value={product.deliveryTime || ""}
@@ -338,6 +381,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="sellerName"
             name="sellerName"
+            required
             value={product.sellerName || ""}
             onChange={handleFormInput}
             placeholder="Your name"
@@ -350,6 +394,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             type="text"
             id="sellerPhone"
             minLength={10}
+            required
             maxLength={10}
             name="sellerPhone"
             value={product.sellerPhone || ""}
@@ -364,6 +409,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         <textarea
           type="text"
           id="description"
+          required
           name="description"
           value={product.description || ""}
           onChange={handleFormInput}
@@ -384,7 +430,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
               </button>
               <img
                 key={index}
-                src={`${API_BASE_URL}/images/${image}`}
+                src={image}
                 alt={""}
                 className="w-48 h-48 object-cover"
               />
