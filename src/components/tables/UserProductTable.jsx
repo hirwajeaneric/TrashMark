@@ -1,6 +1,4 @@
 /* eslint-disable react/prop-types */
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 const UserPurchasesTable = ({ products, setSelectedProduct }) => {
     const handleProductSelection = (selectedProduct) => {
         setSelectedProduct(selectedProduct);
@@ -33,7 +31,7 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
 
                         {products.map((product, index) => (<tr key={index}>
                             <td className="whitespace-nowrap font-medium text-gray-900">
-                                <img src={`${API_BASE_URL}/images/${product.imageFiles[0]}`} alt='' className='w-[100px] h-auto bg-black' />
+                                <img src={product.imageFiles[0]} alt='' className='w-[100px] h-auto bg-black' />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>

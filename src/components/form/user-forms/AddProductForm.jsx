@@ -69,7 +69,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref)
         .then((downloadURL) => {
-          console.log(downloadURL);
+          // console.log(downloadURL);
           setProduct({
             ...product,
             imageFiles: [downloadURL]
@@ -108,6 +108,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     e.preventDefault();
 
     setLoading(true);
+
+    console.log(product);
 
     AddProductRequest(product)
       .then((response) => {
@@ -306,7 +308,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           <input
             type="file"
             // multiple
-            required
             accept="png, gif, jpg, jpeg"
             id="imageFiles"
             name="imageFiles"
