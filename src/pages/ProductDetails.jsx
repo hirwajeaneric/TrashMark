@@ -5,8 +5,6 @@ import { getProductByIdRequest } from "../api/product";
 import { AddOrderRequest } from "../api/order";
 import { Store } from "../context/StoreContext";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
 const ProductDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
@@ -80,7 +78,7 @@ const ProductDetails = () => {
       <div className="flex mx-auto flex-wrap px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-start">
         <div className="w-full md:w-[49%]">
           <img
-            src={`${API_BASE_URL}/images/${images[0]}`}
+            src={images[0]}
             alt={product.name}
             className="w-full"
           />
