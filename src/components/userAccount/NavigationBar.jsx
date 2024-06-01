@@ -51,11 +51,20 @@ const NavigationBar = () => {
               >
                 <PopoverPanel
                   anchor="bottom"
-                  className="divide-y divide-white/5 rounded-xl bg-gray-50 text-sm/6 [--anchor-gap:var(--spacing-5)]"
+                  className="divide-y divide-white/5 rounded-xl border border-slate-200 bg-gray-50 text-sm/6 [--anchor-gap:var(--spacing-5)]"
                 >
                   <div className="p-3">
                     <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/profile">
                       <p className="font-semibold text-black">Profile</p>
+                    </a>
+                    <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/orders">
+                      <p className="font-semibold text-black">Orders</p>
+                    </a>
+                    <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/manage-products">
+                      <p className="font-semibold text-black">Manage Products</p>
+                    </a>
+                    <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/purchases">
+                      <p className="font-semibold text-black">Purchases</p>
                     </a>
                     <button className="block rounded-lg py-2 px-3 transition hover:bg-white/5" type='button' onClick={logout}>
                       <p className="font-semibold text-black">Logout</p>

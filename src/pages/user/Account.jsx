@@ -17,7 +17,7 @@ const Account = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-wrap w-full gap-5 mt-9 mx-auto max-w-screen-xl justify-center px-8 md:px-0 pb-4 md:pb-0">
+      <div className="flex md:hidden flex-wrap w-full gap-5 mt-9 mx-auto max-w-screen-xl justify-center px-8 md:px-0 pb-4 md:pb-0">
         <NavLink to={'/account/orders'} className="flex items-center gap-2 hover:font-bold">
           <MdOutlineRequestPage />
           Orders
