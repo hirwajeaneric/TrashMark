@@ -23,7 +23,7 @@ const CartItem = ({order, product, setProduct}) => {
     return (
         <li className="flex flex-wrap items-start gap-4">
             <img
-                src="/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"
+                src={product.image ? product.image : "/public/full_2024_3211-2_stitched-trial_P04_P5.jpg"}
                 alt={product.name}
                 className="size-fit md:size-32 rounded object-cover"
             />
@@ -32,16 +32,16 @@ const CartItem = ({order, product, setProduct}) => {
                 <h3 className=" text-gray-900 text-xl   ">{product.name}</h3>
                 <dl className="mt-0.5 space-y-px text-sm text-gray-600">
                     <div>
-                        <dt className="inline">Quantity:</dt>
+                        <dt className="inline">Quantity: </dt>
                         <dd className="inline">{product.quantity}</dd>
                     </div>
                     <div>
-                        <dt className="inline">Available:</dt>
+                        <dt className="inline">Available: </dt>
                         <dd className="inline">{product.maxQuantity}</dd>
                     </div>
 
                     <div>
-                        <dt className="inline">Price per unit:</dt>
+                        <dt className="inline">Price per unit: </dt>
                         <dd className="inline">{product.pricePerUnit} Rwf</dd>
                     </div>
                 </dl>
