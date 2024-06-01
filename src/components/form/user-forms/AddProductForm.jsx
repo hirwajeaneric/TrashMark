@@ -50,33 +50,51 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   const [loading, setLoading] = useState(false);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
+  const uploadToFirebase = (files) => {
+    return Promise.all(files.map(async (file) => {
+      if (!files) return;
+
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      return new Promise((resolve, reject) => {
+        uploadTask.on("state_changed", (snapshot) => {
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          setImageUploadProgress(progress);
+        },
+          (error) => {
+            reject(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref)
+              .then((downloadURL) => {
+                // console.log(downloadURL);
+                resolve(downloadURL);
+              })
+              .catch((error) => {
+                reject(error);
+              });
+          });
+      });
+    }));
+  };
+
   const handleImageFiles = (e) => {
     e.preventDefault();
-    const file = e.target.files[0];
 
-    if (!file) return;
+    const files = Object.values(e.target.files).filter((file) => file.type.startsWith("image/"));
 
-    const storageRef = ref(storage, `images/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on("state_changed", (snapshot) => {
-      const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-      setImageUploadProgress(progress);
-    },
-      (error) => {
-        alert(error);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref)
-        .then((downloadURL) => {
-          // console.log(downloadURL);
-          setProduct({
-            ...product,
-            imageFiles: [downloadURL]
-          });
+    uploadToFirebase(files)
+      .then((uploaded) => {
+        // console.log(uploaded);
+        setProduct({
+          ...product,
+          imageFiles: uploaded // Update the state with the array directly
         });
-      }
-    );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleFormInput = (e) => {
@@ -300,14 +318,14 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="imageFile" className="block font-medium text-gray-700">
             Image file(s)&nbsp;
-            {imageUploadProgress !== 0 && 
+            {imageUploadProgress !== 0 &&
               <span className="text-sm text-green-600">
                 Uploading {imageUploadProgress} %
               </span>}
           </label>
           <input
             type="file"
-            // multiple
+            multiple
             accept="png, gif, jpg, jpeg"
             id="imageFiles"
             name="imageFiles"

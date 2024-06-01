@@ -29,26 +29,13 @@ export const AddProductRequest = async (data) => {
 };
 
 export const updateProductRequest = async (data, id) => {
-    console.log(data);
-    const formData = new FormData();
-
-    for (const key in data) {
-        formData.append(key, data[key]);
-    }
-
-    // If imageFiles is an array of files
-    if (data.imageFiles) {
-        for (const file of data.imageFiles) {
-            formData.append('imageFiles', file);
-        }
-    }
-
     const response = await fetch(`${API_BASE_URL}/api/v1/product/update?id=${id}`, {
         method: 'PUT',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
+            'Content-Type': 'application/json'
         },
-        body: formData,
+        body: JSON.stringify(data)
     });
 
     const responseData = await response.json();
