@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 /* eslint-disable react/prop-types */
 const ProductItem = ({product}) => {
     return (
-        <li>
+        <li className="">
             <Link to={`/product/${product._id}`} className="group block overflow-hidden">
                 <img
                     src={product.imageFiles[0]}

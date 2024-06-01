@@ -75,7 +75,7 @@ const ProductDetails = () => {
         <meta name='description' content='View product details - TrashMark.' />
       </Helmet>
 
-      <div className="flex mx-auto flex-wrap px-2 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-start">
+      <div className="flex mx-auto flex-wrap px-4 gap-4 sm:px-6 lg:px-8 max-w-screen-xl w-full justify-between items-start">
         <div className="w-full md:w-[49%]">
           <img
             src={images[0]}

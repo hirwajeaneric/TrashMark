@@ -67,7 +67,7 @@ const Search = () => {
           {/* Products */}
           {products.availableProducts.length !== 0 &&
             <div className="lg:col-span-3">
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {products.availableProducts.map((product, index) => (
                   <ProductItem product={product} key={index} />
                 ))}
