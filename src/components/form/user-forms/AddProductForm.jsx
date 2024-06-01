@@ -48,6 +48,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
   const { products, setProducts, handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
+  const [images, setImages] = useState([]);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
 
   const uploadToFirebase = (files) => {
@@ -86,11 +87,12 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
     uploadToFirebase(files)
       .then((uploaded) => {
-        // console.log(uploaded);
-        setProduct({
-          ...product,
-          imageFiles: uploaded // Update the state with the array directly
-        });
+        if (product.imageFiles) {
+          let updatedImages = uploaded.concat(product.imageFiles);
+          setImages(updatedImages);
+        } else {
+          setImages(uploaded);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -127,6 +129,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
 
     setLoading(true);
 
+    product.imageFiles = images;
     console.log(product);
 
     AddProductRequest(product)
@@ -153,13 +156,9 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   };
 
   const handleDeleteImage = (image) => {
-    let newImages = selectedProduct.imageFiles.filter(img => img !== image);
-    console.log(newImages);
+    const newImages = selectedProduct.imageFiles.filter(img => img !== image);
+    setImages(newImages);
 
-    setProduct({
-      ...product,
-      imageFiles: newImages
-    });
     setSelectedProduct({
       ...selectedProduct,
       imageFiles: newImages
@@ -170,8 +169,11 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     e.preventDefault();
 
     setLoading(true);
-
-    product.imageFiles = selectedProduct.imageFiles
+    if (images) {
+      product.imageFiles = images;
+    } else {
+      product.imageFiles = selectedProduct.imageFiles
+    }
 
     updateProductRequest(product, selectedProduct._id)
       .then((response) => {
