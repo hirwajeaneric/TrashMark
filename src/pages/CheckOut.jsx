@@ -1,14 +1,14 @@
 import { Helmet } from "react-helmet-async";
 import CartItem from "../components/CartItem";
 import { useContext, useEffect, useState } from "react";
-import { getClientOrderRequest, updateCartRequest, updateOrderInfoRequest } from "../api/order";
+import { getClientOrderRequest, updateOrderInfoRequest } from "../api/order";
 import { Store } from "../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
 
 const FLUTTER_PUBLIC_KEY = import.meta.env.VITE_FLUTTER_PUBLIC_KEY;
 
-const Cart = () => {
+const CheckOut = () => {
   const [order, setOrder] = useState({});
   const [product, setProduct] = useState({});
   const [client, setClient] = useState({});
@@ -33,7 +33,7 @@ const Cart = () => {
         setLoading(false);
       })
   }, []);
-
+  
   const config = {
     public_key: FLUTTER_PUBLIC_KEY,
     tx_ref: Date.now(),
@@ -43,64 +43,41 @@ const Cart = () => {
     customer: {
       email: client.email,
       phone_number: client.phone,
-      name: client.firstName + ' ' + client.lastName,
+      name: client.firstName+' '+client.lastName,
     },
     customizations: {
-      title: 'Payment for ' + product.name,
+      title: 'Payment for '+product.name,
       description: `Payment for ${product.name}`,
-      logo: 'logo-big.png'
+      logo: product.image
     },
   };
 
   const handleFlutterPayment = useFlutterwave(config);
 
-  const paymentProcess = async () => {
-    await handleFlutterPayment({
-      callback: (response) => {
-        console.log(response);
-        if (response.status === 'successful') {
-          updateCartRequest({ paid: true }, order._id)
-            .then(() => {
-              window.location.replace('/success');
-            })
-            .catch(error => {
-              console.log(error);
-            })
-        }
-        setLoading(false);
-        closePaymentModal() // this will close the modal programmatically
-      },
-      onClose: () => { },
-    });
-  }
 
   const handleFormInput = (e) => {
     setOrder({ ...order, [e.target.name]: e.target.value });
   }
 
-  const handleCheckout = async (e) => {
+  const handleCheckout = (e) => {
     e.preventDefault();
 
     const updates = {
       addressLine1: order.addressLine1,
       addressLine2: order.addressLine2,
     }
-
-    console.log(updates);
-
-    if (updates.addressLine1 && updates.addressLine2) {
-      updateOrderInfoRequest(updates, order._id)
+    // Update order first
+    updateOrderInfoRequest(updates, order._id)
       .then(response => {
         handleResponseMessage(response.type, response.message);
+        setTimeout(() => {
+          navigate('/success?order=' + order._id);
+        }, 2000)
         // Handle checkout
-        paymentProcess();
       })
       .catch(error => {
         handleResponseMessage(error, error.message);
-      }) 
-    } else {
-      paymentProcess();
-    }
+      })
   };
 
   if (loading) {
@@ -184,8 +161,15 @@ const Cart = () => {
                   <div className="flex justify-end">
                     <button
                       type="button"
-                      disabled={loading}
-                      onClick={handleCheckout}
+                      onClick={() => {
+                        handleFlutterPayment({
+                          callback: (response) => {
+                            console.log(response);
+                            closePaymentModal() // this will close the modal programmatically
+                          },
+                          onClose: () => { },
+                        });
+                      }}
                       className="block rounded bg-gray-700 px-5 py-3  text-gray-100 transition hover:bg-gray-600"
                     >
                       Checkout
@@ -201,4 +185,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default CheckOut

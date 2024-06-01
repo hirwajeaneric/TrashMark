@@ -12,15 +12,12 @@ const ProductItem = ({product}) => {
                 />
 
                 <div className="relative bg-white pt-3">
-                    <h3
-                        className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4"
-                    >
+                    <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
                         {product.name}
                     </h3>
 
                     <p className="mt-2">
                         <span className="sr-only"> Regular Price </span>
-
                         <span className="tracking-wider text-gray-900"> {product.unitPrice} Rwf </span>
                     </p>
                 </div>

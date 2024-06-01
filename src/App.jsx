@@ -18,6 +18,7 @@ import ForgotPassword from './pages/user/ForgotPassword';
 import ResetPassword from './pages/user/ResetPassword';
 import StoreContext from './context/StoreContext';
 import ValidateOTP from './pages/user/ValidateOTP';
+import CheckOut from './pages/CheckOut';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path='product/:productId' element={<ProductDetails />} />
             <Route path='search' element={<Search />} />
             <Route path='cart' element={<Cart />} />
+            <Route path='checkout' element={<CheckOut />} />
             <Route path='not-found' element={<NotFound />} />
             <Route path='account' element={<Account />}>
               <Route path='' element={<AccountHome />} />
