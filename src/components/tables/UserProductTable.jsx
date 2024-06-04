@@ -31,7 +31,7 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
 
                         {products.map((product, index) => (<tr key={index}>
                             <td className="whitespace-nowrap font-medium text-gray-900">
-                                <img src={product.imageFiles[0]} alt='' className='w-[100px] h-auto bg-black' />
+                                <img src={product.imageFiles[0]} alt='' className='w-auto h-16 bg-black' />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>

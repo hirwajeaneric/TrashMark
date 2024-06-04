@@ -227,7 +227,7 @@ export const getAllClientOrdersRequest = async () => {
 * @returns {Promise<Object>} - The response data from the API.
 * @throws {Error} - If the API request fails.
 */
-export const getSellerOrdersRequest = async () => {
+export const getAllSellerOrdersRequest = async () => {
     const response = await fetch(`${API_BASE_URL}/api/v1/order/seller`, {
         method: 'GET',
         headers: {

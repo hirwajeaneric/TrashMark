@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import DeliveryStatus from '../DeliveryStatus';
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const UserPurchasesTable = ({purchases}) => {
     return (
@@ -31,7 +30,7 @@ const UserPurchasesTable = ({purchases}) => {
                         }
                         {purchases.map((purchase, index) => (<tr key={index}>
                             <td className="whitespace-nowrap font-medium text-gray-900">
-                                <img src={`${API_BASE_URL}/images/${purchase.image}`} alt='' className='w-[100px] h-auto bg-black' />
+                                <img src={purchase.products[0].image} alt='' className='h-16 w-auto bg-black' />
                             </td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{purchase.products[0].name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{new Date(purchase.updatedAt).toUTCString()}</td>
@@ -50,7 +49,7 @@ const UserPurchasesTable = ({purchases}) => {
                 </table>
             </div>
 
-            <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
+            {/* <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
                 <ol className="flex justify-end gap-1 text-xs font-medium">
                     <li>
                         <a
@@ -125,7 +124,7 @@ const UserPurchasesTable = ({purchases}) => {
                         </a>
                     </li>
                 </ol>
-            </div>
+            </div> */}
         </div>
     )
 }

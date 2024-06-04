@@ -22,9 +22,11 @@ const Cart = () => {
     setLoading(true);
     getClientOrderRequest()
       .then(response => {
-        setOrder(response.order);
-        setProduct(response.order.products[0]);
-        setLoading(false);
+        if (response.order) {
+          setOrder(response.order);
+          setProduct(response.order.products[0]);
+          setLoading(false);
+        } 
       })
       .catch(error => {
         console.log(error);
@@ -125,9 +127,9 @@ const Cart = () => {
             <h1 className="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
           </header>
 
-          {!order && <p className="text-center mt-5">You do not have items in your cart </p>}
+          {!order._id && <p className="text-center mt-5">You do not have items in your cart </p>}
 
-          {order && <div className="mt-8">
+          {order._id && <div className="mt-8">
             <ul className="space-y-4">
               {order &&
                 <CartItem

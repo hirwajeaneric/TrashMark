@@ -1,20 +1,23 @@
 import { Helmet } from "react-helmet-async"
 import UserOrdersTable from "../../components/tables/UserOrdersTable"
-import { useState } from "react"
-import { getAllClientOrdersRequest } from "../../api/order";
+import { useEffect, useState } from "react"
+import { getAllSellerOrdersRequest } from "../../api/order";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   
-  getAllClientOrdersRequest()
-  .then(response =>  {
-      if (response.orders) {
-        setOrders(response.orders);
-      }
-    })
-   .catch(error => {
-      console.log(error);
-    });
+  useEffect(() => {
+    getAllSellerOrdersRequest()
+    .then(response =>  {
+        if (response.orders) {
+          setOrders(response.orders);
+          console.log(response.orders);
+        }
+      })
+     .catch(error => {
+        console.log(error);
+      });
+  }, [])
 
   return (
     <div className="flex w-full">
