@@ -39,7 +39,7 @@ const UserPurchasesTable = ({ products, setSelectedProduct }) => {
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.deliveryPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{(product.unitPrice * product.quantity) + product.deliveryPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                                <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-2 px-4 bg-black rounded-md text-white'>More details</button>
+                                <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-1 px-2 bg-black rounded-md text-white'>More details</button>
                             </td>
                         </tr>))}
                     </tbody>

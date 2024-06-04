@@ -11,7 +11,7 @@ const Orders = () => {
     .then(response =>  {
         if (response.orders) {
           setOrders(response.orders);
-          console.log(response.orders);
+          // console.log(response.orders);
         }
       })
      .catch(error => {

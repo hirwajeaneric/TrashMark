@@ -132,7 +132,10 @@ export const updateCartStatusRequest = async (data, id) => {
 */
 export const getOrderByIdRequest = async (id) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/order/findById?id=${id}`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        }
     });
 
     const responseData = await response.json();

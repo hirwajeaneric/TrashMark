@@ -19,6 +19,7 @@ import ResetPassword from './pages/user/ResetPassword';
 import StoreContext from './context/StoreContext';
 import ValidateOTP from './pages/user/ValidateOTP';
 import CheckOut from './pages/CheckOut';
+import OrderDetails from './pages/user/OrderDetails';
 
 const App = () => {
   return (
@@ -45,6 +46,7 @@ const App = () => {
               <Route path='my-products' element={<Products />} />
               <Route path='purchases' element={<Purchaces />} />
               <Route path='orders' element={<Orders />} />
+              <Route path='order/:id' element={<OrderDetails />} />
             </Route>
             <Route path='success' element={<Success />} />
           </Route>

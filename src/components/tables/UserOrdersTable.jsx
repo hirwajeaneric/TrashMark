@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom';
 import DeliveryStatus from '../DeliveryStatus';
 
 const UserOrdersTable = ({ orders }) => {
@@ -12,7 +13,7 @@ const UserOrdersTable = ({ orders }) => {
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Location</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Product</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Amount</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Paid Amount</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery status</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900"></th>
                         </tr>
@@ -28,17 +29,19 @@ const UserOrdersTable = ({ orders }) => {
                             </tr>
                         }
                         {orders.map((order, index) => (<tr key={index}>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].name}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.client.firstName+" "+order.client.lastName}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.addressLine1 +", "+order.addressLine2}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].quantity}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.products[0].pricePerUnit}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{order.totalPrice}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">
                                 <DeliveryStatus
-                                    color={order.deliveryStatus.client === "Recieved" ? "errand" : "orange"}
-                                    text={order.deliveryStatus.client}
+                                    color={(order.deliveryStatus.seller == "Delivered") ? "green" : "orange"}
+                                    text={order.deliveryStatus.seller}
                                 />
+                            </td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                            <Link to={`/account/order/${order._id}`} className='text-sm py-1 px-2 bg-black rounded-md text-white'>More details</Link>
                             </td>
                         </tr>))}
 

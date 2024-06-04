@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 const DeliveryStatus = ({color, text}) => {
     return (
-        <span className={"inline-flex items-center justify-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-"+color+"-700"}>
+        <span className={"inline-flex items-center justify-center rounded-full bg-"+color+"-100 px-2.5 py-0.5 text-"+color+"-700"}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
