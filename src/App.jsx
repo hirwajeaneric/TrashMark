@@ -20,12 +20,18 @@ import StoreContext from './context/StoreContext';
 import ValidateOTP from './pages/user/ValidateOTP';
 import CheckOut from './pages/CheckOut';
 import OrderDetails from './pages/user/OrderDetails';
+import AdminLayout from './pages/admin/AdminLayout';
+import Overview from './pages/admin/Overview';
+import Trash from './pages/admin/Trash';
+import Profile from './pages/admin/Profile';
+import Sellers from './pages/admin/Sellers';
 
 const App = () => {
   return (
     <StoreContext>
       <Router>
         <Routes>
+          {/* User routes  */}
           <Route path='/sign-in' element={<Signin />} />
           <Route path='/sign-up' element={<Signup />} />
           <Route path='/verify-account' element={<ValidateOTP />} />
@@ -50,6 +56,23 @@ const App = () => {
             </Route>
             <Route path='success' element={<Success />} />
           </Route>
+
+          {/* Admin routes  */}
+          <Route path='/admin/sign-in' element={<Signin />} />
+          <Route path='/admin/sign-up' element={<Signup />} />
+          <Route path='/admin/verify-account' element={<ValidateOTP />} />
+          <Route path='/admin/forgot-password' element={<ForgotPassword />} />
+          <Route path='/admin/reset-password' element={<ResetPassword />} />
+
+          <Route path='/admin' element={<AdminLayout />}>
+            <Route path='' element={<Overview />} />
+            <Route path='overview' element={<Overview />} />
+            <Route path='trash' element={<Trash />} />
+            <Route path='sellers' element={<Sellers />} />
+            <Route path='profile' element={<Profile />} />
+          </Route>
+
+          <Route path='*' element={<Navigate replace to='/not-found' />} />
 
         </Routes>
       </Router>
