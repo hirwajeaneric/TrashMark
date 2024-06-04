@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import UserLayout from './pages/user/UserLayout';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
@@ -39,7 +39,7 @@ const App = () => {
             <Route path='cart' element={<Cart />} />
             <Route path='checkout' element={<CheckOut />} />
             <Route path='not-found' element={<NotFound />} />
-            <Route path='account' element={<Account />}>
+            <Route path='account' element={localStorage.getItem('client') ? <Account />: <Navigate replace to='/sign-in' />} >
               <Route path='' element={<AccountHome />} />
               <Route path='profile' element={<AccountHome />} />
               <Route path='manage-products' element={<AddProduct />} />
