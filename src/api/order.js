@@ -77,7 +77,6 @@ export const updateOrderInfoRequest = async (data, id) => {
 * @throws {Error} - If the API request fails.
 */
 export const updateCartRequest = async (data, id) => {
-    console.log(data);
     const response = await fetch(`${API_BASE_URL}/api/v1/order/updateCart?id=${id}`, {
         method: 'PUT',
         headers: {
@@ -85,6 +84,29 @@ export const updateCartRequest = async (data, id) => {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(data),
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
+
+export const updateCartStatusRequest = async (data, id) => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/updateCartStatus?id=${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        }
     });
 
     const responseData = await response.json();

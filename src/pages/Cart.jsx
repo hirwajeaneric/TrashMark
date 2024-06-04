@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import CartItem from "../components/CartItem";
 import { useContext, useEffect, useState } from "react";
-import { getClientOrderRequest, updateCartRequest, updateOrderInfoRequest } from "../api/order";
+import { getClientOrderRequest, updateCartStatusRequest, updateOrderInfoRequest } from "../api/order";
 import { Store } from "../context/StoreContext";
 import { useNavigate } from "react-router-dom";
 import { useFlutterwave, closePaymentModal } from 'flutterwave-react-v3';
@@ -57,11 +57,11 @@ const Cart = () => {
   const paymentProcess = async () => {
     await handleFlutterPayment({
       callback: (response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 'successful') {
-          updateCartRequest({ paid: true }, order._id)
+          updateCartStatusRequest({ paid: true }, order._id)
             .then(() => {
-              window.location.replace('/success');
+              navigate('/success');
             })
             .catch(error => {
               console.log(error);
@@ -86,18 +86,18 @@ const Cart = () => {
       addressLine2: order.addressLine2,
     }
 
-    console.log(updates);
+    // console.log(updates);
 
     if (updates.addressLine1 && updates.addressLine2) {
       updateOrderInfoRequest(updates, order._id)
-      .then(response => {
-        handleResponseMessage(response.type, response.message);
-        // Handle checkout
-        paymentProcess();
-      })
-      .catch(error => {
-        handleResponseMessage(error, error.message);
-      }) 
+        .then(response => {
+          handleResponseMessage(response.type, response.message);
+          // Handle checkout
+          paymentProcess();
+        })
+        .catch(error => {
+          handleResponseMessage(error, error.message);
+        })
     } else {
       paymentProcess();
     }
@@ -147,6 +147,7 @@ const Cart = () => {
                     type="text"
                     id="addressLine1"
                     name="addressLine1"
+                    required
                     value={order.addressLine1 || ""}
                     onChange={handleFormInput}
                     placeholder="KG 123 St"
@@ -158,6 +159,7 @@ const Cart = () => {
                   <input
                     type="text"
                     id="addressLine2"
+                    required
                     name="addressLine2"
                     value={order.addressLine2 || ""}
                     onChange={handleFormInput}
