@@ -4,7 +4,7 @@ import LoadingButton from "../../LoadingButton";
 import { UpdateUserInfoRequest } from "../../../api/authentication";
 
 /* eslint-disable react/prop-types */
-const UserAccountForm = () => {
+const AdminAccountForm = () => {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
@@ -67,7 +67,7 @@ const UserAccountForm = () => {
             </div>
 
             <div className="flex flex-wrap justify-between w-full items-start">
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+                <div className="flex flex-col w-full md:w-[49%] mb-3 md:mb-0">
                     <label htmlFor="email" className="block font-medium text-gray-700"> Email </label>
                     <input
                         type="email"
@@ -78,7 +78,7 @@ const UserAccountForm = () => {
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+                <div className="flex flex-col w-full md:w-[49%] mb-3 md:mb-0">
                     <label htmlFor="phone" className="block font-medium text-gray-700"> Phone </label>
                     <input
                         type="text"
@@ -91,56 +91,8 @@ const UserAccountForm = () => {
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="code" className="block font-medium text-gray-700"> Payment Code (MoMo/Airtel) </label>
-                    <input
-                        type="text"
-                        id="code"
-                        minLength={6}
-                        maxLength={6}
-                        value={userInfo.code || ""}
-                        onChange={handleFormInput}
-                        placeholder="XXXXXX"
-                        className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
-                </div>
             </div>
 
-            <div className="flex flex-wrap justify-between w-full items-start">
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
-                    <input
-                        type="text"
-                        id="addressLine1"
-                        value={userInfo.addressLine1 || ""}
-                        onChange={handleFormInput}
-                        placeholder="KG 123 St"
-                        className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
-                </div>
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 </label>
-                    <input
-                        type="text"
-                        id="addressLine2"
-                        value={userInfo.addressLine2 || ""}
-                        onChange={handleFormInput}
-                        placeholder="Nyarugenge"
-                        className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
-                </div>
-                <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="city" className="block font-medium text-gray-700"> City </label>
-                    <input
-                        type="text"
-                        id="city"
-                        value={userInfo.city || ""}
-                        onChange={handleFormInput}
-                        placeholder="Kigali"
-                        className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
-                </div>
-            </div>
             {!loading ?
                 <button
                     type="submit"
@@ -153,4 +105,4 @@ const UserAccountForm = () => {
     )
 }
 
-export default UserAccountForm
+export default AdminAccountForm

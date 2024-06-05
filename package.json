@@ -10,12 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@headlessui/react": "^2.0.3",
     "@loadingio/css-spinner": "^2.0.2",
+    "@mui/material": "^5.15.19",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.18",
+    "@mui/x-data-grid": "^7.6.1",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.8",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
+    "chart.js": "^4.4.3",
     "dotenv": "^16.3.1",
     "firebase": "^10.12.2",
     "flutterwave-node-v3": "^1.1.10",
@@ -23,6 +29,7 @@
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^2.0.4",
     "react-hook-form": "^7.48.2",
@@ -31,7 +38,7 @@
     "react-router-dom": "^6.20.1",
     "react-to-print": "^2.14.15",
     "recharts": "^2.10.3",
-    "styled-components": "^6.1.1"
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

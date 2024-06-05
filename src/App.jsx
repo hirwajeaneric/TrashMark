@@ -25,6 +25,7 @@ import Overview from './pages/admin/Overview';
 import Trash from './pages/admin/Trash';
 import Profile from './pages/admin/Profile';
 import Sellers from './pages/admin/Sellers';
+import SoldTrash from './pages/admin/SoldTrash';
 
 const App = () => {
   return (
@@ -69,6 +70,7 @@ const App = () => {
             <Route path='overview' element={<Overview />} />
             <Route path='trash' element={<Trash />} />
             <Route path='sellers' element={<Sellers />} />
+            <Route path='sold' element={<SoldTrash />} />
             <Route path='profile' element={<Profile />} />
           </Route>
 
