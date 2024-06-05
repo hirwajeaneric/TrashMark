@@ -73,6 +73,28 @@ export const ValidateOTPRequest = async (data) => {
     return responseData;
 };
 
+export const FetchSellerRequest = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/auth/list`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        }
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
 export const ForgotPasswordRequest = async (data) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/auth/forgotPassword`, {
         method: 'POST',

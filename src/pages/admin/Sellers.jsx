@@ -1,10 +1,17 @@
 import { useEffect, useState } from "react";
 import UsersTable from "../../components/tables/UsersTable";
+import { FetchSellerRequest } from "../../api/authentication";
 
 const Sellers = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    setData([]);
+    FetchSellerRequest()
+      .then((response) => {
+        setData(response.users);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (

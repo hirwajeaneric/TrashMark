@@ -120,7 +120,10 @@ export const getUserProductsRequest = async () => {
 
 export const getProductByIdRequest = async (id) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/product/findById?id=${id}`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
     });
 
     const responseData = await response.json();
@@ -139,7 +142,32 @@ export const getProductByIdRequest = async (id) => {
 
 export const getAllAvailableProductsRequest = async () => {
     const response = await fetch(`${API_BASE_URL}/api/v1/product/available`, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
+export const getAllProductsRequest = async () => {
+    const response = await fetch(`${API_BASE_URL}/api/v1/product/list`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
     });
 
     const responseData = await response.json();

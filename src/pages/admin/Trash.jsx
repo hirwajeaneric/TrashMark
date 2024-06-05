@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react"
 import TrashTable from "../../components/tables/TrashTable"
+import { getAllProductsRequest } from "../../api/product";
 
 const Trash = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    setData([]);
+    getAllProductsRequest()
+      .then((response) => {
+        console.log(response);
+        setData(response.products);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   return (
