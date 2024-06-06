@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { TiTick } from "react-icons/ti";
 import { useSearchParams } from "react-router-dom";
-import { updateOrderInfoRequest } from "../../api/order";
+import { updateOrderInfoRequest } from "../../../api/order";
 
 const Success = () => {
   const [searchParams, setSearchParams ] = useSearchParams();

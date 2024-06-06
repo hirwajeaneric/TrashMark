@@ -1,4 +1,4 @@
-import AdminAccountForm from "../../components/form/admin-forms/AdminAccountForm"
+import AdminAccountForm from "../../../components/form/admin-forms/AdminAccountForm"
 
 const Profile = () => {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import UsersTable from "../../components/tables/UsersTable";
-import { FetchSellerRequest } from "../../api/authentication";
+import UsersTable from "../../../components/tables/UsersTable";
+import { FetchSellerRequest } from "../../../api/authentication";
 
 const Sellers = () => {
   const [data, setData] = useState([]);

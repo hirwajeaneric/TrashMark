@@ -143,9 +143,6 @@ export const getProductByIdRequest = async (id) => {
 export const getAllAvailableProductsRequest = async () => {
     const response = await fetch(`${API_BASE_URL}/api/v1/product/available`, {
         method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${Cookies.get('access-token')}`,
-        },
     });
 
     const responseData = await response.json();

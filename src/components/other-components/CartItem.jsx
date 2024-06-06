@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react";
-import { deleteOrderRequest } from "../api/order";
-import { Store } from "../context/StoreContext";
+import { deleteOrderRequest } from "../../api/order";
+import { Store } from "../../context/StoreContext";
 
 const CartItem = ({order, product, setProduct}) => {
     const { handleResponseMessage } = useContext(Store);

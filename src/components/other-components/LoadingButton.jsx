@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // import {  } from '@loadingio/css-spinner'
-import '../styles/spinner.css';
+import '../../styles/spinner.css';
 
 const LoadingButton = ({size}) => {
     

@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import UserAccountForm from "../../components/form/user-forms/UserAccountForm";
+import UserAccountForm from "../../../components/form/user-forms/UserAccountForm";
 
 const AccountHome = () => {
   return (

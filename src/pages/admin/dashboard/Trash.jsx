@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import TrashTable from "../../components/tables/TrashTable"
-import { getAllProductsRequest } from "../../api/product";
+import TrashTable from "../../../components/tables/TrashTable"
+import { getAllProductsRequest } from "../../../api/product";
 
 const Trash = () => {
   const [data, setData] = useState([]);

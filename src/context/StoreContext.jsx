@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState } from "react";
-import ResponseMessage from "../components/ResponseMessage";
+import ResponseMessage from "../components/other-components/ResponseMessage";
 
 export const Store = createContext();
 

@@ -1,6 +1,6 @@
-import OverviewCards from "../../components/admin/OverviewCards"
-import { LineChart } from "../../components/chart/LineChart"
-import { PieChart } from "../../components/chart/PieChart"
+import OverviewCards from "../../../components/admin/OverviewCards"
+import { LineChart } from "../../../components/chart/LineChart"
+import { PieChart } from "../../../components/chart/PieChart"
 import FilterOptions from "./FilterOptions"
 
 const Overview = () => {

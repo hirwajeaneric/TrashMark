@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import SideMenu from "../../components/admin/SideMenu"
-import TopNavigation from "../../components/admin/TopNavigation"
+import SideMenu from "../../../components/admin/SideMenu"
+import TopNavigation from "../../../components/admin/TopNavigation"
 
 const AdminLayout = () => {
   return (

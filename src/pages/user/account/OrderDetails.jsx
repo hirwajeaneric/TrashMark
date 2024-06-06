@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Helmet } from "react-helmet-async"
 import { useEffect, useState } from "react"
-import { getOrderByIdRequest } from "../../api/order";
+import { getOrderByIdRequest } from "../../../api/order";
 import { useParams } from "react-router-dom";
 
 const OrderDetails = () => {

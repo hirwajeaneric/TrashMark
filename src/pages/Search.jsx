@@ -1,9 +1,9 @@
 import { useContext, useEffect } from "react";
 import { Helmet } from "react-helmet-async"
-import ProductItem from "../components/ProductItem";
+import ProductItem from "../components/other-components/ProductItem";
 import { Store } from "../context/StoreContext";
-import ProductFilters from "../components/ProductFilters";
-import SortComponent from "../components/SortComponent";
+import ProductFilters from "../components/other-components/ProductFilters";
+import SortComponent from "../components/other-components/SortComponent";
 import { getAllAvailableProductsRequest } from "../api/product";
 import { Link } from "react-router-dom";
 

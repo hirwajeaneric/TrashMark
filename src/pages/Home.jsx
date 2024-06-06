@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet-async"
 import { Link } from "react-router-dom"
 import { getAllAvailableProductsRequest } from "../api/product";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/other-components/ProductCard";
 
 const Home = () => {
   const [products, setProducts] = useState([]);

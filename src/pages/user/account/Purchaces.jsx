@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import UserPurchasesTable from "../../components/tables/UserPurchasesTable"
+import UserPurchasesTable from "../../../components/tables/UserPurchasesTable"
 import { Helmet } from "react-helmet-async";
-import { getAllClientOrdersRequest } from "../../api/order";
+import { getAllClientOrdersRequest } from "../../../api/order";
 
 const Purchaces = () => {
   const [purchases, setPurchases] = useState([]);

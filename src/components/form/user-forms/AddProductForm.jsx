@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
 import { TiDelete } from "react-icons/ti";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
-import LoadingButton from "../../LoadingButton";
+import LoadingButton from "../../../components/other-components/LoadingButton";
 import { storage } from "../../../configs/firebase/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 

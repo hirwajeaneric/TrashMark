@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import CartItem from "../components/CartItem";
+import CartItem from "../components/other-components/CartItem";
 import { useContext, useEffect, useState } from "react";
 import { getClientOrderRequest, updateOrderInfoRequest } from "../api/order";
 import { Store } from "../context/StoreContext";

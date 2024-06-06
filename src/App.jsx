@@ -1,31 +1,32 @@
 import { Navigate, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import UserLayout from './pages/user/UserLayout';
+import UserLayout from './pages/user/account/UserLayout';
 import Home from './pages/Home';
 import ProductDetails from './pages/ProductDetails';
 import Search from './pages/Search';
 import NotFound from './pages/NotFound';
-import Account from './pages/user/Account';
-import AddProduct from './pages/user/AddProduct';
-import Products from './pages/user/Products';
-import Purchaces from './pages/user/Purchaces';
-import Orders from './pages/user/Orders';
-import Success from './pages/user/Success';
-import Signin from './pages/user/Signin';
-import Signup from './pages/user/Signup';
+import Account from './pages/user/account/Account';
+import AddProduct from './pages/user/account/AddProduct';
+import Products from './pages/user/account/Products';
+import Purchaces from './pages/user/account/Purchaces';
+import Orders from './pages/user/account/Orders';
+import Success from './pages/user/account/Success';
+import Signin from './pages/user/auth/Signin';
+import Signup from './pages/user/auth/Signup';
 import Cart from './pages/Cart';
-import AccountHome from './pages/user/AccountHome';
-import ForgotPassword from './pages/user/ForgotPassword';
-import ResetPassword from './pages/user/ResetPassword';
+import AccountHome from './pages/user/account/AccountHome';
+import ForgotPassword from './pages/user/auth/ForgotPassword';
+import ResetPassword from './pages/user/auth/ResetPassword';
 import StoreContext from './context/StoreContext';
-import ValidateOTP from './pages/user/ValidateOTP';
+import ValidateOTP from './pages/user/auth/ValidateOTP';
 import CheckOut from './pages/CheckOut';
-import OrderDetails from './pages/user/OrderDetails';
-import AdminLayout from './pages/admin/AdminLayout';
-import Overview from './pages/admin/Overview';
-import Trash from './pages/admin/Trash';
-import Profile from './pages/admin/Profile';
-import Sellers from './pages/admin/Sellers';
-import SoldTrash from './pages/admin/SoldTrash';
+import OrderDetails from './pages/user/account/OrderDetails';
+
+import AdminLayout from './pages/admin/dashboard/AdminLayout';
+import Overview from './pages/admin/dashboard/Overview';
+import Trash from './pages/admin/dashboard/Trash';
+import Profile from './pages/admin/dashboard/Profile';
+import Sellers from './pages/admin/dashboard/Sellers';
+import SoldTrash from './pages/admin/dashboard/SoldTrash';
 
 const App = () => {
   return (

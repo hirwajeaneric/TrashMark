@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async"
-import UserOrdersTable from "../../components/tables/UserOrdersTable"
+import UserOrdersTable from "../../../components/tables/UserOrdersTable"
 import { useEffect, useState } from "react"
-import { getAllSellerOrdersRequest } from "../../api/order";
+import { getAllSellerOrdersRequest } from "../../../api/order";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);

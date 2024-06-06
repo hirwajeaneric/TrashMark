@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import DeliveryStatus from '../DeliveryStatus';
+import DeliveryStatus from '../../components/other-components/DeliveryStatus';
 
 const UserPurchasesTable = ({purchases}) => {
     return (

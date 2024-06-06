@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from 'react-router-dom';
-import DeliveryStatus from '../DeliveryStatus';
+import DeliveryStatus from '../../components/other-components/DeliveryStatus';
 
 const UserOrdersTable = ({ orders }) => {
     return (

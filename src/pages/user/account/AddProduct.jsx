@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import AddProductForm from "../../components/form/user-forms/AddProductForm"
-import UserProductsTable from "../../components/tables/UserProductTable"
+import AddProductForm from "../../../components/form/user-forms/AddProductForm"
+import UserProductsTable from "../../../components/tables/UserProductTable"
 import { Helmet } from "react-helmet-async";
-import { getUserProductsRequest } from "../../api/product";
-import { Store } from "../../context/StoreContext";
+import { getUserProductsRequest } from "../../../api/product";
+import { Store } from "../../../context/StoreContext";
 
 const AddProduct = () => {
   const [selectedProduct, setSelectedProduct] = useState({});

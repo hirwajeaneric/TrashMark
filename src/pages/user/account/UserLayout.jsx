@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom"
-import Footer from "../../components/userAccount/Footer"
-import Header from "../../components/userAccount/Header"
+import Footer from "../../../components/userAccount/Footer"
+import Header from "../../../components/userAccount/Header"
 // import { useEffect } from "react";
 // import { ValidateAccessToken } from "../../api/authentication";
 // import Cookies from "js-cookie";

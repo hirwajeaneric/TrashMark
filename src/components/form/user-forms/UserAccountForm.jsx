@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react"
 import { Store } from "../../../context/StoreContext";
-import LoadingButton from "../../LoadingButton";
+import LoadingButton from "../../other-components/LoadingButton";
 import { UpdateUserInfoRequest } from "../../../api/authentication";
 
 /* eslint-disable react/prop-types */
