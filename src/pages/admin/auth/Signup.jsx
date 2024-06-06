@@ -174,7 +174,7 @@ const Signup = () => {
 
           <p className="text-center text-sm text-gray-500">
             Already have an account? &nbsp;
-            <Link className="underline" to="/sign-in">Sign in</Link>
+            <Link className="underline" to="/admin/sign-in">Sign in</Link>
           </p>
         </form>
       </div>

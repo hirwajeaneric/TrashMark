@@ -44,7 +44,7 @@ const ForgotPassword = () => {
   }
 
   return (
-    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8 bg-[url('Recycling-Winter-Web.png')] bg-cover min-h-screen">
       <Helmet>
         <title>Forgot password - Trash Mark</title>
         <meta name='description' content='Request for password reset on Trash Mark.' />

@@ -75,7 +75,7 @@ const ForgotPassword = () => {
 
           <p className="text-center text-sm text-gray-500">
             Remember your password? &nbsp;
-            <Link className="underline" to="/sign-in">Sign in</Link>
+            <Link className="underline" to="/admin/sign-in">Sign in</Link>
           </p>
         </form>
       </div>

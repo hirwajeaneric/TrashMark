@@ -57,7 +57,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8 bg-[url('Recycling-Winter-Web.png')] bg-cover min-h-screen">
       <Helmet>
         <title>Sign Up - Trash Mark</title>
         <meta name='description' content='Sign Up to TrashMark.' />
@@ -66,7 +66,7 @@ const Signup = () => {
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         {/* <h1 className="text-center text-xl font-bold text-slate-600 sm:text-xl">Get started today</h1> */}
 
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
+        <p className="mx-auto mt-4 max-w-md text-center text-black">
           Do you need used materials to renovate? Do you want to sell tools you no longer use or need? You are in the right place.
         </p>
 

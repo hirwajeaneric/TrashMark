@@ -31,7 +31,7 @@ const Home = () => {
             <div className="relative h-64 overflow-hidden rounded-lg sm:h-80 lg:order-last lg:h-full">
               <img
                 alt=""
-                src="https://img.freepik.com/free-vector/hand-drawn-thrift-store-illustration_23-2150007696.jpg?w=1060&t=st=1714338282~exp=1714338882~hmac=40a1e00c20518ac5fc56bebc84868d9eeab170869925fc3f76e39643fd005ff1"
+                src="Recycling-Winter-Web.png"
                 className="absolute inset-0 h-full w-full object-cover"
               />
             </div>

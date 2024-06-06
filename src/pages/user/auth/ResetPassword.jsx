@@ -50,7 +50,7 @@ const ResetPassword = () => {
       });
   }
   return (
-    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8 bg-[url('Recycling-Winter-Web.png')] bg-cover min-h-screen">
       <Helmet>
         <title>Reset Password - Trash Mark</title>
         <meta name='description' content='Reset your password on TrashMark.' />

@@ -33,13 +33,15 @@ import AdminSignIn from './pages/admin/auth/Signin';
 import AdminValidateOTP from './pages/admin/auth/ValidateOTP';
 import AdminForgotPassword from './pages/admin/auth/ForgotPassword';
 import AdminResetPassword from './pages/admin/auth/ResetPassword';
+import Reports from './pages/admin/dashboard/Reports';
 
 const App = () => {
   return (
     <StoreContext>
       <Router>
         <Routes>
-          {/* User routes  */}
+          {/* User routes  --------------------------------------------------------------------------------------  */}
+          {/* Authentication pages  */}
           <Route path='/sign-in' element={<Signin />} />
           <Route path='/sign-up' element={<Signup />} />
           <Route path='/verify-account' element={<ValidateOTP />} />
@@ -65,19 +67,21 @@ const App = () => {
             <Route path='success' element={<Success />} />
           </Route>
 
-          {/* Admin routes  */}
+          {/* Admin routes  -------------------------------------------------------------------------------------- */}
+          {/* Authentication pages  */}
           <Route path='/admin/sign-in' element={<AdminSignIn />} />
           <Route path='/admin/sign-up' element={<AdminSignUp />} />
           <Route path='/admin/verify-account' element={<AdminValidateOTP />} />
           <Route path='/admin/forgot-password' element={<AdminForgotPassword />} />
           <Route path='/admin/reset-password' element={<AdminResetPassword />} />
 
-          <Route path='/admin' element={<AdminLayout />}>
+          <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout />: <Navigate replace to='/sign-in' />}>
             <Route path='' element={<Overview />} />
             <Route path='overview' element={<Overview />} />
             <Route path='trash' element={<Trash />} />
             <Route path='sellers' element={<Sellers />} />
             <Route path='sold' element={<SoldTrash />} />
+            <Route path='reports' element={<Reports />} />
             <Route path='profile' element={<Profile />} />
           </Route>
 

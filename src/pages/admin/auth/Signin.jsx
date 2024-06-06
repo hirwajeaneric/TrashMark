@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Store } from "../../../context/StoreContext";
 import LoadingButton from "../../../components/other-components/LoadingButton";
 import { SignInRequest } from "../../../api/authentication";
@@ -13,7 +13,6 @@ const Signin = () => {
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
   const [loading, setLoading] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const resetFields = () => {
     setUserInput({
@@ -46,13 +45,8 @@ const Signin = () => {
               secure: environment === "production" ? true : false,
               expires: 1
             });
-          localStorage.setItem("client", JSON.stringify(response.user));
-
-          if (searchParams.get("redirect")) {
-            navigate(`/product/${searchParams.get("product")}`);
-          } else {
-            navigate("/");
-          }
+          localStorage.setItem("admin", JSON.stringify(response.user));
+          navigate("/admin/sign-up");
         }
       })
       .catch(error => {
@@ -69,6 +63,7 @@ const Signin = () => {
         <title>Sign In - Trash Mark</title>
         <meta name='description' content='Sign in to TrashMark.' />
       </Helmet>
+      
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         <form onSubmit={handleSignIn} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">
@@ -135,25 +130,16 @@ const Signin = () => {
           <div className="flex items-center w-full justify-between">
             <p className="text-center text-sm text-gray-500">
               No account? &nbsp;
-              {searchParams.get("redirect")
-                ?
-                <Link 
-                  className="underline" 
-                  to={`/sign-up?redirect=/cart&product=${searchParams.get("product")}`}>
-                    Sign up
-                </Link>
-                :
-                <Link 
-                  className="underline" 
-                  to="/sign-up">
-                    Sign up
-                </Link>
-              }
+              <Link
+                className="underline"
+                to="/admin/sign-up">
+                Sign up
+              </Link>
             </p>
 
             <p className="text-center text-sm text-gray-500">
               Forgot your password? &nbsp;
-              <Link className="underline" to="/forgot-password">Forgot password</Link>
+              <Link className="underline" to="/admin/forgot-password">Forgot password</Link>
             </p>
 
           </div>
