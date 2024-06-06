@@ -1,8 +1,8 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import LoadingButton from "../../components/LoadingButton"
+import LoadingButton from "../../../components/other-components/LoadingButton";
 import { useContext, useState } from "react";
-import { ResetPasswordRequest } from "../../api/authentication";
-import { Store } from "../../context/StoreContext";
+import { ResetPasswordRequest } from "../../../api/authentication";
+import { Store } from "../../../context/StoreContext";
 import { Helmet } from "react-helmet-async";
 
 const ResetPassword = () => {

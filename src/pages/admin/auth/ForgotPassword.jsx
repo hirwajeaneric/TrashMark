@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom"
-import { ForgotPasswordRequest } from "../../api/authentication";
+import { ForgotPasswordRequest } from "../../../api/authentication";
 import { useContext, useState } from "react";
-import LoadingButton from "../../components/LoadingButton";
-import { Store } from "../../context/StoreContext";
+import LoadingButton from "../../../components/other-components/LoadingButton";
+import { Store } from "../../../context/StoreContext";
 import { Helmet } from "react-helmet-async";
 
 const ForgotPassword = () => {

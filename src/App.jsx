@@ -28,6 +28,12 @@ import Profile from './pages/admin/dashboard/Profile';
 import Sellers from './pages/admin/dashboard/Sellers';
 import SoldTrash from './pages/admin/dashboard/SoldTrash';
 
+import AdminSignUp from './pages/admin/auth/Signup';
+import AdminSignIn from './pages/admin/auth/Signin';
+import AdminValidateOTP from './pages/admin/auth/ValidateOTP';
+import AdminForgotPassword from './pages/admin/auth/ForgotPassword';
+import AdminResetPassword from './pages/admin/auth/ResetPassword';
+
 const App = () => {
   return (
     <StoreContext>
@@ -60,11 +66,11 @@ const App = () => {
           </Route>
 
           {/* Admin routes  */}
-          <Route path='/admin/sign-in' element={<Signin />} />
-          <Route path='/admin/sign-up' element={<Signup />} />
-          <Route path='/admin/verify-account' element={<ValidateOTP />} />
-          <Route path='/admin/forgot-password' element={<ForgotPassword />} />
-          <Route path='/admin/reset-password' element={<ResetPassword />} />
+          <Route path='/admin/sign-in' element={<AdminSignIn />} />
+          <Route path='/admin/sign-up' element={<AdminSignUp />} />
+          <Route path='/admin/verify-account' element={<AdminValidateOTP />} />
+          <Route path='/admin/forgot-password' element={<AdminForgotPassword />} />
+          <Route path='/admin/reset-password' element={<AdminResetPassword />} />
 
           <Route path='/admin' element={<AdminLayout />}>
             <Route path='' element={<Overview />} />

@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LoadingButton from "../../components/LoadingButton";
-import { SignUpRequest } from "../../api/authentication";
-import { Store } from "../../context/StoreContext";
+import LoadingButton from "../../../components/other-components/LoadingButton";
+import { SignUpRequest } from "../../../api/authentication";
+import { Store } from "../../../context/StoreContext";
 import { Helmet } from "react-helmet-async";
 
 const Signup = () => {

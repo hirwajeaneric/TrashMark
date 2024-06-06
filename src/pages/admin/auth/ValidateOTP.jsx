@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { Store } from "../../context/StoreContext";
-import LoadingButton from "../../components/LoadingButton";
-import { ResendTokenRequest, ValidateOTPRequest } from "../../api/authentication";
-import OtpInput from "../../components/OtpInput";
+import { Store } from "../../../context/StoreContext";
+import LoadingButton from "../../../components/other-components/LoadingButton";
+import { ResendTokenRequest, ValidateOTPRequest } from "../../../api/authentication";
+import OtpInput from "../../../components/other-components/OtpInput";
 import { Helmet } from "react-helmet-async";
 
 const ValidateOTP = () => {

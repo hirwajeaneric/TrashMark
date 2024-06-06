@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { Store } from "../../context/StoreContext";
-import LoadingButton from "../../components/LoadingButton";
-import { SignInRequest } from "../../api/authentication";
+import { Store } from "../../../context/StoreContext";
+import LoadingButton from "../../../components/other-components/LoadingButton";
+import { SignInRequest } from "../../../api/authentication";
 import Cookies from 'js-cookie';
 import { Helmet } from "react-helmet-async";
 const environment = import.meta.env.VITE_ENVIRONMENT;
