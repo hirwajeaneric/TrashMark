@@ -1,4 +1,13 @@
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom";
+
 const TopNavigation = () => {
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser(JSON.parse(localStorage.getItem('admin')));    
+    }, [])
+    
     return (
         <div className="flex items-center justify-between px-4 border-b border-gray-200 sticky">
             <div className="relative">
@@ -31,21 +40,20 @@ const TopNavigation = () => {
                     </button>
                 </span>
             </div>
-            <div className="sticky inset-x-0 bottom-0 border-t border-gray-100">
-                <a href="#" className="flex items-center gap-2 bg-white p-2 hover:bg-gray-50">
+            <div className="inset-x-0 bottom-0 border-t border-gray-100">
+                <Link to="/admin/profile" className="flex items-center gap-2 bg-white p-2 hover:bg-gray-50">
                     <img
                         alt=""
-                        src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                        src="https://w7.pngwing.com/pngs/499/519/png-transparent-kashifarif-user-profile-person-account-pic-user-interface-line-icon-thumbnail.png"
                         className="size-10 rounded-full object-cover"
                     />
-
                     <div>
                         <p className="text-xs">
-                            <strong className="block font-medium">Eric Frusciante</strong>
-                            <span> eric@frusciante.com </span>
+                            <strong className="block font-medium">{user.firstName+" "+user.lastName}</strong>
+                            <span>{user.email}</span>
                         </p>
                     </div>
-                </a>
+                </Link>
             </div>
         </div>
     )

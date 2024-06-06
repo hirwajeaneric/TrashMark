@@ -46,7 +46,7 @@ const Signin = () => {
               expires: 1
             });
           localStorage.setItem("admin", JSON.stringify(response.user));
-          navigate("/admin/sign-up");
+          navigate("/admin");
         }
       })
       .catch(error => {
@@ -63,7 +63,7 @@ const Signin = () => {
         <title>Sign In - Trash Mark</title>
         <meta name='description' content='Sign in to TrashMark.' />
       </Helmet>
-      
+
       <div className="mx-auto max-w-lg">
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         <form onSubmit={handleSignIn} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">

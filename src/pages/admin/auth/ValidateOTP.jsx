@@ -39,7 +39,7 @@ const ValidateOTP = () => {
       .then((response) => {
         if (response) {
           handleResponseMessage('success', response.message);
-          navigate("/sign-in");
+          navigate("/admin/sign-in");
         }
       })
       .catch(error => {

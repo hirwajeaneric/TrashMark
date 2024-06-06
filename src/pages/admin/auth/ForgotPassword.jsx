@@ -32,7 +32,7 @@ const ForgotPassword = () => {
         if (response) {
           handleResponseMessage('success', response.message);
           resetFields();
-          navigate("/sign-in");
+          navigate("/admin/sign-in");
         }
       })
       .catch(error => {

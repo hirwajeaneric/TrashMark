@@ -12,7 +12,8 @@ const Signup = () => {
     lastName: "",
     email: "",
     phone: "",
-    password: ""
+    password: "",
+    role: "admin"
   });
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
@@ -45,7 +46,7 @@ const Signup = () => {
         if (response) {
           handleResponseMessage('success', 'Sign up successful. Please sign in.');
           resetFields();
-          navigate(`/verify-account?id=${response.user}`);
+          navigate(`/admin/verify-account?id=${response.user}`);
         }
       })
       .catch(error => {
@@ -57,7 +58,7 @@ const Signup = () => {
   }
 
   return (
-    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8">
+    <div className="mx-auto px-4 py-16 sm:px-6 lg:px-8 ">
       <Helmet>
         <title>Sign Up - Trash Mark</title>
         <meta name='description' content='Sign Up to TrashMark.' />
