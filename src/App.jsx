@@ -75,7 +75,7 @@ const App = () => {
           <Route path='/admin/forgot-password' element={<AdminForgotPassword />} />
           <Route path='/admin/reset-password' element={<AdminResetPassword />} />
 
-          <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout />: <Navigate replace to='/sign-in' />}>
+          <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout />: <Navigate replace to='/admin/sign-in' />}>
             <Route path='' element={<Overview />} />
             <Route path='overview' element={<Overview />} />
             <Route path='trash' element={<Trash />} />

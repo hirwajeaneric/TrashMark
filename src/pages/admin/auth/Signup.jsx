@@ -67,10 +67,6 @@ const Signup = () => {
         <h1 className="text-green-800 text-4xl font-bold text-center mb-4">TrashMark</h1>
         {/* <h1 className="text-center text-xl font-bold text-slate-600 sm:text-xl">Get started today</h1> */}
 
-        <p className="mx-auto mt-4 max-w-md text-center text-gray-500">
-          Do you need used materials to renovate? Do you want to sell tools you no longer use or need? You are in the right place.
-        </p>
-
         <form onSubmit={handleSignUp} className="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8 bg-slate-100">
           <p className="text-center text-lg font-medium">Create an account</p>
 
