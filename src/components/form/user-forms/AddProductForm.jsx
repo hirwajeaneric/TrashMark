@@ -6,8 +6,7 @@ import { AddProductRequest, deleteProductRequest, updateProductRequest } from ".
 import LoadingButton from "../../../components/other-components/LoadingButton";
 import { storage } from "../../../configs/firebase/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-
-const productTypes = ['Home Appliance', 'Clothing', 'Shoes', 'Furniture', 'Electronics', 'Phone', 'Computer', 'Part of house', 'Cereals', 'Other food items'];
+import { productTypes } from "../../../utils/productTypes";
 
 const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   const [product, setProduct] = useState({

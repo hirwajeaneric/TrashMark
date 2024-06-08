@@ -1,9 +1,11 @@
+import { productTypes } from "../../utils/productTypes"
+
 const ProductFilters = () => {
     return (
         <div className="mt-1 space-y-2">
             <details className="overflow-hidden rounded border border-gray-300 [&_summary::-webkit-details-marker]:hidden">
                 <summary className="flex cursor-pointer items-center justify-between gap-2 p-4 text-gray-900 transition">
-                    <span className="text-sm font-medium"> Type </span>
+                    <span className="text-sm font-medium">Trash Type </span>
                     <span className="transition group-open:-rotate-180">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -31,36 +33,16 @@ const ProductFilters = () => {
                     </header>
 
                     <ul className="space-y-1 border-t border-gray-200 p-4">
-                        <li>
+                        {productTypes.map((product, index) => (<li key={index}>
                             <label htmlFor="FilterInStock" className="inline-flex items-center gap-2">
                                 <input
                                     type="checkbox"
                                     id="FilterInStock"
                                     className="size-5 rounded border-gray-300"
                                 />
-                                <span className="text-sm font-medium text-gray-700"> In Stock (5+) </span>
+                                <span className="text-sm font-medium text-gray-700">{product}</span>
                             </label>
-                        </li>
-                        <li>
-                            <label htmlFor="FilterPreOrder" className="inline-flex items-center gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="FilterPreOrder"
-                                    className="size-5 rounded border-gray-300"
-                                />
-                                <span className="text-sm font-medium text-gray-700"> Pre Order (3+) </span>
-                            </label>
-                        </li>
-                        <li>
-                            <label htmlFor="FilterOutOfStock" className="inline-flex items-center gap-2">
-                                <input
-                                    type="checkbox"
-                                    id="FilterOutOfStock"
-                                    className="size-5 rounded border-gray-300"
-                                />
-                                <span className="text-sm font-medium text-gray-700"> Out of Stock (10+) </span>
-                            </label>
-                        </li>
+                        </li>))}
                     </ul>
                 </div>
             </details>
