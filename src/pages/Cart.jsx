@@ -10,6 +10,7 @@ const FLUTTER_PUBLIC_KEY = import.meta.env.VITE_FLUTTER_PUBLIC_KEY;
 
 const Cart = () => {
   const [order, setOrder] = useState({});
+  const [processing, setProcessing] = useState(false);
   const [product, setProduct] = useState({});
   const [client, setClient] = useState({});
   const [loading, setLoading] = useState(false);
@@ -57,9 +58,10 @@ const Cart = () => {
   const handleFlutterPayment = useFlutterwave(config);
 
   const paymentProcess = async () => {
+    console.log('Flutter Payment Process...');
     await handleFlutterPayment({
       callback: (response) => {
-        // console.log(response);
+        console.log(response);
         if (response.status === 'successful') {
           updateCartStatusRequest({ paid: true }, order._id)
             .then(() => {
@@ -83,12 +85,12 @@ const Cart = () => {
   const handleCheckout = async (e) => {
     e.preventDefault();
 
+    setProcessing(true);
+
     const updates = {
       addressLine1: order.addressLine1,
       addressLine2: order.addressLine2,
     }
-
-    // console.log(updates);
 
     if (updates.addressLine1 && updates.addressLine2) {
       updateOrderInfoRequest(updates, order._id)
@@ -188,11 +190,16 @@ const Cart = () => {
                   <div className="flex justify-end">
                     <button
                       type="button"
-                      disabled={loading}
+                      disabled={processing}
                       onClick={handleCheckout}
                       className="block rounded bg-gray-700 px-5 py-3  text-gray-100 transition hover:bg-gray-600"
                     >
-                      Checkout
+                      {
+                        processing ?
+                        "Processing..."
+                        :
+                        "Checkout"
+                      }
                     </button>
                   </div>
                 </div>
