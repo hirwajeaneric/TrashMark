@@ -34,6 +34,7 @@ import AdminValidateOTP from './pages/admin/auth/ValidateOTP';
 import AdminForgotPassword from './pages/admin/auth/ForgotPassword';
 import AdminResetPassword from './pages/admin/auth/ResetPassword';
 import Reports from './pages/admin/dashboard/Reports';
+import AddTrash from './pages/user/account/RecordTrash';
 
 const App = () => {
   return (
@@ -59,6 +60,7 @@ const App = () => {
               <Route path='' element={<AccountHome />} />
               <Route path='profile' element={<AccountHome />} />
               <Route path='manage-products' element={<AddProduct />} />
+              <Route path='record-trash' element={<AddTrash />} />
               <Route path='my-products' element={<Products />} />
               <Route path='purchases' element={<Purchaces />} />
               <Route path='orders' element={<Orders />} />

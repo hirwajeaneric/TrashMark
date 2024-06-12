@@ -140,6 +140,10 @@ export const getOrderByIdRequest = async (id) => {
 
     const responseData = await response.json();
 
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
+
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);
@@ -189,6 +193,9 @@ export const getClientOrderRequest = async () => {
     });
 
     const responseData = await response.json();
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
 
     if (!response.ok) {
         if (responseData.errors) {
@@ -211,6 +218,9 @@ export const getAllClientOrdersRequest = async () => {
     });
 
     const responseData = await response.json();
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
 
     if (!response.ok) {
         if (responseData.errors) {
@@ -239,7 +249,10 @@ export const getAllSellerOrdersRequest = async () => {
     });
 
     const responseData = await response.json();
-
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
+    
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);

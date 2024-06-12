@@ -26,6 +26,10 @@ const Account = () => {
           <GoContainer />
           Manage products
         </NavLink>
+        <NavLink to={'/account/record-trash'} className="flex items-center gap-2 hover:font-bold">
+          <GoContainer />
+          Record trash
+        </NavLink>
         <NavLink to={'/account/purchases'} className="flex items-center gap-2 hover:font-bold">
           <IoCartOutline />
           Purchases

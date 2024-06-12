@@ -13,9 +13,7 @@ export const AddProductRequest = async (data) => {
         },
         body: JSON.stringify(data),
     });
-
     const responseData = await response.json();
-
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);
@@ -105,6 +103,9 @@ export const getUserProductsRequest = async () => {
     });
 
     const responseData = await response.json();
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
 
     if (!response.ok) {
         if (responseData.errors) {
@@ -128,6 +129,10 @@ export const getProductByIdRequest = async (id) => {
 
     const responseData = await response.json();
 
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
+    
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);
@@ -169,6 +174,10 @@ export const getAllProductsRequest = async () => {
 
     const responseData = await response.json();
 
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
+    
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);
@@ -191,6 +200,10 @@ export const getBaughtProductsRequest = async () => {
 
     const responseData = await response.json();
 
+    if (responseData.status === 401) {
+        window.location.replace('/sign-in');
+    }
+    
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);

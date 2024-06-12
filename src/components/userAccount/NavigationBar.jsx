@@ -63,6 +63,9 @@ const NavigationBar = () => {
                     <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/manage-products">
                       <p className="font-semibold text-black">Manage Products</p>
                     </a>
+                    <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/record-trash">
+                      <p className="font-semibold text-black">Record trash</p>
+                    </a>
                     <a className="block rounded-lg py-2 px-3 transition hover:bg-white/5" href="/account/purchases">
                       <p className="font-semibold text-black">Purchases</p>
                     </a>

@@ -3,12 +3,12 @@ import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
 import { TiDelete } from "react-icons/ti";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
-import LoadingButton from "../../../components/other-components/LoadingButton";
+import LoadingButton from "../../other-components/LoadingButton";
 import { storage } from "../../../configs/firebase/firebase";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { productTypes } from "../../../utils/productTypes";
 
-const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
+const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -18,8 +18,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     deliveryPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
-    sellerPhone: JSON.parse(localStorage.getItem('client')).Phone,
-    sellerName: JSON.parse(localStorage.getItem('client')).firstName+" "+JSON.parse(localStorage.getItem('client')).lastName,
+    sellerPhone: "",
+    sellerName: "",
     imageFiles: null,
     type: "",
     category: ""
@@ -46,22 +46,10 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     }
   }, [selectedProduct]);
 
-
   const { products, setProducts, handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
-
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem('client'));
-  //   if (user && !selectedProduct._id) {
-  //     setProduct({
-  //       ...product, 
-  //       sellerName: user.firstName + " " + user.lastName,
-  //       sellerPhone: user.phone,
-  //     })
-  //   }
-  // }, []);
 
   const uploadToFirebase = (files) => {
     return Promise.all(files.map(async (file) => {
@@ -124,6 +112,8 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       unitPrice: 0.00,
       deliveryTime: 0,
       deliveryPrice: 0.00,
+      sellerPhone: "",
+      sellerName: "",
       addressLine1: "",
       addressLine2: "",
       imageFiles: null,
@@ -269,37 +259,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="unitPrice" className="block font-medium text-gray-700"> Unit price (Rwf)</label>
-          <input
-            type="number"
-            id="unitPrice"
-            name="unitPrice"
-            required
-            min={500}
-            value={product.unitPrice || ""}
-            onChange={handleFormInput}
-            placeholder="Unit price"
-            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-          />
-        </div>
-      </div>
-
-      <div className="flex flex-wrap justify-between w-full items-start">
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="deliveryPrice" className="block font-medium text-gray-700"> Delivery price (Rwf)</label>
-          <input
-            type="number"
-            id="deliveryPrice"
-            name="deliveryPrice"
-            required
-            min={500}
-            value={product.deliveryPrice || ""}
-            onChange={handleFormInput}
-            placeholder="Unit price"
-            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-          />
-        </div>
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
           <input
             type="text"
@@ -312,6 +271,9 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           />
         </div>
+      </div>
+
+      <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 </label>
           <input
@@ -324,9 +286,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           />
         </div>
-      </div>
-
-      <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="imageFile" className="block font-medium text-gray-700">
             Image file(s)&nbsp;
@@ -361,6 +320,9 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             ))}
           </select>
         </div>
+      </div>
+
+      <div className="flex flex-wrap justify-start md:gap-5 w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <p>Category</p>
           <div className="flex gap-4 py-2">
@@ -390,35 +352,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             </label>
           </div>
         </div>
-      </div>
-      <div className="flex flex-wrap justify-between w-full items-start">
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="deliveryTime" className="block font-medium text-gray-700"> Delivery time (minutes)</label>
-          <input
-            type="number"
-            id="deliveryTime"
-            required
-            min={1}
-            name="deliveryTime"
-            value={product.deliveryTime || ""}
-            onChange={handleFormInput}
-            placeholder={20}
-            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-          />
-        </div>
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="sellerName" className="block font-medium text-gray-700"> Your name </label>
-          <input
-            type="text"
-            id="sellerName"
-            name="sellerName"
-            required
-            value={product.sellerName || ""}
-            onChange={handleFormInput}
-            placeholder="Your name"
-            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-          />
-        </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="sellerPhone" className="block font-medium text-gray-700"> Your phone number </label>
           <input
@@ -434,20 +367,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           />
         </div>
-      </div>
-      <div className="flex flex-wrap justify-between w-full items-start">
-        <label htmlFor="description" className="block font-medium text-gray-700"> Description </label>
-        <textarea
-          type="text"
-          id="description"
-          required
-          name="description"
-          value={product.description || ""}
-          onChange={handleFormInput}
-          rows={4}
-          placeholder="Product description ..."
-          className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-        ></textarea>
       </div>
 
 
@@ -502,4 +421,4 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   )
 }
 
-export default AddProductForm
+export default RecordTrashForm      
