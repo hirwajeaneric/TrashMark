@@ -13,8 +13,15 @@ const AddProduct = () => {
     getUserProductsRequest()
     .then((response) => {
       if (response) {
+        var products = [];
+        response.products.forEach((product) => {
+          console.log(product);
+          if (product.description || product.unitPrice) {
+            products.push(product);
+          }
+        })
         setProducts({
-          userProducts: response.products,
+          userProducts: products,
         });
       }
     })

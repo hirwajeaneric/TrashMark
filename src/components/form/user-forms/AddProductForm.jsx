@@ -18,6 +18,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
     deliveryPrice: 0.00,
     addressLine1: "",
     addressLine2: "",
+    perishable: true,
     sellerPhone: JSON.parse(localStorage.getItem('client')).Phone,
     sellerName: JSON.parse(localStorage.getItem('client')).firstName+" "+JSON.parse(localStorage.getItem('client')).lastName,
     imageFiles: null,
@@ -39,6 +40,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
         sellerName: user.firstName+" "+user.lastName || selectedProduct.sellerName,
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
+        perishable: selectedProduct.perishable,
         type: selectedProduct.type,
         category: selectedProduct.category,
         imageFiles: selectedProduct.imageFiles
@@ -51,17 +53,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
   const [loading, setLoading] = useState(false);
   const [images, setImages] = useState([]);
   const [imageUploadProgress, setImageUploadProgress] = useState(0);
-
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem('client'));
-  //   if (user && !selectedProduct._id) {
-  //     setProduct({
-  //       ...product, 
-  //       sellerName: user.firstName + " " + user.lastName,
-  //       sellerPhone: user.phone,
-  //     })
-  //   }
-  // }, []);
 
   const uploadToFirebase = (files) => {
     return Promise.all(files.map(async (file) => {
@@ -126,6 +117,7 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       deliveryPrice: 0.00,
       addressLine1: "",
       addressLine2: "",
+      perishable: false,
       imageFiles: null,
       type: "",
       category: ""
@@ -393,6 +385,33 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
       </div>
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <p>Perishable</p>
+          <div className="flex gap-4 py-2">
+            <label htmlFor="perishable" className="font-medium text-gray-700 inline">
+              Yes &nbsp;
+              <input
+                type="radio"
+                name="perishable"
+                required
+                id="perishable"
+                checked={product.perishable || ""}
+                onChange={() => setProduct({ ...product, perishable: true})}
+              />
+            </label>
+            <label htmlFor="non-perishable" className="font-medium text-gray-700 inline">
+              No &nbsp;
+              <input
+                type="radio"
+                name="perishable"
+                required
+                id="non-perishable"
+                checked={!product.perishable || ""}
+                onChange={() => setProduct({ ...product, perishable: false})}
+              />
+            </label>
+          </div>
+        </div>
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="deliveryTime" className="block font-medium text-gray-700"> Delivery time (minutes)</label>
           <input
             type="number"
@@ -403,19 +422,6 @@ const AddProductForm = ({ selectedProduct, setSelectedProduct }) => {
             value={product.deliveryTime || ""}
             onChange={handleFormInput}
             placeholder={20}
-            className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-          />
-        </div>
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="sellerName" className="block font-medium text-gray-700"> Your name </label>
-          <input
-            type="text"
-            id="sellerName"
-            name="sellerName"
-            required
-            value={product.sellerName || ""}
-            onChange={handleFormInput}
-            placeholder="Your name"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
           />
         </div>

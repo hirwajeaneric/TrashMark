@@ -106,7 +106,6 @@ export const getUserProductsRequest = async () => {
     if (responseData.status === 401) {
         window.location.replace('/sign-in');
     }
-
     if (!response.ok) {
         if (responseData.errors) {
             throw new Error(responseData.errors);
@@ -115,7 +114,7 @@ export const getUserProductsRequest = async () => {
             throw new Error(responseData.message);
         }
     }
-
+    
     return responseData;
 };
 

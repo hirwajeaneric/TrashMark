@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import UserProductsTable from "../../../components/tables/UserProductTable"
 import { Helmet } from "react-helmet-async";
 import { getUserProductsRequest } from "../../../api/product";
 import { Store } from "../../../context/StoreContext";
@@ -14,8 +13,15 @@ const AddTrash = () => {
     getUserProductsRequest()
     .then((response) => {
       if (response) {
+        var products = [];
+        response.products.forEach((product) => {
+          console.log(product);
+          if (!product.description || !product.unitPrice) {
+            products.push(product);
+          }
+        })
         setProducts({
-          userProducts: response.products,
+          userProducts: products,
         });
       }
     })
@@ -42,7 +48,7 @@ const AddTrash = () => {
           setSelectedProduct={setSelectedProduct}
         />
 
-        <h2 className="text-xl text-gray-600 font-bold">My product</h2>
+        <h2 className="text-xl text-gray-600 font-bold">My trash records</h2>
         <UserTrashTable 
           products={products.userProducts} 
           setSelectedProduct={setSelectedProduct}

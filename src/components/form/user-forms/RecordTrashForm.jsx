@@ -1,11 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { Store } from "../../../context/StoreContext";
-import { TiDelete } from "react-icons/ti";
 import { AddProductRequest, deleteProductRequest, updateProductRequest } from "../../../api/product";
 import LoadingButton from "../../other-components/LoadingButton";
-import { storage } from "../../../configs/firebase/firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { productTypes } from "../../../utils/productTypes";
 
 const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
@@ -20,6 +17,7 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
     addressLine2: "",
     sellerPhone: "",
     sellerName: "",
+    perishable: false,
     imageFiles: null,
     type: "",
     category: ""
@@ -39,6 +37,7 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
         sellerName: user.firstName+" "+user.lastName || selectedProduct.sellerName,
         addressLine1: selectedProduct.addressLine1,
         addressLine2: selectedProduct.addressLine2,
+        perishable: selectedProduct.perishable,
         type: selectedProduct.type,
         category: selectedProduct.category,
         imageFiles: selectedProduct.imageFiles
@@ -48,57 +47,6 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
 
   const { products, setProducts, handleResponseMessage } = useContext(Store);
   const [loading, setLoading] = useState(false);
-  const [images, setImages] = useState([]);
-  const [imageUploadProgress, setImageUploadProgress] = useState(0);
-
-  const uploadToFirebase = (files) => {
-    return Promise.all(files.map(async (file) => {
-      if (!files) return;
-
-      const storageRef = ref(storage, `images/${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-      return new Promise((resolve, reject) => {
-        uploadTask.on("state_changed", (snapshot) => {
-          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          setImageUploadProgress(progress);
-        },
-          (error) => {
-            reject(error);
-          },
-          () => {
-            getDownloadURL(uploadTask.snapshot.ref)
-              .then((downloadURL) => {
-                // console.log(downloadURL);
-                resolve(downloadURL);
-              })
-              .catch((error) => {
-                reject(error);
-              });
-          });
-      });
-    }));
-  };
-
-  const handleImageFiles = (e) => {
-    e.preventDefault();
-
-    const files = Object.values(e.target.files).filter((file) => file.type.startsWith("image/"));
-
-    uploadToFirebase(files)
-      .then((uploaded) => {
-        if (product.imageFiles) {
-          let updatedImages = uploaded.concat(product.imageFiles);
-          setImages(updatedImages);
-        } else {
-          setImages(uploaded);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   const handleFormInput = (e) => {
     const { name, value } = e.target;
     setProduct({ ...product, [name]: value });
@@ -116,6 +64,7 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
       sellerName: "",
       addressLine1: "",
       addressLine2: "",
+      perishable: false,
       imageFiles: null,
       type: "",
       category: ""
@@ -128,9 +77,6 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
     e.preventDefault();
 
     setLoading(true);
-
-    product.imageFiles = images;
-    console.log(product);
 
     AddProductRequest(product)
       .then((response) => {
@@ -155,25 +101,10 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
       });
   };
 
-  const handleDeleteImage = (image) => {
-    const newImages = selectedProduct.imageFiles.filter(img => img !== image);
-    setImages(newImages);
-
-    setSelectedProduct({
-      ...selectedProduct,
-      imageFiles: newImages
-    });
-  };
-
   const handleUpdateProductInfo = async (e) => {
     e.preventDefault();
 
     setLoading(true);
-    if (images) {
-      product.imageFiles = images;
-    } else {
-      product.imageFiles = selectedProduct.imageFiles
-    }
 
     updateProductRequest(product, selectedProduct._id)
       .then((response) => {
@@ -245,7 +176,7 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="quantity" className="block font-medium text-gray-700"> Quantity </label>
+          <label htmlFor="quantity" className="block font-medium text-gray-700">Estimated Quantity <span className="text-sm text-zinc-600">(Kg)</span></label>
           <input
             type="number"
             id="quantity"
@@ -287,24 +218,6 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="imageFile" className="block font-medium text-gray-700">
-            Image file(s)&nbsp;
-            {imageUploadProgress !== 0 &&
-              <span className="text-sm text-green-600">
-                Uploading {imageUploadProgress} %
-              </span>}
-          </label>
-          <input
-            type="file"
-            multiple
-            accept="png, gif, jpg, jpeg"
-            id="imageFiles"
-            name="imageFiles"
-            onChange={handleImageFiles}
-            className="mt-1 w-full py-2 px-3 rounded-md border-slate-600 shadow-sm sm:text-sm"
-          />
-        </div>
-        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="type" className="block font-medium text-gray-700"> Product type </label>
           <select
             id="type"
@@ -320,9 +233,6 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
             ))}
           </select>
         </div>
-      </div>
-
-      <div className="flex flex-wrap justify-start md:gap-5 w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <p>Category</p>
           <div className="flex gap-4 py-2">
@@ -352,6 +262,36 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
             </label>
           </div>
         </div>
+      </div>
+
+      <div className="flex flex-wrap justify-start md:gap-5 w-full items-start">
+        <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
+          <p>Perishable</p>
+          <div className="flex gap-4 py-2">
+            <label htmlFor="perishable" className="font-medium text-gray-700 inline">
+              Yes &nbsp;
+              <input
+                type="radio"
+                name="perishable"
+                required
+                id="renewable"
+                checked={product.perishable || ""}
+                onChange={() => setProduct({ ...product, perishable: true})}
+              />
+            </label>
+            <label htmlFor="non-perishable" className="font-medium text-gray-700 inline">
+              No &nbsp;
+              <input
+                type="radio"
+                name="perishable"
+                required
+                id="non-perishable"
+                checked={!product.perishable || ""}
+                onChange={() => setProduct({ ...product, perishable: false})}
+              />
+            </label>
+          </div>
+        </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
           <label htmlFor="sellerPhone" className="block font-medium text-gray-700"> Your phone number </label>
           <input
@@ -368,26 +308,6 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
       </div>
-
-
-      {/* IMAGE DISPLAY  */}
-      {(selectedProduct.imageFiles && selectedProduct.imageFiles.length !== 0) &&
-        <div className="w-full flex gap-2 flex-wrap p-2 bg-slate-300 rounded">
-          {selectedProduct.imageFiles.map((image, index) => (
-            <div key={index} className="flex flex-col items-center relative">
-              <button type="button" onClick={() => handleDeleteImage(image)} className="absolute top-2 text-2xl right-2">
-                <TiDelete className="text-red-600" />
-              </button>
-              <img
-                key={index}
-                src={image}
-                alt={""}
-                className="w-48 h-48 object-cover"
-              />
-            </div>
-          ))}
-        </div>}
-
 
       {/* CONTROL BUTTONS  */}
       <div className="flex flex-wrap gap-2 justify-between">

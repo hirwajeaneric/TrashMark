@@ -61,7 +61,7 @@ const Cart = () => {
     console.log('Flutter Payment Process...');
     await handleFlutterPayment({
       callback: (response) => {
-        console.log(response);
+        // console.log(response);
         if (response.status === 'successful') {
           updateCartStatusRequest({ paid: true }, order._id)
             .then(() => {
@@ -69,12 +69,16 @@ const Cart = () => {
             })
             .catch(error => {
               console.log(error);
+              setProcessing(false);
             })
         }
         setLoading(false);
         closePaymentModal() // this will close the modal programmatically
+        setProcessing(false);
       },
-      onClose: () => { },
+      onClose: () => { 
+        setProcessing(false);
+      },
     });
   }
 

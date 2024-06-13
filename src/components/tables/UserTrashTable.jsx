@@ -3,19 +3,16 @@ const UserTrashTable = ({ products, setSelectedProduct }) => {
     const handleProductSelection = (selectedProduct) => {
         setSelectedProduct(selectedProduct);
     };
-
     return (
         <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
                 <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                     <thead className="ltr:text-left rtl:text-right">
                         <tr>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Product</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Name</th>
                             <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Quantity</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Unit Price</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Delivery Price</th>
-                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Total Price</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Perishable</th>
+                            <th className="whitespace-nowrap px-4 text-start py-2 font-medium text-gray-900">Category</th>
                         </tr>
                     </thead>
 
@@ -29,16 +26,12 @@ const UserTrashTable = ({ products, setSelectedProduct }) => {
                             </tr>
                         }
 
-                        {products.map((product, index) => (<tr key={index}>
-                            <td className="whitespace-nowrap font-medium text-gray-900">
-                                <img src={product.imageFiles[0]} alt='' className='w-auto h-16 bg-black' />
-                            </td>
+                        {products.map((product, index) => (<tr key={index}>                            
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.name}</td>
                             <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.quantity}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.unitPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.deliveryPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{(product.unitPrice * product.quantity) + product.deliveryPrice}</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.perishable ? "Yes": "No"}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700">{product.category}</td>
+                            <td className="whitespace-nowrap px-4 py-2 text-gray-700 text-right">
                                 <button type='button' onClick={() => handleProductSelection(product)} className='text-sm py-1 px-2 bg-black rounded-md text-white'>More details</button>
                             </td>
                         </tr>))}
