@@ -15,7 +15,6 @@ const AddProduct = () => {
       if (response) {
         var products = [];
         response.products.forEach((product) => {
-          console.log(product);
           if (product.description || product.unitPrice) {
             products.push(product);
           }
@@ -28,7 +27,7 @@ const AddProduct = () => {
     .catch(error => {
       handleResponseMessage('error', error.message);
     })
-  }, [handleResponseMessage, setProducts]);
+  });
 
   return (
     <div className="flex w-full">

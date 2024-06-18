@@ -140,7 +140,7 @@ export const getOrderByIdRequest = async (id) => {
 
     const responseData = await response.json();
 
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
 
@@ -193,7 +193,7 @@ export const getClientOrderRequest = async () => {
     });
 
     const responseData = await response.json();
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
 
@@ -218,7 +218,7 @@ export const getAllClientOrdersRequest = async () => {
     });
 
     const responseData = await response.json();
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
 
@@ -249,7 +249,7 @@ export const getAllSellerOrdersRequest = async () => {
     });
 
     const responseData = await response.json();
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
     

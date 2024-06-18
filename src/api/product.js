@@ -103,7 +103,8 @@ export const getUserProductsRequest = async () => {
     });
 
     const responseData = await response.json();
-    if (responseData.status === 401) {
+    
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
     if (!response.ok) {
@@ -128,7 +129,7 @@ export const getProductByIdRequest = async (id) => {
 
     const responseData = await response.json();
 
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
     
@@ -173,7 +174,7 @@ export const getAllProductsRequest = async () => {
 
     const responseData = await response.json();
 
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
     
@@ -199,7 +200,7 @@ export const getBaughtProductsRequest = async () => {
 
     const responseData = await response.json();
 
-    if (responseData.status === 401) {
+    if (response.status === 401) {
         window.location.replace('/sign-in');
     }
     

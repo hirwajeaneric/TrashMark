@@ -11,7 +11,7 @@ const Home = () => {
     getAllAvailableProductsRequest()
       .then(response => {
         if (response.products) {
-           setProducts(response.products);
+          setProducts(response.products);
          }
       })
       .catch(error => {

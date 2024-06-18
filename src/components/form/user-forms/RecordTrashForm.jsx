@@ -163,7 +163,7 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
     >
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="name" className="block font-medium text-gray-700"> Product name </label>
+          <label htmlFor="name" className="block font-medium text-gray-700"> Item name </label>
           <input
             type="text"
             id="name"
