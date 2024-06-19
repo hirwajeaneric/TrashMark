@@ -7,7 +7,6 @@ const Trash = () => {
   useEffect(() => {
     getAllProductsRequest()
       .then((response) => {
-        console.log(response);
         setData(response.products);
       })
       .catch((error) => {

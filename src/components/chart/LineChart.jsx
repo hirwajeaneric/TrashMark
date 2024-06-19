@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -36,24 +37,30 @@ const options = {
 
 const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: [250,300,300,230,234,23,0,0,0,0,0,0],
-      borderColor: 'rgb(0, 102, 102)',
-      backgroundColor: 'rgb(51, 153, 102)',
-    },
-    // {
-    //   label: 'Dataset 2',
-    //   data: [2,3,4,8,1,2,4,1,3,4,5,6],
-    //   borderColor: 'rgb(53, 162, 235)',
-    //   backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    // },
-  ],
-};
+export function LineChart({ monthlyTrashRecords, monthlyRenewableTrashRecords, monthlyNonRenewableTrashRecords }) {
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: 'Total trash per month',
+        data: monthlyTrashRecords,
+        borderColor: 'rgb(0, 102, 102)',
+        backgroundColor: 'rgb(51, 153, 102)',
+      },
+      {
+        label: 'Renewable trash per month',
+        data: monthlyRenewableTrashRecords,
+        borderColor: 'rgb(53, 162, 235)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+      },
+      {
+        label: 'Non-renewable trash per month',
+        data: monthlyNonRenewableTrashRecords,
+        borderColor: 'rgb(255, 204, 102)',
+        backgroundColor: 'rgba(255, 204, 102, 0.5)',
+      },
+    ],
+  };
 
-export function LineChart() {
   return <Line options={options} data={data} />;
 }

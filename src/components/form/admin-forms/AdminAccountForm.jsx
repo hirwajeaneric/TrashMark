@@ -8,7 +8,7 @@ const AdminAccountForm = () => {
     const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem("client"));
+        let user = JSON.parse(localStorage.getItem("admin"));
         setUserInfo(user);
     }, []);
 
@@ -27,7 +27,7 @@ const AdminAccountForm = () => {
             .then((response) => {
                 if (response) {
                     handleResponseMessage('success', response.message);
-                    localStorage.setItem("client", JSON.stringify(response.user));
+                    localStorage.setItem("admin", JSON.stringify(response.user));
                     window.location.reload();
                 }
             })

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { Store } from "../../../context/StoreContext";
 import LoadingButton from "../../../components/other-components/LoadingButton";
 import { SignInRequest } from "../../../api/authentication";
@@ -8,7 +8,6 @@ import { Helmet } from "react-helmet-async";
 const environment = import.meta.env.VITE_ENVIRONMENT;
 
 const Signin = () => {
-  const navigate = useNavigate();
   const [userInput, setUserInput] = useState({ email: "", password: "" });
   const [viewPassword, setViewPassword] = useState(false);
   const { handleResponseMessage } = useContext(Store); // Correctly destructure handleResponseMessage
@@ -46,7 +45,7 @@ const Signin = () => {
               expires: 1
             });
           localStorage.setItem("admin", JSON.stringify(response.user));
-          navigate("/admin");
+          window.location.replace("/admin");
         }
       })
       .catch(error => {
