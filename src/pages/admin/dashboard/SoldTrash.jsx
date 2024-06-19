@@ -7,7 +7,8 @@ const SoldTrash = () => {
   useEffect(() => {
     getAllProductsRequest()
     .then((response) => {
-        setData(response.products);
+        var soldTrash = response.products.filter(product => product.paid === true);
+        setData(soldTrash);
       })
      .catch((error) => {
         console.log(error);

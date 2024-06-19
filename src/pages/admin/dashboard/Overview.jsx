@@ -32,7 +32,7 @@ const Overview = () => {
             });
             soldTrash = response.products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getMonth() === new Date().getMonth() && product.paid;
+              return date.getMonth() === new Date().getMonth() && product.paid === true;
             })
           } else if (reportPeriod === 'Year') {
             products = response.products.filter((product) => {
@@ -120,7 +120,7 @@ const Overview = () => {
         }
       })
       .catch((error) => console.log('Error :', error.message));
-      
+
   }, [users.length, reportPeriod]);
 
 

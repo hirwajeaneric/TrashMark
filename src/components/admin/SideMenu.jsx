@@ -41,7 +41,7 @@ const SideMenu = () => {
                             <ul className="mt-2 space-y-1 px-4">
                                 <li>
                                     <Link
-                                        to="/admin/trash"
+                                        to="/admin/trash?category=all"
                                         className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                                     >
                                         All
@@ -49,7 +49,7 @@ const SideMenu = () => {
                                 </li>
                                 <li>
                                     <Link
-                                        to="/admin/trash/?type=renewable"
+                                        to="/admin/trash/?category=renewable"
                                         className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                                     >
                                         Renewable
@@ -58,7 +58,7 @@ const SideMenu = () => {
 
                                 <li>
                                     <Link
-                                        to="/admin/trash/?type=non-renewable"
+                                        to="/admin/trash/?category=non-renewable"
                                         className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                                     >
                                         Non-renewable
