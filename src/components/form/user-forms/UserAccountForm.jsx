@@ -109,14 +109,22 @@ const UserAccountForm = () => {
             <div className="flex flex-wrap justify-between w-full items-start">
                 <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
                     <label htmlFor="province" className="block font-medium text-gray-700"> Province </label>
-                    <input
-                        type="text"
+                    <select
                         id="province"
+                        required
+                        name="province"
                         value={userInfo.province || ""}
                         onChange={handleFormInput}
                         placeholder="KG 123 St"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                    />
+                    >
+                        <option value="">Choose province</option>
+                        <option value="Kigali City">Kigali City</option>
+                        <option value="North">Northern province</option>
+                        <option value="South">Southern province</option>
+                        <option value="East">Eastern province</option>
+                        <option value="West">Western province</option>
+                    </select>
                 </div>
                 <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
                     <label htmlFor="district" className="block font-medium text-gray-700"> District </label>
@@ -136,7 +144,7 @@ const UserAccountForm = () => {
                         id="sector"
                         value={userInfo.sector || ""}
                         onChange={handleFormInput}
-                        placeholder="Kigali"
+                        placeholder="Nyarugenge"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>
