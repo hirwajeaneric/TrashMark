@@ -23,15 +23,15 @@ const Footer = () => {
         >
           <ul className="flex flex-wrap justify-center gap-4 text-xs lg:justify-end">
             <li>
-              <a href="#" className="text-gray-500 transition hover:opacity-75"> Terms & Conditions </a>
+              <a href="#" className="text-gray-500 transition hover:opasector-75"> Terms & Conditions </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-500 transition hover:opacity-75"> Privacy Policy </a>
+              <a href="#" className="text-gray-500 transition hover:opasector-75"> Privacy Policy </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-500 transition hover:opacity-75"> Cookies </a>
+              <a href="#" className="text-gray-500 transition hover:opasector-75"> Cookies </a>
             </li>
           </ul>
 
@@ -41,7 +41,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-gray-700 transition hover:opasector-75"
               >
                 <span className="sr-only">Facebook</span>
 
@@ -60,7 +60,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-gray-700 transition hover:opasector-75"
               >
                 <span className="sr-only">Instagram</span>
 
@@ -79,7 +79,7 @@ const Footer = () => {
                 href="#"
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-gray-700 transition hover:opasector-75"
               >
                 <span className="sr-only">Twitter</span>
 

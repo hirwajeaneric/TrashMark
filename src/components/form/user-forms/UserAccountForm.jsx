@@ -108,33 +108,33 @@ const UserAccountForm = () => {
 
             <div className="flex flex-wrap justify-between w-full items-start">
                 <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
+                    <label htmlFor="province" className="block font-medium text-gray-700"> Province </label>
                     <input
                         type="text"
-                        id="addressLine1"
-                        value={userInfo.addressLine1 || ""}
+                        id="province"
+                        value={userInfo.province || ""}
                         onChange={handleFormInput}
                         placeholder="KG 123 St"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>
                 <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 </label>
+                    <label htmlFor="district" className="block font-medium text-gray-700"> District </label>
                     <input
                         type="text"
-                        id="addressLine2"
-                        value={userInfo.addressLine2 || ""}
+                        id="district"
+                        value={userInfo.district || ""}
                         onChange={handleFormInput}
                         placeholder="Nyarugenge"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
                     />
                 </div>
                 <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-                    <label htmlFor="city" className="block font-medium text-gray-700"> City </label>
+                    <label htmlFor="sector" className="block font-medium text-gray-700"> Sector </label>
                     <input
                         type="text"
-                        id="city"
-                        value={userInfo.city || ""}
+                        id="sector"
+                        value={userInfo.sector || ""}
                         onChange={handleFormInput}
                         placeholder="Kigali"
                         className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"

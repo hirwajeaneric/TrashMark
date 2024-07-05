@@ -24,13 +24,13 @@ const columns = [
         width: 150,
     },
     {
-        field: 'addressLine1',
-        headerName: 'Address Line 1',
+        field: 'province',
+        headerName: 'Province',
         width: 200,
     },
     {
-        field: 'addressLine2',
-        headerName: 'Address Line 2',
+        field: 'district',
+        headerName: 'District',
         width: 200,
     },
 ];

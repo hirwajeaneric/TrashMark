@@ -92,11 +92,11 @@ const Cart = () => {
     setProcessing(true);
 
     const updates = {
-      addressLine1: order.addressLine1,
-      addressLine2: order.addressLine2,
+      province: order.province,
+      district: order.district,
     }
 
-    if (updates.addressLine1 && updates.addressLine2) {
+    if (updates.province && updates.district) {
       updateOrderInfoRequest(updates, order._id)
         .then(response => {
           handleResponseMessage(response.type, response.message);
@@ -150,26 +150,26 @@ const Cart = () => {
             <form onSubmit={handleCheckout} className="mt-5 w-full flex flex-col">
               <div className="flex flex-wrap justify-between w-full items-start">
                 <div className="flex flex-col w-full md:w-[49%] mb-3 md:mb-0">
-                  <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 (Street address)</label>
+                  <label htmlFor="province" className="block font-medium text-gray-700"> Province (Street address)</label>
                   <input
                     type="text"
-                    id="addressLine1"
-                    name="addressLine1"
+                    id="province"
+                    name="province"
                     required
-                    value={order.addressLine1 || ""}
+                    value={order.province || ""}
                     onChange={handleFormInput}
                     placeholder="KG 123 St"
                     className="mt-1 w-full py-2 px-3 rounded-md border-2 border-gray-400 shadow-sm sm:text-sm"
                   />
                 </div>
                 <div className="flex flex-col w-full md:w-[49%] mb-3 md:mb-0">
-                  <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 (District/Sector)</label>
+                  <label htmlFor="district" className="block font-medium text-gray-700"> District (District/Sector)</label>
                   <input
                     type="text"
-                    id="addressLine2"
+                    id="district"
                     required
-                    name="addressLine2"
-                    value={order.addressLine2 || ""}
+                    name="district"
+                    value={order.district || ""}
                     onChange={handleFormInput}
                     placeholder="Kigali"
                     className="mt-1 w-full py-2 px-3 rounded-md border-2 border-gray-400 shadow-sm sm:text-sm"

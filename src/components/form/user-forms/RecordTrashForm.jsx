@@ -13,8 +13,8 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
     unitPrice: 0.00,
     deliveryTime: 0,
     deliveryPrice: 0.00,
-    addressLine1: "",
-    addressLine2: "",
+    province: "",
+    district: "",
     sellerPhone: "",
     sellerName: "",
     perishable: false,
@@ -35,8 +35,8 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
         deliveryTime: selectedProduct.deliveryTime,
         sellerPhone: user.phone || selectedProduct.sellerPhone,
         sellerName: user.firstName+" "+user.lastName || selectedProduct.sellerName,
-        addressLine1: selectedProduct.addressLine1,
-        addressLine2: selectedProduct.addressLine2,
+        province: selectedProduct.province,
+        district: selectedProduct.district,
         perishable: selectedProduct.perishable,
         type: selectedProduct.type,
         category: selectedProduct.category,
@@ -62,8 +62,8 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
       deliveryPrice: 0.00,
       sellerPhone: "",
       sellerName: "",
-      addressLine1: "",
-      addressLine2: "",
+      province: "",
+      district: "",
       perishable: false,
       imageFiles: null,
       type: "",
@@ -190,13 +190,13 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
           />
         </div>
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="addressLine1" className="block font-medium text-gray-700"> Address Line 1 </label>
+          <label htmlFor="province" className="block font-medium text-gray-700"> Province </label>
           <input
             type="text"
-            id="addressLine1"
+            id="province"
             required
-            name="addressLine1"
-            value={product.addressLine1 || ""}
+            name="province"
+            value={product.province || ""}
             onChange={handleFormInput}
             placeholder="KG 123 St"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"
@@ -206,12 +206,12 @@ const RecordTrashForm = ({ selectedProduct, setSelectedProduct }) => {
 
       <div className="flex flex-wrap justify-between w-full items-start">
         <div className="flex flex-col w-full md:w-[32%] mb-3 md:mb-0">
-          <label htmlFor="addressLine2" className="block font-medium text-gray-700"> Address Line 2 </label>
+          <label htmlFor="district" className="block font-medium text-gray-700"> District </label>
           <input
             type="text"
-            id="addressLine2"
-            name="addressLine2"
-            value={product.addressLine2 || ""}
+            id="district"
+            name="district"
+            value={product.district || ""}
             onChange={handleFormInput}
             placeholder="Kigali"
             className="mt-1 w-full py-2 px-3 rounded-md border-gray-200 shadow-sm sm:text-sm"

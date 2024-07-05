@@ -70,8 +70,8 @@ const OrderDetails = () => {
               <ListItem title={'Name'} value={client.firstName + " " + client.lastName} position={"odd"} />
               <ListItem title={'Email'} value={client.email} position={"even"} />
               <ListItem title={'Phone'} value={client.phone} position={"odd"} />
-              <ListItem title={'Address Line 1'} value={order.addressLine1} position={"even"} />
-              <ListItem title={'Address Line 2'} value={order.addressLine2} position={"odd"} />
+              <ListItem title={'Province'} value={order.province} position={"even"} />
+              <ListItem title={'District'} value={order.district} position={"odd"} />
             </div>
           </div>
         </div>

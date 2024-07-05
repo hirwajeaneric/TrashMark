@@ -24,7 +24,7 @@ const columns = [
         width: 200,
     },
     {
-        field: 'addressLine1',
+        field: 'province',
         headerName: 'Location',
         width: 300,
     },
