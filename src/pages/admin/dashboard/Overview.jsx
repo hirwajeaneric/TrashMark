@@ -7,6 +7,7 @@ import { BiCalendarEdit } from "react-icons/bi"
 import { getAllProductsRequest } from "../../../api/product"
 import { getAllUsersRequest } from "../../../api/authentication"
 import { generateMonthlyProductsStats } from "../../../utils/helperFunctions"
+import ProvinceStats from "../../../components/admin/ProvinceStats"
 
 const Overview = () => {
   const [stats, setStats] = useState([]);
@@ -81,18 +82,22 @@ const Overview = () => {
           setRenewableStats([nonRenewableItems.length, renewableItems.length]);
           setStats([
             {
+              size: '[24%]',
               title: "Total Recorded Trash",
               value: products.length,
             },
             {
+              size: '[24%]',
               title: "Total Exchanged Trash",
               value: soldTrash.length,
             },
             {
+              size: '[24%]',
               title: "Renewable Trash",
               value: renewableItems.length,
             },
             {
+              size: '[24%]',
               title: "Total System Users",
               value: users.length,
             }
@@ -101,18 +106,22 @@ const Overview = () => {
           setRenewableStats([0, 0]);
           setStats([
             {
+              size: '[24%]',
               title: "Total Recorded Trash",
               value: 0,
             },
             {
+              size: '[24%]',
               title: "Total Exchanged Trash",
               value: 0,
             },
             {
+              size: '[24%]',
               title: "Renewable Trash",
               value: 0,
             },
             {
+              size: '[24%]',
               title: "Total System Users",
               value: 0,
             }
@@ -149,6 +158,7 @@ const Overview = () => {
           <PieChart data={renewableStats}/>
         </div>
       </div>
+      <ProvinceStats reportPeriod={reportPeriod} />
     </div>
   )
 }

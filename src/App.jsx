@@ -35,6 +35,11 @@ import AdminForgotPassword from './pages/admin/auth/ForgotPassword';
 import AdminResetPassword from './pages/admin/auth/ResetPassword';
 import Reports from './pages/admin/dashboard/Reports';
 import AddTrash from './pages/user/account/RecordTrash';
+import StatsForKigali from './pages/admin/dashboard/StatsForKigali';
+import StatsForNorth from './pages/admin/dashboard/StatsForNorth';
+import StatsForSouth from './pages/admin/dashboard/StatsForSouth';
+import StatsForEast from './pages/admin/dashboard/StatsForEast';
+import StatsForWest from './pages/admin/dashboard/StatsForWest';
 
 const App = () => {
   return (
@@ -56,7 +61,7 @@ const App = () => {
             <Route path='cart' element={<Cart />} />
             <Route path='checkout' element={<CheckOut />} />
             <Route path='not-found' element={<NotFound />} />
-            <Route path='account' element={localStorage.getItem('client') ? <Account />: <Navigate replace to='/sign-in' />} >
+            <Route path='account' element={localStorage.getItem('client') ? <Account /> : <Navigate replace to='/sign-in' />} >
               <Route path='' element={<AccountHome />} />
               <Route path='profile' element={<AccountHome />} />
               <Route path='manage-products' element={<AddProduct />} />
@@ -77,9 +82,23 @@ const App = () => {
           <Route path='/admin/forgot-password' element={<AdminForgotPassword />} />
           <Route path='/admin/reset-password' element={<AdminResetPassword />} />
 
-          <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout />: <Navigate replace to='/admin/sign-in' />}>
-            <Route path='' element={<Overview />} />
-            <Route path='overview' element={<Overview />} />
+          <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout /> : <Navigate replace to='/admin/sign-in' />}>
+            <Route path='' element={<Overview />} >
+              <Route path='kigali' element={<StatsForKigali />} />
+              <Route path='north' element={<StatsForNorth />} />
+              <Route path='south' element={<StatsForSouth />} />
+              <Route path='east' element={<StatsForEast />} />
+              <Route path='west' element={<StatsForWest />} />
+            </Route>
+
+            <Route path='overview' element={<Overview />}>
+              <Route path='kigali' element={<StatsForKigali />} />
+              <Route path='north' element={<StatsForNorth />} />
+              <Route path='south' element={<StatsForSouth />} />
+              <Route path='east' element={<StatsForEast />} />
+              <Route path='west' element={<StatsForWest />} />
+            </Route>
+
             <Route path='trash' element={<Trash />} />
             <Route path='sellers' element={<Sellers />} />
             <Route path='sold' element={<SoldTrash />} />
