@@ -84,6 +84,7 @@ const App = () => {
 
           <Route path='/admin' element={localStorage.getItem('admin') ? <AdminLayout /> : <Navigate replace to='/admin/sign-in' />}>
             <Route path='' element={<Overview />} >
+              <Route path='' element={<StatsForKigali />} />
               <Route path='kigali' element={<StatsForKigali />} />
               <Route path='north' element={<StatsForNorth />} />
               <Route path='south' element={<StatsForSouth />} />
@@ -92,6 +93,7 @@ const App = () => {
             </Route>
 
             <Route path='overview' element={<Overview />}>
+              <Route path='' element={<StatsForKigali />} />
               <Route path='kigali' element={<StatsForKigali />} />
               <Route path='north' element={<StatsForNorth />} />
               <Route path='south' element={<StatsForSouth />} />

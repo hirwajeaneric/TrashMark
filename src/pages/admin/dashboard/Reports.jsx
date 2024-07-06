@@ -1,25 +1,199 @@
 import { useEffect, useState } from "react";
-import { FetchSellerRequest } from "../../../api/authentication";
+import { getAllUsersRequest } from "../../../api/authentication";
 import FilterOptions from "./FilterOptions";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import TrashReport from "../../../components/reports/TrashReport";
 import { HiOutlineDownload } from 'react-icons/hi';
-import { getMonthName } from "../../../utils/helperFunctions";
+import { generateMonthlyProductsStats, getMonthName } from "../../../utils/helperFunctions";
+import { getAllProductsRequest } from "../../../api/product";
 
 const Reports = () => {
-  const [data, setData] = useState([]);
   const [reportType, setReportType] = useState("");
   const [reportPeriod, setReportPeriod] = useState('Month');
+  const [stats, setStats] = useState([]);
+  const [renewableStats, setRenewableStats] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [monthlyTrashRecords, setMonthlyTrashRecords] = useState([]);
+  const [monthlyRenewableTrashRecords, setMonthlyRenewableTrashRecords] = useState([]);
+  const [monthlyNonRenewableTrashRecords, setMonthlyNonRenewableTrashRecords] = useState([]);
+  const [productsPerProvince, setProductsPerProvince] = useState({ kigali: 0, north: 0, south: 0, west: 0, east: 0 });
 
   useEffect(() => {
-    FetchSellerRequest()
+    // Fetching products 
+    getAllProductsRequest()
       .then((response) => {
-        setData(response.users);
+        if (response.products) {
+          var products = [];
+          var soldTrash = [];
+          var productInKigali = [];
+          var productInNorth = [];
+          var productInSouth = [];
+          var productInWest = [];
+          var productInEast = [];
+
+          // Filtering by report period 
+          if (reportPeriod === 'Month') {
+            products = response.products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth();
+            });
+            soldTrash = response.products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.paid === true;
+            });
+            productInKigali = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'Kigali City'; 
+            });
+            productInNorth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'North'; 
+            });
+            productInSouth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'South'; 
+            });
+            productInWest = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'West'; 
+            });
+            productInEast = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'East'; 
+            });
+
+            setProductsPerProvince({
+              kigali: productInKigali.length,
+              north: productInNorth.length,
+              south: productInSouth.length,
+              west: productInWest.length,
+              east: productInEast.length
+            });
+
+          } else if (reportPeriod === 'Year') {
+            products = response.products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear();
+            });
+            soldTrash = response.products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.paid;
+            });
+            productInKigali = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'Kigali City'; 
+            });
+            productInNorth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'North'; 
+            });
+            productInSouth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'South'; 
+            });
+            productInWest = products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'West';
+            });
+            productInEast = products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'East';
+            });
+
+            setProductsPerProvince({
+              kigali: productInKigali.length,
+              north: productInNorth.length,
+              south: productInSouth.length,
+              west: productInWest.length,
+              east: productInEast.length
+            });
+          }
+
+          // Set monthly product statistics
+          const monthlyRenewableTrash = response.products.filter((product) =>  product.category === "Renewable" );
+          const monthlyNonRenewableTrash = response.products.filter((product) =>  product.category === "Non-renewable" );
+
+          setMonthlyTrashRecords(generateMonthlyProductsStats(response.products));
+          setMonthlyRenewableTrashRecords(generateMonthlyProductsStats(monthlyRenewableTrash));
+          setMonthlyNonRenewableTrashRecords(generateMonthlyProductsStats(monthlyNonRenewableTrash));
+
+          // Fetching systemUsers 
+          getAllUsersRequest()
+            .then((response) => {
+              if (response.users) {
+                var systemUsers = [];
+                if (reportPeriod === 'Month') {
+                  systemUsers = response.users.filter((client) => {
+                    var date = new Date(client.createdAt);
+                    return date.getMonth() === new Date().getMonth();
+                  });
+                } else if (reportPeriod === 'Year') {
+                  systemUsers = response.users.filter((client) => {
+                    var date = new Date(client.createdAt);
+                    return date.getFullYear() === new Date().getFullYear();
+                  });
+                }
+                setUsers(systemUsers);
+              }
+            })
+            .catch((error) => console.log(error));
+
+          // Filtering by status
+          const renewableItems = response.products.filter((product) => product.category === 'Renewable');
+          const nonRenewableItems = response.products.filter((product) => product.category === 'Non-renewable');
+
+          setRenewableStats([nonRenewableItems.length, renewableItems.length]);
+          setStats([
+            {
+              size: '[24%]',
+              title: "Total Recorded Trash",
+              value: products.length,
+            },
+            {
+              size: '[24%]',
+              title: "Total Exchanged Trash",
+              value: soldTrash.length,
+            },
+            {
+              size: '[24%]',
+              title: "Renewable Trash",
+              value: renewableItems.length,
+            },
+            {
+              size: '[24%]',
+              title: "Total System Users",
+              value: users.length,
+            }
+          ]);
+        } else {
+          setRenewableStats([0, 0]);
+          setStats([
+            {
+              size: '[24%]',
+              title: "Total Recorded Trash",
+              value: 0,
+            },
+            {
+              size: '[24%]',
+              title: "Total Exchanged Trash",
+              value: 0,
+            },
+            {
+              size: '[24%]',
+              title: "Renewable Trash",
+              value: 0,
+            },
+            {
+              size: '[24%]',
+              title: "Total System Users",
+              value: 0,
+            }
+          ]);
+        }
       })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+      .catch((error) => console.log('Error :', error.message));
+
+  }, [users.length, reportPeriod]);
 
   return (
     <div className="w-full">
@@ -61,5 +235,6 @@ const Reports = () => {
     </div>
   )
 }
+
 
 export default Reports

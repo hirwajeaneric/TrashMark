@@ -17,6 +17,7 @@ const Overview = () => {
   const [monthlyTrashRecords, setMonthlyTrashRecords] = useState([]);
   const [monthlyRenewableTrashRecords, setMonthlyRenewableTrashRecords] = useState([]);
   const [monthlyNonRenewableTrashRecords, setMonthlyNonRenewableTrashRecords] = useState([]);
+  const [productsPerProvince, setProductsPerProvince] = useState({ kigali: 0, north: 0, south: 0, west: 0, east: 0 });
 
   useEffect(() => {
     // Fetching products 
@@ -25,6 +26,12 @@ const Overview = () => {
         if (response.products) {
           var products = [];
           var soldTrash = [];
+          var productInKigali = [];
+          var productInNorth = [];
+          var productInSouth = [];
+          var productInWest = [];
+          var productInEast = [];
+
           // Filtering by report period 
           if (reportPeriod === 'Month') {
             products = response.products.filter((product) => {
@@ -34,7 +41,36 @@ const Overview = () => {
             soldTrash = response.products.filter((product) => {
               var date = new Date(product.createdAt);
               return date.getMonth() === new Date().getMonth() && product.paid === true;
-            })
+            });
+            productInKigali = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'Kigali City'; 
+            });
+            productInNorth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'North'; 
+            });
+            productInSouth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'South'; 
+            });
+            productInWest = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'West'; 
+            });
+            productInEast = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getMonth() === new Date().getMonth() && product.province === 'East'; 
+            });
+
+            setProductsPerProvince({
+              kigali: productInKigali.length,
+              north: productInNorth.length,
+              south: productInSouth.length,
+              west: productInWest.length,
+              east: productInEast.length
+            });
+
           } else if (reportPeriod === 'Year') {
             products = response.products.filter((product) => {
               var date = new Date(product.createdAt);
@@ -43,6 +79,34 @@ const Overview = () => {
             soldTrash = response.products.filter((product) => {
               var date = new Date(product.createdAt);
               return date.getFullYear() === new Date().getFullYear() && product.paid;
+            });
+            productInKigali = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'Kigali City'; 
+            });
+            productInNorth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'North'; 
+            });
+            productInSouth = products.filter((product) => { 
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'South'; 
+            });
+            productInWest = products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'West';
+            });
+            productInEast = products.filter((product) => {
+              var date = new Date(product.createdAt);
+              return date.getFullYear() === new Date().getFullYear() && product.province === 'East';
+            });
+
+            setProductsPerProvince({
+              kigali: productInKigali.length,
+              north: productInNorth.length,
+              south: productInSouth.length,
+              west: productInWest.length,
+              east: productInEast.length
             });
           }
 
@@ -158,7 +222,10 @@ const Overview = () => {
           <PieChart data={renewableStats}/>
         </div>
       </div>
-      <ProvinceStats reportPeriod={reportPeriod} />
+      <ProvinceStats 
+        reportPeriod={reportPeriod} 
+        productsPerProvince={productsPerProvince} 
+      />
     </div>
   )
 }
