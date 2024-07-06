@@ -12,7 +12,7 @@ import ProvinceStats from "../../../components/admin/ProvinceStats"
 const Overview = () => {
   const [stats, setStats] = useState([]);
   const [renewableStats, setRenewableStats] = useState([]);
-  const [reportPeriod, setReportPeriod] = useState('Month');
+  const [reportPeriod, setReportPeriod] = useState({type: 'Year', value: 2024});
   const [users, setUsers] = useState([]);
   const [monthlyTrashRecords, setMonthlyTrashRecords] = useState([]);
   const [monthlyRenewableTrashRecords, setMonthlyRenewableTrashRecords] = useState([]);
@@ -33,7 +33,7 @@ const Overview = () => {
           var productInEast = [];
 
           // Filtering by report period 
-          if (reportPeriod === 'Month') {
+          if (reportPeriod.type === 'Month') {
             products = response.products.filter((product) => {
               var date = new Date(product.createdAt);
               return date.getMonth() === new Date().getMonth();
@@ -71,34 +71,34 @@ const Overview = () => {
               east: productInEast.length
             });
 
-          } else if (reportPeriod === 'Year') {
+          } else if (reportPeriod.type === 'Year') {
             products = response.products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear();
+              return date.getFullYear() === Number(reportPeriod.value);
             });
             soldTrash = response.products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.paid;
+              return date.getFullYear() === Number(reportPeriod.value) && product.paid;
             });
             productInKigali = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'Kigali City'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'Kigali City'; 
             });
             productInNorth = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'North'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'North'; 
             });
             productInSouth = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'South'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'South'; 
             });
             productInWest = products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'West';
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'West';
             });
             productInEast = products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'East';
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'East';
             });
 
             setProductsPerProvince({
@@ -111,10 +111,11 @@ const Overview = () => {
           }
 
           // Set monthly product statistics
-          const monthlyRenewableTrash = response.products.filter((product) =>  product.category === "Renewable" );
-          const monthlyNonRenewableTrash = response.products.filter((product) =>  product.category === "Non-renewable" );
+          const totalProductsPerMonth = response.products.filter((product) => new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+          const monthlyRenewableTrash = response.products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+          const monthlyNonRenewableTrash = response.products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
 
-          setMonthlyTrashRecords(generateMonthlyProductsStats(response.products));
+          setMonthlyTrashRecords(generateMonthlyProductsStats(totalProductsPerMonth));
           setMonthlyRenewableTrashRecords(generateMonthlyProductsStats(monthlyRenewableTrash));
           setMonthlyNonRenewableTrashRecords(generateMonthlyProductsStats(monthlyNonRenewableTrash));
 
@@ -123,12 +124,12 @@ const Overview = () => {
             .then((response) => {
               if (response.users) {
                 var systemUsers = [];
-                if (reportPeriod === 'Month') {
+                if (reportPeriod.type === 'Month') {
                   systemUsers = response.users.filter((client) => {
                     var date = new Date(client.createdAt);
                     return date.getMonth() === new Date().getMonth();
                   });
-                } else if (reportPeriod === 'Year') {
+                } else if (reportPeriod.type === 'Year') {
                   systemUsers = response.users.filter((client) => {
                     var date = new Date(client.createdAt);
                     return date.getFullYear() === new Date().getFullYear();
@@ -140,8 +141,8 @@ const Overview = () => {
             .catch((error) => console.log(error));
 
           // Filtering by status
-          const renewableItems = response.products.filter((product) => product.category === 'Renewable');
-          const nonRenewableItems = response.products.filter((product) => product.category === 'Non-renewable');
+          const renewableItems = response.products.filter((product) => product.category === 'Renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+          const nonRenewableItems = response.products.filter((product) => product.category === 'Non-renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
 
           setRenewableStats([nonRenewableItems.length, renewableItems.length]);
           setStats([
@@ -210,7 +211,7 @@ const Overview = () => {
       <OverviewCards reportPeriod={reportPeriod} stats={stats} />
       <div className="flex w-full justify-between items-start flex-wrap mt-6">
         <div className="w-full md:w-[66%] rounded-md bproduct bproduct-gray-300 p-4">
-          <h2 className="text-sm font-bold mb-2">All recorded trash in {new Date().getFullYear()} in each month.</h2>
+          <h2 className="text-sm font-bold mb-2">All recorded trash in {reportPeriod.value} in each month.</h2>
           <LineChart 
             monthlyTrashRecords={monthlyTrashRecords} 
             monthlyRenewableTrashRecords={monthlyRenewableTrashRecords}  
@@ -219,7 +220,7 @@ const Overview = () => {
         </div>
         <div className="w-full md:w-[32%] rounded-md bproduct bproduct-gray-300 p-4">
           <h2 className="text-sm font-bold mb-2">Renewable vs Non-renewable</h2>
-          <PieChart data={renewableStats}/>
+          <PieChart renewableStats={renewableStats}/>
         </div>
       </div>
       <ProvinceStats 

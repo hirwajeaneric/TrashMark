@@ -9,7 +9,7 @@ import { getAllProductsRequest } from "../../../api/product";
 
 const Reports = () => {
   const [reportType, setReportType] = useState("");
-  const [reportPeriod, setReportPeriod] = useState('Month');
+  const [reportPeriod, setReportPeriod] = useState({type: 'Month', value: 0});
   const [stats, setStats] = useState([]);
   const [renewableStats, setRenewableStats] = useState([]);
   const [users, setUsers] = useState([]);
@@ -73,31 +73,31 @@ const Reports = () => {
           } else if (reportPeriod === 'Year') {
             products = response.products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear();
+              return date.getFullYear() === Number(reportPeriod.value);
             });
             soldTrash = response.products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.paid;
+              return date.getFullYear() === Number(reportPeriod.value) && product.paid;
             });
             productInKigali = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'Kigali City'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'Kigali City'; 
             });
             productInNorth = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'North'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'North'; 
             });
             productInSouth = products.filter((product) => { 
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'South'; 
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'South'; 
             });
             productInWest = products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'West';
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'West';
             });
             productInEast = products.filter((product) => {
               var date = new Date(product.createdAt);
-              return date.getFullYear() === new Date().getFullYear() && product.province === 'East';
+              return date.getFullYear() === Number(reportPeriod.value) && product.province === 'East';
             });
 
             setProductsPerProvince({
@@ -225,7 +225,8 @@ const Reports = () => {
           <option value="Users">Users</option>
         </select>
       </div>
-      {/* <button type="submit" className="py-1 px-2 bg-black text-white rounded mt-5">Print</button> */}
+
+
       <PDFDownloadLink document={<TrashReport reportPeriod={reportPeriod} reportType={reportType} />} fileName='trash.pdf'>
         <div className="flex items-center gap-2 mt-10 p-2 w-fit rounded-1xl bg-black text-white">
           <HiOutlineDownload size={14} />
