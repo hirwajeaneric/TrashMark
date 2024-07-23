@@ -125,11 +125,21 @@ const Overview = () => {
 
         setProductsPerProvince({ kigali: productInKigali, north: productInNorth, south: productInSouth, west: productInWest, east: productInEast });
       }
-
+      
       // Set monthly product statistics ********************************************************************************
-      const totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
-      const monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
-      const monthlyNonRenewableTrash = products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+      var totalProductsPerMonth = [];
+      var monthlyRenewableTrash = [];
+      var monthlyNonRenewableTrash = [];
+
+      if (reportPeriod.type === 'Year') {
+        totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === reportPeriod.value);
+        monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === reportPeriod.value);
+        monthlyNonRenewableTrash = products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === reportPeriod.value);
+      } else if (reportPeriod.type === 'Month') {
+        totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === 2024);
+        monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === 2024);
+        monthlyNonRenewableTrash = products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === 2024);
+      }
 
       setMonthlyTrashRecords(generateMonthlyProductsStats(totalProductsPerMonth));
       setMonthlyRenewableTrashRecords(generateMonthlyProductsStats(monthlyRenewableTrash));

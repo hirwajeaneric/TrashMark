@@ -52,36 +52,34 @@ export const filterReportsPerMonth = (products, month) => {
   let productInWest = [];
   let productInEast = [];
 
+  console.log(month - 1);
+
   // Filtering by report period
   filteredProducts = products.filter((product) => {
     var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth();
+    console.log(month - 1 === date.getMonth());
+    return date.getMonth() === month - 1;
   });
   filteredSoldTrash = products.filter((product) => {
     var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.paid === true;
+    return date.getMonth() === month - 1 && product.paid === true;
   });
 
   // Filter by Province
   productInKigali = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.province === 'Kigali City'; 
+    return product.province === 'Kigali City'; 
   });
   productInNorth = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.province === 'North'; 
+    return product.province === 'North'; 
   });
   productInSouth = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.province === 'South'; 
+    return product.province === 'South'; 
   });
   productInWest = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.province === 'West'; 
+    return product.province === 'West'; 
   });
   productInEast = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getMonth() === new Date().getMonth() && product.province === 'East'; 
+    return product.province === 'East'; 
   });
 
   return { 
@@ -130,24 +128,19 @@ export const filterReportsPerYear = (products, year) => {
 
   // Filter by Province
   productInKigali = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getFullYear() === year && product.province === 'Kigali City'; 
+    return product.province === 'Kigali City'; 
   });
   productInNorth = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getFullYear() === year && product.province === 'North'; 
+    return product.province === 'North'; 
   });
   productInSouth = filteredProducts.filter((product) => { 
-    var date = new Date(product.createdAt);
-    return date.getFullYear() === year && product.province === 'South'; 
+    return product.province === 'South'; 
   });
-  productInWest = filteredProducts.filter((product) => {
-    var date = new Date(product.createdAt);
-    return date.getFullYear() === year && product.province === 'West'; 
+  productInWest = filteredProducts.filter((product) => { 
+    return product.province === 'West'; 
   });
-  productInEast = filteredProducts.filter((product) => {
-    var date = new Date(product.createdAt);
-    return date.getFullYear() === year && product.province === 'East'; 
+  productInEast = filteredProducts.filter((product) => { 
+    return product.province === 'East'; 
   });
 
   return { 
