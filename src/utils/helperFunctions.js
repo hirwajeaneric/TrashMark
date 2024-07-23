@@ -112,6 +112,8 @@ export const filterReportsPerYear = (products, year) => {
   let productInWest = [];
   let productInEast = [];
 
+  console.log(year);
+
   // Filter by year
   filteredProducts = products.filter((product) => {
     var date = new Date(product.createdAt);

@@ -60,6 +60,7 @@ const Overview = () => {
         });
       }
 
+      // let productsFilteredByReportPeriod = [];
       // Fetching products 
       const { products } = await getAllProductsRequest();
       // Filtering by status  ******************************************************************************************
@@ -67,12 +68,11 @@ const Overview = () => {
       const nonRenewableItems = products.filter((product) => product.category === 'Non-renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
 
       setRenewableStats([nonRenewableItems.length, renewableItems.length]);
-
+      
       // Filtering by report period *************************************************************************************
       if (reportPeriod.type === 'Month') {
         let month = reportPeriod.value
         const { filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerMonth(products, month);
-        console.log(filteredProducts);
 
         setStats([
           {
@@ -99,7 +99,8 @@ const Overview = () => {
 
         setProductsPerProvince({ kigali: productInKigali, north: productInNorth, south: productInSouth, west: productInWest, east: productInEast });
       } else if (reportPeriod.type === 'Year') {
-        const { filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerYear(products, reportPeriod.value);
+        const { filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerYear(products, Number(reportPeriod.value));
+        // productsFilteredByReportPeriod = filteredProducts;
         setStats([
           {
             size: '[24%]',
@@ -132,9 +133,9 @@ const Overview = () => {
       var monthlyNonRenewableTrash = [];
 
       if (reportPeriod.type === 'Year') {
-        totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === reportPeriod.value);
-        monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === reportPeriod.value);
-        monthlyNonRenewableTrash = products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === reportPeriod.value);
+        totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+        monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
+        monthlyNonRenewableTrash = products.filter((product) => product.category === "Non-renewable" && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
       } else if (reportPeriod.type === 'Month') {
         totalProductsPerMonth = products.filter((product) => new Date(product.createdAt).getFullYear() === 2024);
         monthlyRenewableTrash = products.filter((product) => product.category === "Renewable" && new Date(product.createdAt).getFullYear() === 2024);
@@ -163,7 +164,8 @@ const Overview = () => {
       <OverviewCards reportPeriod={reportPeriod} stats={stats} />
       <div className="flex w-full justify-between items-start flex-wrap mt-6">
         <div className="w-full md:w-[66%] rounded-md bproduct bproduct-gray-300 p-4">
-          <h2 className="text-sm font-bold mb-2">All recorded trash in {reportPeriod.value} in each month.</h2>
+          {reportPeriod.type === 'Year' && <h2 className="text-sm font-bold mb-2">All recorded trash in {reportPeriod.value} in each month.</h2>}
+          {reportPeriod.type !== 'Year' && <h2 className="text-sm font-bold mb-2">All recorded trash in {new Date().getFullYear()} in each month.</h2>}
           <LineChart
             monthlyTrashRecords={monthlyTrashRecords}
             monthlyRenewableTrashRecords={monthlyRenewableTrashRecords}

@@ -1,7 +1,17 @@
+import { useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+
 /* eslint-disable react/prop-types */
 const FilterOptions = ({ reportPeriod, setReportPeriod }) => {
+    const [searchParams, setSearchParams] = useSearchParams({});
+    useEffect(() => {
+        console.log(searchParams);
+        setSearchParams({year: reportPeriod.value}); // Added a comma here
+    }, [reportPeriod.value, searchParams, setSearchParams]);
+
     const handleYearChoice = (e) => {
         setReportPeriod({ type: 'Year', value: e.target.value });
+        setSearchParams({ year: e.target.value });
     }
     
     const handleMonthChoice = (e) => {

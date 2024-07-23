@@ -2,29 +2,41 @@ import { useEffect, useState } from "react"
 import { LineChart } from "../../../components/chart/LineChart"
 import { getAllProductsRequest } from "../../../api/product";
 import { generateMonthlyProductsStats } from "../../../utils/helperFunctions";
+import { useSearchParams } from "react-router-dom";
 
 const StatsForKigali = () => {
+  const [year, setYear] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams({});
+
   const [monthlyTrashRecords, setMonthlyTrashRecords] = useState([]);
   const [monthlyRenewableTrashRecords, setMonthlyRenewableTrashRecords] = useState([]);
   const [monthlyNonRenewableTrashRecords, setMonthlyNonRenewableTrashRecords] = useState([]);
 
   useEffect(() => {
+    setYear(searchParams.get('year'));
+    console.log(setSearchParams);
+
     getAllProductsRequest()
       .then((response) => {
-        // Set monthly product statistics
-        const monthlyRenewableTrash = response.products.filter((product) =>  product.category === "Renewable" && product.province === 'Kigali City');
-        const monthlyNonRenewableTrash = response.products.filter((product) =>  product.category === "Non-renewable" && product.province === 'Kigali City');
+        // Filter products by year
+        const productsByYear = response.products.filter((product) => product.createdAt.includes(year));
 
-        setMonthlyTrashRecords(generateMonthlyProductsStats(response.products));
+        // Set monthly product statistics
+        const monthlyRenewableTrash = productsByYear.filter((product) =>  product.category === "Renewable" && product.province === 'Kigali City');
+        const monthlyNonRenewableTrash = productsByYear.filter((product) =>  product.category === "Non-renewable" && product.province === 'Kigali City');
+
+        setMonthlyTrashRecords(generateMonthlyProductsStats(productsByYear));
         setMonthlyRenewableTrashRecords(generateMonthlyProductsStats(monthlyRenewableTrash));
         setMonthlyNonRenewableTrashRecords(generateMonthlyProductsStats(monthlyNonRenewableTrash));
       })
       .catch((error) => console.log('Error :', error.message));
-  }, []);
+  }, [searchParams, setSearchParams, year]);
 
   return (
     <div className="w-full rounded-md bproduct bproduct-gray-300 p-4 pt-0">
-      <h2 className="text-sm font-bold mb-2">All recorded trash in Kigali for {new Date().getFullYear()} in each month.</h2>
+      {year > 2000 && <h2 className="text-sm font-bold mb-2">All recorded trash in Kigali for {year} in each month.</h2>}
+      {year <= 12 && <h2 className="text-sm font-bold mb-2">All recorded trash in Kigali for {new Date().getFullYear()} in each month.</h2>}
+
       <LineChart
         monthlyTrashRecords={monthlyTrashRecords}
         monthlyRenewableTrashRecords={monthlyRenewableTrashRecords}
