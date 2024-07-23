@@ -52,17 +52,13 @@ export const filterReportsPerMonth = (products, month) => {
   let productInWest = [];
   let productInEast = [];
 
-  console.log(month - 1);
-
   // Filtering by report period
   filteredProducts = products.filter((product) => {
-    var date = new Date(product.createdAt);
-    console.log(month - 1 === date.getMonth());
-    return date.getMonth() === month - 1;
+    // console.log(month - 1 === new Date(product.createdAt).getMonth());
+    return new Date(product.createdAt).getMonth() === month - 1;
   });
   filteredSoldTrash = products.filter((product) => {
-    var date = new Date(product.createdAt);
-    return date.getMonth() === month - 1 && product.paid === true;
+    return new Date(product.createdAt).getMonth() === month - 1 && product.paid === true;
   });
 
   // Filter by Province
@@ -83,7 +79,7 @@ export const filterReportsPerMonth = (products, month) => {
   });
 
   return { 
-    filteredProducts: filteredSoldTrash.length, 
+    filteredProducts: filteredProducts.length, 
     filteredSoldTrash: filteredSoldTrash.length, 
     productInKigali: productInKigali.length, 
     productInNorth: productInNorth.length, 
