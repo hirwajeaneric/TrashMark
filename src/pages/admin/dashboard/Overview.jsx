@@ -8,8 +8,10 @@ import { getAllProductsRequest } from "../../../api/product"
 import { getAllUsersRequest } from "../../../api/authentication"
 import { countProductTypes, filterReportsPerMonth, filterReportsPerYear, generateMonthlyProductsStats } from "../../../utils/helperFunctions"
 import ProvinceStats from "../../../components/admin/ProvinceStats"
-import ReportModal from "../../../components/models/ReportModal"
 import { productTypes } from "../../../utils/productTypes"
+import { useRef } from "react"
+import { useReactToPrint } from "react-to-print"
+import { ReportToPrint } from "../../../components/models/ReportToPrint"
 
 const Overview = () => {
   // Initial States *********************************************************************************
@@ -66,7 +68,7 @@ const Overview = () => {
       // let productsFilteredByReportPeriod = [];
       // Fetching products 
       const { products } = await getAllProductsRequest();
-      
+
       // Filtering by status  ******************************************************************************************
       const renewableItems = products.filter((product) => product.category === 'Renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
       const nonRenewableItems = products.filter((product) => product.category === 'Non-renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
@@ -158,13 +160,11 @@ const Overview = () => {
     fetchData();
   }, [reportPeriod]);
 
-  // State to manage the visibility of the modal
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Function to toggle the modal visibility
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-  };
+  // Configuration of report printing
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
 
   return (
@@ -172,17 +172,23 @@ const Overview = () => {
       <div className="flex justify-between items-center flex-wrap mb-6 gap-3">
         <FilterOptions reportPeriod={reportPeriod} setReportPeriod={setReportPeriod} />
         <div className="flex justify-center items-center gap-3 relative">
-          
-          <button type="button" onClick={toggleModal} className="border-black border rounded-lg px-2 cursor-pointer hover:text-gray-700 hover:bg-gray-100">Print Report</button>
-          
-          <ReportModal 
-            isOpen={isOpen} 
-            toggleModal={toggleModal} 
-            reportPeriod={reportPeriod}
-            stats={stats}
-            productTypeCount={productTypeCount}
-          />
-          
+
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="border-black border rounded-xl px-2 cursor-pointer hover:text-gray-700 hover:bg-gray-100">
+            Print Report
+          </button>
+
+          <div className="hidden">
+            <ReportToPrint
+              ref={componentRef}
+              reportPeriod={reportPeriod}
+              stats={stats}
+              productTypeCount={productTypeCount}
+            />
+          </div>
+
           <span className="flex items-center gap-2">
             <BiCalendarEdit className="font-bold text-xl" />
             {new Date().toDateString()}
@@ -193,7 +199,7 @@ const Overview = () => {
 
       {/* Overview cards */}
       <OverviewCards reportPeriod={reportPeriod} stats={stats} />
-      
+
       {/* Charts  */}
       <div className="flex w-full justify-between items-start flex-wrap mt-6">
         <div className="w-full md:w-[66%] rounded-md bproduct bproduct-gray-300 p-4">
