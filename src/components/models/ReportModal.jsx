@@ -3,7 +3,7 @@ import { getMonthName } from '../../utils/helperFunctions';
 import { productTypes } from '../../utils/productTypes';
 
 /* eslint-disable react/prop-types */
-const ReportModal = ({ isOpen, toggleModal, reportPeriod }) => {
+const ReportModal = ({ isOpen, toggleModal, reportPeriod, stats }) => {
     const modalContentRef = useRef(null);
 
     function getRandomNumber() {
@@ -77,15 +77,15 @@ const ReportModal = ({ isOpen, toggleModal, reportPeriod }) => {
                                 <tbody className='text-sm'>
                                     <tr className='border-b'>
                                         <td className=' p-1'>Total recorded products</td>
-                                        <td>100</td>
+                                        <td>{stats[0].value}</td>
                                     </tr>
                                     <tr className='border-b'>
                                         <td className=' p-1'>Total exchanged trash</td>
-                                        <td>50</td>
+                                        <td>{stats[1].value}</td>
                                     </tr>
                                     <tr className='border-b'>
                                         <td className=' p-1'>Total renewable trash</td>
-                                        <td>40</td>
+                                        <td>{stats[2].value}</td>
                                     </tr>
                                 </tbody>
                             </table>

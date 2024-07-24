@@ -172,6 +172,7 @@ const Overview = () => {
             isOpen={isOpen} 
             toggleModal={toggleModal} 
             reportPeriod={reportPeriod}
+            stats={stats}
           />
           
           <span className="flex items-center gap-2">
@@ -181,7 +182,11 @@ const Overview = () => {
 
         </div>
       </div>
+
+      {/* Overview cards */}
       <OverviewCards reportPeriod={reportPeriod} stats={stats} />
+      
+      {/* Charts  */}
       <div className="flex w-full justify-between items-start flex-wrap mt-6">
         <div className="w-full md:w-[66%] rounded-md bproduct bproduct-gray-300 p-4">
           {reportPeriod.type === 'Year' && <h2 className="text-sm font-bold mb-2">All recorded trash in {reportPeriod.value} in each month.</h2>}
