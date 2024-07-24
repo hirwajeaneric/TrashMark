@@ -19,11 +19,11 @@ const StatsForKigali = () => {
     getAllProductsRequest()
       .then((response) => {
         // Filter products by year
-        const productsByYear = response.products.filter((product) => product.createdAt.includes(year));
+        const productsByYear = response.products.filter((product) => product.createdAt.includes(year)&& product.province === 'Kigali City');
 
         // Set monthly product statistics
-        const monthlyRenewableTrash = productsByYear.filter((product) =>  product.category === "Renewable" && product.province === 'Kigali City');
-        const monthlyNonRenewableTrash = productsByYear.filter((product) =>  product.category === "Non-renewable" && product.province === 'Kigali City');
+        const monthlyRenewableTrash = productsByYear.filter((product) =>  product.category === "Renewable");
+        const monthlyNonRenewableTrash = productsByYear.filter((product) =>  product.category === "Non-renewable");
 
         setMonthlyTrashRecords(generateMonthlyProductsStats(productsByYear));
         setMonthlyRenewableTrashRecords(generateMonthlyProductsStats(monthlyRenewableTrash));
