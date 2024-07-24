@@ -36,7 +36,7 @@ const StatsForKigali = () => {
     <div className="w-full rounded-md bproduct bproduct-gray-300 p-4 pt-0">
       {year > 2000 && <h2 className="text-sm font-bold mb-2">All recorded trash in Kigali for {year} in each month.</h2>}
       {year <= 12 && <h2 className="text-sm font-bold mb-2">All recorded trash in Kigali for {new Date().getFullYear()} in each month.</h2>}
-
+      
       <LineChart
         monthlyTrashRecords={monthlyTrashRecords}
         monthlyRenewableTrashRecords={monthlyRenewableTrashRecords}

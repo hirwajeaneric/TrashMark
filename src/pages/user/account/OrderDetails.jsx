@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Helmet } from "react-helmet-async"
 import { useEffect, useState } from "react"
-import { getOrderByIdRequest } from "../../../api/order";
+import { getOrderByIdRequest, markOrderAsDelivered } from "../../../api/order";
 import { useParams } from "react-router-dom";
 
 const OrderDetails = () => {
@@ -22,7 +22,9 @@ const OrderDetails = () => {
           setClient(response.order.client);
           setDeliveryStatus(response.order.deliveryStatus);
           setProductImage(response.order.products[0].image);
-          // console.log(response.order);
+          
+          console.log(response.order);
+
           setLoading(false);
         }
       })
@@ -30,6 +32,18 @@ const OrderDetails = () => {
         console.log(error);
       });
   }, [params.id]);
+
+  const markAsDelivered = () => {
+    markOrderAsDelivered(params.id)
+      .then(response => {
+        if (response.message === "Order marked as delivered") {
+          window.location.reload();
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   if (loading) {
     return (
@@ -58,8 +72,8 @@ const OrderDetails = () => {
           <div className="flex flex-col gap-2 w-full md:w-[49%] rounded-md bg-slate-100 p-5">
             <h3 className="text-lg font-bold">Product</h3>
             <div className="flex flex-col justify-start items-start gap-1">
-              <ListItem title={'Product name'} value={product.name} position={"odd"}/>
-              <ListItem title={'Delivery time'} value={`${order.deliveryTime} minutes`} position={"even"}/>
+              <ListItem title={'Product name'} value={product.name} position={"odd"} />
+              <ListItem title={'Delivery time'} value={`${order.deliveryTime} minutes`} position={"even"} />
               <ListItem title={'Delivery price'} value={`${order.deliveryPrice} Rwf`} position={"odd"} />
               <ListItem title={'Paid amount'} value={`${order.totalPrice} Rwf`} position={"even"} />
               <ListItem title={'Number of items'} value={product.quantity} position={"odd"} />
@@ -76,8 +90,7 @@ const OrderDetails = () => {
           </div>
         </div>
         <div className="flex gap-2">
-        <button type='button' className='text-sm py-2 px-4 bg-black hover:bg-slate-700 rounded-md text-white w-fit'>Mark as delivered</button>
-        <button type='button' className='text-sm py-2 px-4 bg-red-600 hover:bg-red-500 rounded-md text-white w-fit'>Cancel delivery</button>
+          <button type='button' onClick={markAsDelivered} className='text-sm py-2 px-4 bg-black hover:bg-slate-700 rounded-md text-white w-fit'>Mark as delivered</button>
         </div>
       </div>
     </div>
@@ -88,7 +101,7 @@ export default OrderDetails
 
 const ListItem = ({ title, value, position }) => {
   return (
-    <div className={`flex w-full justify-between bg-${position==="even" && "white"} rounded-md p-2 text-sm`}>
+    <div className={`flex w-full justify-between bg-${position === "even" && "white"} rounded-md p-2 text-sm`}>
       <p className="w-1/2">{title}</p>
       <p className="w-1/2">{value}</p>
     </div>

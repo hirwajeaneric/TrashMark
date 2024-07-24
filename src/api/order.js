@@ -101,12 +101,36 @@ export const updateCartRequest = async (data, id) => {
 };
 
 
-export const updateCartStatusRequest = async (data, id) => {
+export const updateCartStatusRequest = async (id) => {
     const response = await fetch(`${API_BASE_URL}/api/v1/order/updateCartStatus?id=${id}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${Cookies.get('access-token')}`,
         }
+    });
+
+    const responseData = await response.json();
+
+    if (!response.ok) {
+        if (responseData.errors) {
+            throw new Error(responseData.errors);
+        }
+        if (responseData.message) {
+            throw new Error(responseData.message);
+        }
+    }
+
+    return responseData;
+};
+
+export const markOrderAsDelivered = async (id, updates ) => {
+    console.log(updates);
+    
+    const response = await fetch(`${API_BASE_URL}/api/v1/order/markOrderAsDelivered?id=${id}`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${Cookies.get('access-token')}`,
+        },
     });
 
     const responseData = await response.json();
