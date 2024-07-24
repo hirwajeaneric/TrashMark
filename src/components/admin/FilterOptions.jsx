@@ -20,7 +20,7 @@ const FilterOptions = ({ reportPeriod, setReportPeriod }) => {
     }
 
     return (
-        <div className="flex mb-6 bg-slate-200 w-fit rounded-md p-1 text-sm font-bold">
+        <div className="flex bg-slate-200 w-fit rounded-md p-1 text-sm font-bold">
             {/* Year chooser  */}
             <button type="button" onClick={() => setReportPeriod({ type: 'Year', value: 2024 })} className={`${reportPeriod === 'Year' ? `bg-white py-1 rounded-md` : `rounded-sm`} px-2`}>Year</button>
             {reportPeriod.type === 'Year' && <select onChange={handleYearChoice} name="year" id="year" className="rounded-md mx-2 py-1 px-5">

@@ -8,6 +8,7 @@ import { getAllProductsRequest } from "../../../api/product"
 import { getAllUsersRequest } from "../../../api/authentication"
 import { filterReportsPerMonth, filterReportsPerYear, generateMonthlyProductsStats } from "../../../utils/helperFunctions"
 import ProvinceStats from "../../../components/admin/ProvinceStats"
+import ReportModal from "../../../components/models/ReportModal"
 
 const Overview = () => {
   // Initial States *********************************************************************************
@@ -68,7 +69,7 @@ const Overview = () => {
       const nonRenewableItems = products.filter((product) => product.category === 'Non-renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
 
       setRenewableStats([nonRenewableItems.length, renewableItems.length]);
-      
+
       // Filtering by report period *************************************************************************************
       if (reportPeriod.type === 'Month') {
         let month = reportPeriod.value
@@ -126,7 +127,7 @@ const Overview = () => {
 
         setProductsPerProvince({ kigali: productInKigali, north: productInNorth, south: productInSouth, west: productInWest, east: productInEast });
       }
-      
+
       // Set monthly product statistics ********************************************************************************
       var totalProductsPerMonth = [];
       var monthlyRenewableTrash = [];
@@ -150,16 +151,35 @@ const Overview = () => {
     fetchData();
   }, [reportPeriod]);
 
+  // State to manage the visibility of the modal
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Function to toggle the modal visibility
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
 
   return (
     <div className="flex flex-col flex-1 w-full">
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center flex-wrap mb-6 gap-3">
         <FilterOptions reportPeriod={reportPeriod} setReportPeriod={setReportPeriod} />
+        <div className="flex justify-center items-center gap-3 relative">
+          
+          <button type="button" onClick={toggleModal} className="border-black border rounded-lg px-2 cursor-pointer hover:text-gray-700 hover:bg-gray-100">Print Report</button>
+          
+          <ReportModal 
+            isOpen={isOpen} 
+            toggleModal={toggleModal} 
+            reportPeriod={reportPeriod}
+          />
+          
+          <span className="flex items-center gap-2">
+            <BiCalendarEdit className="font-bold text-xl" />
+            {new Date().toDateString()}
+          </span>
 
-        <span className="flex items-center gap-2">
-          <BiCalendarEdit className="font-bold text-xl" />
-          {new Date().toDateString()}
-        </span>
+        </div>
       </div>
       <OverviewCards reportPeriod={reportPeriod} stats={stats} />
       <div className="flex w-full justify-between items-start flex-wrap mt-6">
