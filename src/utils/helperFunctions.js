@@ -79,6 +79,7 @@ export const filterReportsPerMonth = (products, month) => {
   });
 
   return { 
+    dataOfFilteredProducts: filteredProducts,
     filteredProducts: filteredProducts.length, 
     filteredSoldTrash: filteredSoldTrash.length, 
     productInKigali: productInKigali.length, 
@@ -112,8 +113,6 @@ export const filterReportsPerYear = (products, year) => {
   let productInWest = [];
   let productInEast = [];
 
-  console.log(year);
-
   // Filter by year
   filteredProducts = products.filter((product) => {
     var date = new Date(product.createdAt);
@@ -142,6 +141,7 @@ export const filterReportsPerYear = (products, year) => {
   });
 
   return { 
+    dataOfFilteredProducts: filteredProducts,
     filteredProducts: filteredProducts.length, 
     filteredSoldTrash: filteredSoldTrash.length, 
     productInKigali: productInKigali.length, 
@@ -151,3 +151,14 @@ export const filterReportsPerYear = (products, year) => {
     productInEast: productInEast.length
   };
 };
+
+
+export const countProductTypes = (productTypes, filteredProducts) => {
+  const counts = productTypes.map(type => {
+    return {
+      type,
+      count:  filteredProducts.filter(item => item.type === type).length
+    };
+  });
+  return counts;
+}

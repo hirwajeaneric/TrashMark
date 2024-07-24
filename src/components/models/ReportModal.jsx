@@ -1,14 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { getMonthName } from '../../utils/helperFunctions';
-import { productTypes } from '../../utils/productTypes';
 
 /* eslint-disable react/prop-types */
-const ReportModal = ({ isOpen, toggleModal, reportPeriod, stats }) => {
+const ReportModal = ({ isOpen, toggleModal, reportPeriod, stats, productTypeCount }) => {
     const modalContentRef = useRef(null);
-
-    function getRandomNumber() {
-        return Math.floor(Math.random() * 100) + 1; // Random number between 1 and 100
-    }
 
     // This effect will listen for clicks on the overlay
     useEffect(() => {
@@ -103,54 +98,12 @@ const ReportModal = ({ isOpen, toggleModal, reportPeriod, stats }) => {
                                     </tr>
                                 </thead>
                                 <tbody className='text-sm'>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[0]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[1]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[2]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[3]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[4]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[5]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[6]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[7]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[8]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[9]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[10]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
-                                    <tr className='border-b'>
-                                        <td className='p-1'>{productTypes[11]}</td>
-                                        <td>{getRandomNumber()}</td>
-                                    </tr>
+                                    {productTypeCount.map((product, index) => (
+                                        <tr key={index} className='border-b'>
+                                            <td className='p-1'>{product.type}</td>
+                                            <td>{product.count}</td>
+                                        </tr>)
+                                    )}
                                 </tbody>
                             </table>
                         </div>

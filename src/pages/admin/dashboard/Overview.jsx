@@ -6,9 +6,10 @@ import { PieChart } from "../../../components/chart/PieChart"
 import { BiCalendarEdit } from "react-icons/bi"
 import { getAllProductsRequest } from "../../../api/product"
 import { getAllUsersRequest } from "../../../api/authentication"
-import { filterReportsPerMonth, filterReportsPerYear, generateMonthlyProductsStats } from "../../../utils/helperFunctions"
+import { countProductTypes, filterReportsPerMonth, filterReportsPerYear, generateMonthlyProductsStats } from "../../../utils/helperFunctions"
 import ProvinceStats from "../../../components/admin/ProvinceStats"
 import ReportModal from "../../../components/models/ReportModal"
+import { productTypes } from "../../../utils/productTypes"
 
 const Overview = () => {
   // Initial States *********************************************************************************
@@ -34,6 +35,7 @@ const Overview = () => {
       value: 0,
     }
   ]);
+  const [productTypeCount, setProductTypeCount] = useState([]);
   const [renewableStats, setRenewableStats] = useState([0, 0]);
   const [reportPeriod, setReportPeriod] = useState({ type: 'Year', value: 2024 });
   const [monthlyTrashRecords, setMonthlyTrashRecords] = useState([]);
@@ -64,6 +66,7 @@ const Overview = () => {
       // let productsFilteredByReportPeriod = [];
       // Fetching products 
       const { products } = await getAllProductsRequest();
+      
       // Filtering by status  ******************************************************************************************
       const renewableItems = products.filter((product) => product.category === 'Renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
       const nonRenewableItems = products.filter((product) => product.category === 'Non-renewable' && new Date(product.createdAt).getFullYear() === Number(reportPeriod.value));
@@ -73,7 +76,7 @@ const Overview = () => {
       // Filtering by report period *************************************************************************************
       if (reportPeriod.type === 'Month') {
         let month = reportPeriod.value
-        const { filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerMonth(products, month);
+        const { dataOfFilteredProducts, filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerMonth(products, month);
 
         setStats([
           {
@@ -98,9 +101,11 @@ const Overview = () => {
           }
         ]);
 
+        setProductTypeCount(countProductTypes(productTypes, dataOfFilteredProducts));
+
         setProductsPerProvince({ kigali: productInKigali, north: productInNorth, south: productInSouth, west: productInWest, east: productInEast });
       } else if (reportPeriod.type === 'Year') {
-        const { filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerYear(products, Number(reportPeriod.value));
+        const { dataOfFilteredProducts, filteredProducts, filteredSoldTrash, productInEast, productInNorth, productInKigali, productInSouth, productInWest } = filterReportsPerYear(products, Number(reportPeriod.value));
         // productsFilteredByReportPeriod = filteredProducts;
         setStats([
           {
@@ -124,6 +129,8 @@ const Overview = () => {
             value: users.length,
           }
         ]);
+
+        setProductTypeCount(countProductTypes(productTypes, dataOfFilteredProducts));
 
         setProductsPerProvince({ kigali: productInKigali, north: productInNorth, south: productInSouth, west: productInWest, east: productInEast });
       }
@@ -173,6 +180,7 @@ const Overview = () => {
             toggleModal={toggleModal} 
             reportPeriod={reportPeriod}
             stats={stats}
+            productTypeCount={productTypeCount}
           />
           
           <span className="flex items-center gap-2">
