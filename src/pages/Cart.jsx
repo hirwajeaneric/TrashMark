@@ -58,12 +58,12 @@ const Cart = () => {
   const handleFlutterPayment = useFlutterwave(config);
 
   const paymentProcess = async () => {
-    console.log('Flutter Payment Process...');
+    // console.log('Flutter Payment Process...');
     await handleFlutterPayment({
       callback: (response) => {
         // console.log(response);
         if (response.status === 'successful') {
-          updateCartStatusRequest({ paid: true }, order._id)
+          updateCartStatusRequest(order._id)
             .then(() => {
               navigate('/success');
             })

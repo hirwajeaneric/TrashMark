@@ -18,7 +18,6 @@ import ForgotPassword from './pages/user/auth/ForgotPassword';
 import ResetPassword from './pages/user/auth/ResetPassword';
 import StoreContext from './context/StoreContext';
 import ValidateOTP from './pages/user/auth/ValidateOTP';
-import CheckOut from './pages/CheckOut';
 import OrderDetails from './pages/user/account/OrderDetails';
 
 import AdminLayout from './pages/admin/dashboard/AdminLayout';
@@ -33,7 +32,7 @@ import AdminSignIn from './pages/admin/auth/Signin';
 import AdminValidateOTP from './pages/admin/auth/ValidateOTP';
 import AdminForgotPassword from './pages/admin/auth/ForgotPassword';
 import AdminResetPassword from './pages/admin/auth/ResetPassword';
-import Reports from './pages/admin/dashboard/Reports';
+// import Reports from './pages/admin/dashboard/Reports';
 import AddTrash from './pages/user/account/RecordTrash';
 import StatsForKigali from './pages/admin/dashboard/StatsForKigali';
 import StatsForNorth from './pages/admin/dashboard/StatsForNorth';
@@ -59,7 +58,6 @@ const App = () => {
             <Route path='product/:productId' element={<ProductDetails />} />
             <Route path='search' element={<Search />} />
             <Route path='cart' element={<Cart />} />
-            <Route path='checkout' element={<CheckOut />} />
             <Route path='not-found' element={<NotFound />} />
             <Route path='account' element={localStorage.getItem('client') ? <Account /> : <Navigate replace to='/sign-in' />} >
               <Route path='' element={<AccountHome />} />
@@ -104,7 +102,7 @@ const App = () => {
             <Route path='trash' element={<Trash />} />
             <Route path='sellers' element={<Sellers />} />
             <Route path='sold' element={<SoldTrash />} />
-            <Route path='reports' element={<Reports />} />
+            {/* <Route path='reports' element={<Reports />} /> */}
             <Route path='profile' element={<Profile />} />
           </Route>
 
