@@ -51,6 +51,9 @@ const ProductDetails = () => {
         }]
       });
 
+      console.log(addOrderResponse.message);
+      
+
       if (addOrderResponse.message) {
         setLoading(false);
         navigate("/cart");
