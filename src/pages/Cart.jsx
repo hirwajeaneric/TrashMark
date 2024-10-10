@@ -89,6 +89,10 @@ const Cart = () => {
   const handleCheckout = async (e) => {
     e.preventDefault();
 
+    if (!order.province || !order.district) {
+      handleResponseMessage('error', 'Please select delivery province and district');
+      return;
+    }
     setProcessing(true);
 
     const updates = {
